@@ -1,0 +1,83 @@
+/**
+ * Import necessary modules and classes from the WebClient UI API TypeScript SDK.
+ */
+import { SDKEnv, DetailView } from "sbo/ui/core/SDKEnv";
+import Event from "sbo/ui/base/Event";
+import { MessageBoxAction, MessageBoxType } from "sbo/m/MessageBox";
+import Controller from "sbo/ui/core/mvc/Controller";
+
+import { StringJoin } from "./utility";
+import MyData from "../model/models";
+
+/**
+* This controller is to handle view events and interactions for the view layout defined in `layout/<%= viewName %>.layout.json`.
+*/
+export default class <%= viewName %> implements Controller {
+
+  /**
+    * Event handler when initializing the current view.
+    * @param {SDKEnv} oEnv the current sdk environment
+    * @param {Event} oEvent the view init event
+    */
+  public async onInit(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    console.log("OnInit invoked");
+  }
+  /**
+   * Event handler when loading data to the current view. It is asynchronously triggered after onInit.
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the view dataLoad event
+   */
+  public async onDataLoad(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    console.log("onDataLoad invoked");
+  }
+
+  /**
+   * Event handler when exiting from the current view.
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the view exit event
+   */
+  public async onExit(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    console.log("onExit invoked");
+  }
+
+
+  /**
+   * Event handler on clicking the customized button.
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the button click event
+   */
+  public async onButtonClick(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    const oView = await oEnv.ActiveView() as DetailView;
+    await oView.showBusy();
+    const service = await oEnv.getService();
+    const response = await service.ServiceLayer.get("CompanyService_GetCompanyInfo");
+
+    if (response.isSuccess()) {
+      const companyInfo = response.getData();
+      const messageArr = [
+        `Company Name: ${companyInfo.CompanyName}`,
+        `Version: ${companyInfo.Version}`,
+      ];
+
+      await oEnv.showMessageBox(
+        MessageBoxType.Information,
+        StringJoin(messageArr, "\n"),
+        {
+          title:  MyData.title,
+          initialFocus: MessageBoxAction.OK,
+          actions: [MessageBoxAction.OK],
+        }
+      );
+    } else {
+      await oEnv.showMessageBox(
+        MessageBoxType.Warning,
+        "Failed to get company information by Service Layer",{
+          title: MyData.title,
+          initialFocus: MessageBoxAction.OK,
+          actions: [MessageBoxAction.OK],
+        }
+      );
+    }
+    await oView.hideBusy();
+  }
+}

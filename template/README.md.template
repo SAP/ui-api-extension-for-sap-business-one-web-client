@@ -1,0 +1,130 @@
+# SAP Business One Web Client UI API Extension
+
+This repository is a SAP Business One Web Client UI API extension project, which provides a starting point for developing custom UI behavior on top of standard Web Client views using TypeScript.
+
+## Project Layout
+
+Root-level files:
+
+- `app.json`: declares applications served by the local dev server.
+- `start.js`: starts the dev server, prepares module artifacts, mirrors non-TS source assets to generated folders, and starts TypeScript watch.
+- `mta.yaml`: MTA descriptor for packaging and deployment.
+- `package.json`: scripts and dependencies.
+- `Agents.md`: describes the instructions for the Agent used by the Github Copilot.
+
+Module structure pattern:
+
+- <Module>/src: source of truth for code and JSON descriptors.
+- <Module>/webapp: generated or mirrored runtime output.
+
+Do not manually maintain generated webapp content. Make changes in src and let tooling mirror or compile outputs.
+
+## References
+
+The References folder contains support material links used during development and by AI agents.
+
+- References/document
+  - Product and UI API documentation.
+  - Use this first when requirements are unclear or when you need official behavior guidance.
+- References/schema
+  - JSON schemas for manifest, layout, dialog, and related descriptor files.
+  - Use this to validate structure, required fields, and allowed property values before saving descriptor changes.
+- References/sdk
+  - TypeScript SDK type definitions and API contracts.
+  - Use this when writing controller code, events, services, and model interactions to avoid type and API misuse.
+
+## Prerequisites
+
+- Node.js and npm available in PATH.
+- Access to a SAP Business One Web Client environment for end-to-end testing.
+- GitHub Copilot subscribed and active
+- `mbt` and `make` are installed and available in PATH for packaging and deployment.
+
+
+## Install
+
+```bash
+npm install
+```
+
+## Run In Development
+
+```bash
+npm start
+```
+
+Typical startup flow:
+
+1. Detects whether a dev server is already running.
+2. Reads app.json and resolves module roots.
+3. Prepares module artifacts.
+4. Starts local dev server.
+5. Serves generated webapp content and source static content.
+6. Watches non-TS source assets and mirrors updates.
+7. Starts TypeScript watch mode.
+
+## Launch Options In VS Code
+
+Launch profiles are defined in `.vscode/launch.json`.
+
+- Browser launch profile:
+  - Type: chrome
+  - Use when debugging in an external browser window.
+- Embedded launch profile:
+  - Type: editor-browser
+  - Use when debugging inside VS Code.
+
+Shared behavior:
+
+- Both profiles use a preLaunchTask to ensure dependencies and dev server are ready.
+- Both pass extension debug parameters in the URL to connect the running extension to the local dev server.
+
+Required settings for launch:
+
+- `WebClientUIAPICopilot.webClient.url`
+- `WebClientUIAPICopilot.devServer.port`
+
+## Workspace Settings Reference
+
+Settings are defined in `.vscode/settings.json`.
+
+- `json.validate.enable`
+  - Enables JSON validation for descriptor files.
+- files.exclude
+  - Hides selected files in Explorer/search views only.
+  - Hidden files still exist and are used by runtime/build tooling.
+
+## Build And Package
+
+```bash
+npm run clean
+npm run pack
+```
+
+Packaging uses `mbt` build with `mta.yaml` and outputs artifacts to `mta_archives`.
+
+## Development Guidelines
+
+- Edit source files only in <Module>/src.
+- Keep handler names and procName bindings synchronized between controller and layout/dialog descriptors.
+- Follow OData V4 conventions for Service Layer requests.
+- Keep user-facing text in i18n bundles where possible.
+- Ensure dev server and TypeScript watch are running without errors.
+- Validate event bindings, model paths, and dialog/view identifiers after changes.
+- If a stable ID changes, update all call sites and bindings.
+
+## Troubleshooting
+
+- Local dev server not reachable:
+  - Ensure selected port is free and start the server again.
+- Dialog or action does not trigger:
+  - Verify procName matches controller method and identifiers are consistent across descriptor and code.
+- Data binding not displayed:
+  - Validate model path, payload shape, and Service Layer response.
+- TypeScript changes not reflected:
+  - Check watch output and restart dev server if needed.
+
+## Notes
+
+- This project is scaffolded by SAP Business One Web Client UI API tooling.
+- Generated skeleton files may contain warnings not to change scaffold internals unless necessary.

@@ -1,0 +1,716 @@
+{
+	"name": "ui-api-extension-for-sap-business-one-web-client",
+	"publisher": "SAPSE",
+	"displayName": "UI API development extension for SAP Business One, Web client",
+	"description": "A VS Code extension on Github Copilot for SAP Business One Web client UI API development.",
+	"icon": "resource/icons/extension-icon.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client"
+	},
+	"version": "1.0.0",
+	"engines": {
+		"vscode": "^1.119.0"
+	},
+	"categories": [
+		"AI",
+		"Programming Languages",
+		"Chat"
+	],
+	"activationEvents": [
+		"workspaceContains:app.json"
+	],
+	"contributes": {
+		"jsonValidation": [
+			{
+				"fileMatch": [
+					"mta.yaml",
+					"mta.yml"
+				],
+				"url": "https://json.schemastore.org/mta"
+			},
+			{
+				"fileMatch": [
+					"mtad.yaml",
+					"mtad.yml"
+				],
+				"url": "https://json.schemastore.org/mtad"
+			},
+			{
+				"fileMatch": [
+					"webapp/manifest.json",
+					"src/manifest.json"
+				],
+				"url": "./schema/manifest.schema.json"
+			},
+			{
+				"fileMatch": [
+					"webapp/layout/*.layout.json",
+					"src/layout/*.layout.json"
+				],
+				"url": "./schema/layout.schema.json"
+			},
+			{
+				"fileMatch": [
+					"webapp/dialog/*.dialog.json",
+					"src/dialog/*.dialog.json"
+				],
+				"url": "./schema/dialog.schema.json"
+			}
+    	],
+		"chatParticipants": [
+			{
+				"id": "webclient-uiapi-copilot",
+				"fullName": "WebClient UI API Copilot",
+				"name": "uiapi",
+				"description": "Ask Web Client UI API Questions...",
+				"disambiguation": [
+					{
+						"category": "WebClient-UIAPI",
+						"description": "The user wants to ask questions or ask you to perform a task about SAP BUSINESS ONE Web Client UI API.",
+						"examples": [
+							"What is Web Client UI API?",
+							"What UI controls are supported in Web Client UI API?",
+							"What views are exposed in Web Client UI API?"
+						]
+					}
+				],
+				"isSticky": false,
+				"commands": [
+					{
+						"name": "webclient-uiapi-start",
+						"description": "Start Web Client UI API Development Server."
+					},
+					{
+						"name": "webclient-uiapi-stop",
+						"description": "Stop Web Client UI API Development Server."
+					},
+					{
+						"name": "webclient-uiapi-preview",
+						"description": "Preview Web Client UI API Application."
+					},
+					{
+						"name": "webclient-uiapi-preview-embedded",
+						"description": "Preview Web Client UI API Application In Embedded Browser."
+					},
+					{
+						"name": "webclient-uiapi-package",
+						"description": "Pack Web Client UI API Application."
+					},
+					{
+						"name": "webclient-uiapi-inspect",
+						"description": "Inspect the Web Client UI Control."
+					}
+				]
+			}
+		],
+		"languageModelTools": [
+			{
+				"name": "WebClientUIAPI_getEntitySetList",
+				"tags": [
+					"WebClient",
+					"ServiceLayer",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getEntityList",
+				"userDescription": "EntitySets or business objects retrieved from ServiceLayer metadata",
+				"displayName": "Get EntitySet List",
+				"modelDescription": "Get the list of EntitySets or business objects from SAP Business One ServiceLayer. If users' question is relevant to a specific EntitySet, you MUST drill down to entity details by using the tool 'WebClientUIAPI_getEntitySetDetail' to give an accurate answer; If you're not sure the EntitySet closely relevant to users' question, you can use the tool 'WebClientUIAPI_getUnbindFunctions' to check if there's any relevant function to retrieve the data."
+			},
+			{
+				"name": "WebClientUIAPI_getEntitySetDetail",
+				"tags": [
+					"WebClient",
+					"ServiceLayer",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getEntityDetail",
+				"userDescription": "Entity metadata retrieved from ServiceLayer",
+				"displayName": "Get EntitySet Detail",
+				"modelDescription": "Get detailed metadata for a specific EntitySet in SAP Business One ServiceLayer, including properties, keys, related functions and actions. If a property, parameter, or return type is a complex or enum or entity type, use 'WebClientUIAPI_getTypeDetail' for further details. For OData query generation, use this tool together with 'WebClientUIAPI_validateEntityProperties' to build accurate queries.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"entitySet": {
+							"type": "string",
+							"description": "The exact name of the EntitySet"
+						}
+					},
+					"required": [
+						"entitySet"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_getTypeDetail",
+				"tags": [
+					"WebClient",
+					"ServiceLayer",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getTypeDetail",
+				"userDescription": "Complex or enum type metadata retrieved from ServiceLayer",
+				"displayName": "Get Complex/Enum Type Detail",
+				"modelDescription": "Get the detail of a complex type (e.g.DocumentLine) or an enum type (e.g. BoYesNoEnum) from ServiceLayer. The detail includes properties or members. For ServiceLayer OData request scenario, this tool is always used along with the tool 'WebClientUIAPI_validateComplexTypeProperties' to generate an accurate OData request payload.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"typeName": {
+							"type": "string",
+							"description": "The name of the type (complex type or enum type)"
+						}
+					},
+					"required": [
+						"typeName"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_validateEntityProperties",
+				"tags": [
+					"WebClient",
+					"ServiceLayer",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-validateEntityProperties",
+				"userDescription": "Validate if a list of properties exists on the EntitySet in ServiceLayer",
+				"displayName": "Validate Entity Properties",
+				"modelDescription": "Validate if a list of properties exists on the EntitySet in SAP Business One ServiceLayer",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"entitySet": {
+							"type": "string",
+							"description": "The exact name of the EntitySet"
+						},
+						"propertyList": {
+							"type": "string",
+							"description": "A list of property names separated by commas"
+						}
+					},
+					"required": [
+						"entitySet",
+						"propertyList"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_validateComplexTypeProperties",
+				"tags": [
+					"WebClient",
+					"ServiceLayer",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-validateComplexTypeProperties",
+				"userDescription": "Validate if a list of properties exists on the complex type in ServiceLayer",
+				"displayName": "Validate Complex Type Properties",
+				"modelDescription": "Validate if a list of properties exists on the complex type in SAP Business One ServiceLayer",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"complexType": {
+							"type": "string",
+							"description": "The exact name of the complex type"
+						},
+						"propertyList": {
+							"type": "string",
+							"description": "A list of property names separated by commas"
+						}
+					},
+					"required": [
+						"complexType",
+						"propertyList"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_getUnbindFunctions",
+				"tags": [
+					"WebClient",
+					"ServiceLayer",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getUnbindFunctions",
+				"userDescription": "Unbound OData functions and actions retrieved from ServiceLayer metadata",
+				"displayName": "Get ServiceLayer Unbound Operations",
+				"modelDescription": "Get unbound OData functions and actions from SAP Business One ServiceLayer to discover additional capabilities (for example, retrieving company info or update company admin info). For detailed metadata of a specific function/action, use 'WebClientUIAPI_getFunctionDetail'."
+			},
+			{
+				"name": "WebClientUIAPI_getFunctionDetail",
+				"tags": [
+					"WebClient",
+					"ServiceLayer",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getFunctionDetail",
+				"userDescription": "Detailed metadata for a specific ServiceLayer function or action",
+				"displayName": "Get ServiceLayer Function or Action Detail",
+				"modelDescription": "Get detailed metadata for a specific OData function or action in SAP Business One ServiceLayer. If a parameter or return type is a complex or entity type, use 'WebClientUIAPI_getTypeDetail' for further details.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"functionName": {
+							"type": "string",
+							"description": "The exact name of the function or action"
+						}
+					},
+					"required": [
+						"functionName"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_getExposedUIAPIControls",
+				"tags": [
+					"WebClient",
+					"UIAPIDocument",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getExposedControls",
+				"userDescription": "UI controls available in Web Client UI API",
+				"displayName": "Get Exposed UI Controls",
+				"modelDescription": "Get exposed UI controls (e.g. Button, Input) available in Web Client UI API. For details about a specific control, check control's schema via the tool 'WebClientUIAPI_getControlsSchema'."
+			},
+			{
+				"name": "WebClientUIAPI_getCurrentAppInformation",
+				"tags": [
+					"WebClient",
+					"appInformation",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getAppInfo",
+				"userDescription": "Basic application information, including appProvider, appName, and modules (dialogs and views).",
+				"displayName": "Get Current Application Information",
+				"modelDescription": "Get the basic information(e.g. appProvider, appName, a list of modules including dialogs and views) of the current Web Client UI API application in the current workspace."
+			},
+			{
+				"name": "WebClientUIAPI_getViewList",
+				"tags": [
+					"WebClient",
+					"UIAPIDocument",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getViewList",
+				"userDescription": "UI API base view names from view metadata.",
+				"displayName": "Get View List",
+				"modelDescription": "Get the list of available UI API base view names from views metadata."
+			},
+			{
+				"name": "WebClientUIAPI_getViewDetail",
+				"tags": [
+					"WebClient",
+					"UIAPIDocument",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getViewDetail",
+				"userDescription": "Detailed information for one UI API base view.",
+				"displayName": "Get View Detail",
+				"modelDescription": "Get detailed metadata for a given UI API base view name from views metadata.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"viewName": {
+							"type": "string",
+							"description": "The exact name of the UI API base view"
+						}
+					},
+					"required": [
+						"viewName"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_getSchemaFilePath",
+				"tags": [
+					"WebClient",
+					"schema",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-getSchemaFilePath",
+				"userDescription": "Get the project-local file system path of a UI API schema file first, with the global path also returned as a fallback.",
+				"displayName": "Get Schema File Path",
+				"modelDescription": "Get the project-local path of a UI API schema file as the preferred path, and also return the extension-global path as a fallback. Use the schemaType input with one of: Manifest, ViewLayout, Dialog, Controls, Common. The result is a JSON object with schemaType, projectLocalPath, and globalPath. Prefer projectLocalPath when working inside a UI API project, and use globalPath when the local file does not exist yet. One schema might reference another schema, for example, layout.schema.json references controls.schema.json and common.schema.json, so you can get the paths of the referenced schemas by using this tool as well.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"schemaType": {
+							"type": "string",
+							"description": "The UI API schema type whose full file path should be returned.",
+							"enum": [
+								"Manifest",
+								"ViewLayout",
+								"Dialog",
+								"Controls",
+								"Common"
+							]
+						}
+					},
+					"required": [
+						"schemaType"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_generateUUID",
+				"tags": [
+					"WebClient",
+					"uuid",
+					"UIAPICopilot",
+					"language-model-tools"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-generateUUIDs",
+				"userDescription": "Short UUID values for the guid property of UI API controls.",
+				"displayName": "Generate UUIDs",
+				"modelDescription": "Generate a list of short UUIDs separated by comma as the value for UIAPI controls' guid property.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"uuidCount": {
+							"type": "number",
+							"description": "The number of UUIDs to generate",
+							"default": 1
+						}
+					}
+				}
+			},
+			{
+				"name": "WebClientUIAPI_createApp",
+				"tags": [
+					"WebClient",
+					"create",
+					"UIAPICopilot"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-createApp",
+				"userDescription": "Low-level app generation tool. Use the \"WebClient UIAPI Create App\" skill workflow for app creation requests.",
+				"displayName": "Create WebClient UI API Application",
+				"modelDescription": "Low-level generation endpoint for creating a WebClient UI API application from structured payload data. For user-facing create-app intents, ALWAYS run the \"webclient-uiapi-create-app\" skill workflow first (intent parse, guided confirmation, final approval), and call this tool only as the final execution step after explicit user confirmation. Do not bypass the skill flow unless the user explicitly asks for direct tool usage. For each view's 'baseViewName', ALWAYS use a valid exposed UI API base view name. Keep 'appName', 'appProvider', 'moduleName', and 'viewName' in PascalCase.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"appName": {
+							"type": "string",
+							"description": "The UI API app's name."
+						},
+						"appProvider": {
+							"type": "string",
+							"description": "The application provider name"
+						},
+						"appVersion": {
+							"type": "string",
+							"description": "The application version in semantic versioning format. Default is 1.0.0.",
+							"default": "1.0.0"
+						},
+						"modules": {
+							"type": "array",
+							"description": "The modules to generate for the application.",
+							"items": {
+								"type": "object",
+								"properties": {
+									"moduleName": {
+										"type": "string",
+										"description": "Module name in PascalCase."
+									},
+									"views": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"viewName": {
+													"type": "string",
+													"description": "Generated view/controller/layout name in PascalCase."
+												},
+												"baseViewCategory": {
+													"type": "string",
+													"description": "Base view category (informational), typically 'System'.",
+													"default": "System"
+												},
+												"baseViewName": {
+													"type": "string",
+													"description": "The exposed UI API base view name, for example 'Sales Order Detail'."
+												}
+											},
+											"required": [
+												"viewName",
+												"baseViewName"
+											]
+										}
+									}
+								},
+								"required": [
+									"moduleName",
+									"views"
+								]
+							}
+						}
+					},
+					"required": [
+						"appName",
+						"appProvider",
+						"modules"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_addModule",
+				"tags": [
+					"WebClient",
+					"create",
+					"UIAPICopilot"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-addModule",
+				"userDescription": "Low-level add-module tool. Use the \"WebClient UIAPI Add Module\" skill workflow for module-addition requests.",
+				"displayName": "Add WebClient UI API Module",
+				"modelDescription": "Low-level endpoint for adding one module to the current existing WebClient UI API application from structured payload data. For user-facing add-module intents, ALWAYS run the \"webclient-uiapi-add-module\" skill workflow first (intent parse, guided confirmation, final approval), and call this tool only as the final execution step after explicit user confirmation. Do not bypass the skill flow unless the user explicitly asks for direct tool usage. For each view's 'baseViewName', use a valid exposed UI API base view name.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"moduleName": {
+							"type": "string",
+							"description": "Module name in PascalCase."
+						},
+						"views": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"viewName": {
+										"type": "string",
+										"description": "Generated view/controller/layout name in PascalCase."
+									},
+									"baseViewCategory": {
+										"type": "string",
+										"description": "Base view category (informational), typically 'System'.",
+										"default": "System"
+									},
+									"baseViewName": {
+										"type": "string",
+										"description": "The exposed UI API base view name, for example 'Sales Order Detail'."
+									}
+								},
+								"required": [
+									"viewName",
+									"baseViewName"
+								]
+							}
+						}
+					},
+					"required": [
+						"moduleName",
+						"views"
+					]
+				}
+			},
+			{
+				"name": "WebClientUIAPI_addView",
+				"tags": [
+					"WebClient",
+					"create",
+					"UIAPICopilot"
+				],
+				"icon": "$(files)",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "uiapi-addView",
+				"userDescription": "Low-level add-view tool. Use the \"WebClient UIAPI Add View\" skill workflow for view-addition requests.",
+				"displayName": "Add WebClient UI API View",
+				"modelDescription": "Low-level endpoint for adding one view to an existing module in the current WebClient UI API application from structured payload data. For user-facing add-view intents, ALWAYS run the \"webclient-uiapi-add-view\" skill workflow first (intent parse, guided confirmation, final approval), and call this tool only as the final execution step after explicit user confirmation. Do not bypass the skill flow unless the user explicitly asks for direct tool usage. Provide moduleName, viewName, and a valid exposed UI API baseViewName.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"moduleName": {
+							"type": "string",
+							"description": "Existing module name in PascalCase."
+						},
+						"viewName": {
+							"type": "string",
+							"description": "Generated view/controller/layout name in PascalCase."
+						},
+						"baseViewCategory": {
+							"type": "string",
+							"description": "Base view category (informational), typically 'System'.",
+							"default": "System"
+						},
+						"baseViewName": {
+							"type": "string",
+							"description": "The exposed UI API base view name, for example 'Sales Order Detail'."
+						}
+					},
+					"required": [
+						"moduleName",
+						"viewName",
+						"baseViewName"
+					]
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "uiapi.createWorkspace",
+				"title": "Web Client UIAPI: Create Workspace"
+			},
+			{
+				"command": "uiapi.createWorkspaceIfNotExist",
+				"title": "Web Client UIAPI: Create Workspace If Not Exist"
+			},
+			{
+				"command": "uiapi.openWorkspace",
+				"title": "Web Client UIAPI: Open Workspace"
+			},
+			{
+				"command": "uiapi.openWebClientUrlSetting",
+				"title": "Web Client UIAPI: Open Web Client URL Setting"
+			},
+			{
+				"command": "uiapi.installSdkToGlobalNodeModules",
+				"title": "Web Client UIAPI: Install SDK to Global npm Modules"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "SAP BusinessOne WebClient UI API Copilot",
+			"properties": {
+				"WebClientUIAPICopilot.loggingLevel": {
+					"type": "string",
+					"enum": [
+						"off",
+						"fatal",
+						"error",
+						"warn",
+						"info",
+						"debug",
+						"trace"
+					],
+					"default": "error",
+					"description": "The verbosity of logging according to the following order: trace > debug > info > warn > error > fatal > off.",
+					"scope": "resource"
+				},
+				"WebClientUIAPICopilot.devServer.port": {
+					"type": "number",
+					"default": 8082,
+					"description": "Set custom port number for development server.",
+					"scope": "resource"
+				},
+				"WebClientUIAPICopilot.webClient.url": {
+					"type": "string",
+					"default": "",
+					"description": "Set the web client URL for previewing the UI API application.",
+					"scope": "resource"
+				},
+				"WebClientUIAPICopilot.sourceLocationTracking": {
+					"type": "boolean",
+					"default": false,
+					"description": "If chosen, the location of the source code is added to log entries. Warning – this action may slow your extension. We recommend you use it only for debugging.",
+					"scope": "resource"
+				},
+				"WebClientUIAPICopilot.browserStartupFlags": {
+					"type": "string",
+					"default": "",
+					"description": "Custom Chrome startup flags for Web Client preview (separated by space).",
+					"scope": "resource"
+				}
+			}
+		},
+		"chatSkills": [
+			{
+				"name": "WebClient UIAPI Create App",
+				"description": "Primary and required workflow for app-creation intents: parse intent, collect missing fields, confirm summary, then call WebClientUIAPI_createApp as the final step.",
+				"path": "./skills/webclient-uiapi-create-app/SKILL.md"
+			},
+			{
+				"name": "WebClient UIAPI Add Module",
+				"description": "Primary and required workflow for add-module intents: parse intent, collect missing fields, confirm summary, then call WebClientUIAPI_addModule as the final step.",
+				"path": "./skills/webclient-uiapi-add-module/SKILL.md"
+			},
+			{
+				"name": "WebClient UIAPI Add View",
+				"description": "Primary and required workflow for add-view intents: parse intent, collect missing fields, confirm summary, then call WebClientUIAPI_addView as the final step.",
+				"path": "./skills/webclient-uiapi-add-view/SKILL.md"
+			},
+			{
+				"name": "WebClient UIAPI Add Dialog",
+				"description": "Add one dialog to an existing module in the current UI API application.",
+				"path": "./skills/webclient-uiapi-add-dialog/SKILL.md"
+			},
+			{
+				"name": "WebClient UIAPI ServiceLayer",
+				"description": "A simple reference for the ServiceLayer OData query generation.",
+				"path": "./skills/webclient-uiapi-service-layer-playbook/SKILL.md"
+			}
+		]
+	},
+	"main": "./dist/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run bundle",
+		"compile": "tsc -p ./ --outDir dist",
+		"watch": "tsc -watch -p ./ --outDir dist",
+		"test": "rimraf dist-test && tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js",
+		"lint": "eslint",
+		"bundle": "webpack",
+		"package": "rimraf dist && npx --yes @vscode/vsce package --baseImagesUrl https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client/raw/main/",
+		"list": "npx --yes @vscode/vsce ls"
+	},
+	"dependencies": {
+		"@vscode/prompt-tsx": "^0.4.0-alpha.9",
+		"short-uuid": "^6.0.3",
+		"uuid": "^11.0.5",
+		"xml2js": "^0.6.2"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.13.0",
+		"@stylistic/eslint-plugin": "^2.9.0",
+		"@types/lodash": "^4.17.15",
+		"@types/node": "^20.17.25",
+		"@types/node-fetch": "^2.6.12",
+		"@types/vscode": "^1.95.0",
+		"@types/xml2js": "^0.4.14",
+		"@vscode-logging/logger": "^2.0.0",
+		"eslint": "^10.8.0",
+		"rimraf": "^6.1.3",
+		"ts-loader": "^9.5.2",
+		"typescript": "^5.7.2",
+		"typescript-eslint": "^8.16.0",
+		"webpack": "^5.99.6",
+		"webpack-cli": "^6.0.1"
+	}
+}

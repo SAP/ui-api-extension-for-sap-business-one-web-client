@@ -1,0 +1,17 @@
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+.yarnrc
+webpack.config.js
+**/tsconfig.test.json
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+!references/sbo-webclient-uiapi-sdk/types/*.ts
+out/**
+test/**
+dist-test/**
+node_modules
+eslint.config.mjs

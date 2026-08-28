@@ -1,0 +1,42 @@
+{
+  "name": "<%= ID %>",
+  "version": "<%= version %>",
+  "description": "A SAP Business One Web Client UIAPI App provided by <%= provider %>.",
+  "private": true,
+  "main": "start.js",
+  "keywords": [
+    "Extensibility",
+    "Web Client",
+    "SAP Business One"
+  ],
+  "scripts": {
+    "clean": "rimraf resources mta_archives mta-op*",
+    "pack": "mbt build",
+    "postinstall": "npm link sbo-webclient-uiapi-sdk",
+    "start": "<%= command %>"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "gulp-rimraf": "^1.0.0",
+    "gulp-uglify": "^3.0.2",
+    "mbt": "^1.2.27",
+    "gulp-ignore": "^3.0.0",
+    "morgan": "^1.10.0",
+    "undici-types": "^7.10.0",
+    "requirejs": "^2.3.6",
+    "rimraf": "5.0.5",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "@types/jquery": "^3.5.30",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-watch":"^4.0.2",
+    "moments": "^0.0.2",
+    "amd-optimize":"0.6.1",
+    "gulp-concat":"2.6.1",
+    "typescript": "^5.4.5",
+    "chokidar":"3.6.0"
+  }
+}

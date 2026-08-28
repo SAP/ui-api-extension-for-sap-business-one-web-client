@@ -1,0 +1,719 @@
+[
+  {
+    "name": "Sales Quotations List",
+    "viewId": "3priuW5ZRPeCHdaXSBbT2a",
+    "table": "OQUT"
+  },
+  {
+    "name": "Sales Quotation Detail",
+    "viewId": "fyRUqq6CGc7ZSqfiQNJnXf",
+    "table": "OQUT"
+  },
+  {
+    "name": "Sales Orders List",
+    "viewId": "pKpVH1rrb6JUQmB1KjFvKo",
+    "table": "ORDR"
+  },
+  {
+    "name": "Sales Order Detail",
+    "viewId": "2Jx8aiyfYXojYjGBy5rr8X",
+    "table": "ORDR"
+  },
+  {
+    "name": "Deliveries List",
+    "viewId": "sgWawzBTVWaXkGX3Kp4tG7",
+    "table": "ODLN"
+  },
+  {
+    "name": "Delivery Detail",
+    "viewId": "i3HeGp7FLJZ8ufsKQDB9gL",
+    "table": "ODLN"
+  },
+  {
+    "name": "A/R Invoices List",
+    "viewId": "8Yuz91zU4PsycGhaSEMtvh",
+    "table": "OINV"
+  },
+  {
+    "name": "A/R Invoice Detail",
+    "viewId": "9gkJZwrdZ9nJ6og6fCbgLE",
+    "table": "OINV"
+  },
+  {
+    "name": "Sales Drafts List",
+    "viewId": "gTPe5SYuVytss1gYGWRsBM",
+    "table": "ODRF"
+  },
+  {
+    "name": "Docs in Approval Process List",
+    "viewId": "h1t47kVRWq4JLHjNE5qx3w",
+    "table": "OWDD"
+  },
+  {
+    "name": "Returns List",
+    "viewId": "fdHSbskDsykTFtXxZfNWDa",
+    "table": "ORDN"
+  },
+  {
+    "name": "Return Detail",
+    "viewId": "kYnxw18X29vkdUwjtNu6ee",
+    "table": "ORDN"
+  },
+  {
+    "name": "A/R Credit Memos List",
+    "viewId": "etqH3LnioPwNTf1BfWvNQ4",
+    "table": "ORIN"
+  },
+  {
+    "name": "A/R Credit Memo Detail",
+    "viewId": "3kRn3JMpmMbFvtVJWyKkPm",
+    "table": "ORIN"
+  },
+  {
+    "name": "Purchase Orders List",
+    "viewId": "qmt6v9trd8XWMAiJb9LDHL",
+    "table": "OPOR"
+  },
+  {
+    "name": "Purchase Order Detail",
+    "viewId": "hsKfCUPQBzfGbY2dULXMzT",
+    "table": "OPOR"
+  },
+  {
+    "name": "Purchase Quotations List",
+    "viewId": "vCx9G5jry15zLjWg2SgSPG",
+    "table": "OPQT"
+  },
+  {
+    "name": "Purchase Quotation Detail",
+    "viewId": "eTwFqCEn2YGMMtQkVnHLs5",
+    "table": "OPQT"
+  },
+  {
+    "name": "Goods Receipt POs List",
+    "viewId": "s8KoRKM3mEH9wHToghkMb1",
+    "table": "OPDN"
+  },
+  {
+    "name": "Goods Receipt PO Detail",
+    "viewId": "aVVLEve6ZfSoLUwxpquFaS",
+    "table": "OPDN"
+  },
+  {
+    "name": "A/P Invoices List",
+    "viewId": "nFfDsxKTbmkDrgVcf6MdHo",
+    "table": "OPCH"
+  },
+  {
+    "name": "A/P Invoice Detail",
+    "viewId": "xo3V7LHXsh1duNC4AiSESA",
+    "table": "OPCH"
+  },
+  {
+    "name": "A/P Reserve Invoices List",
+    "viewId": "fgGy7uLwvjSzFfBrWRzCuY",
+    "table": "OPCH_RV"
+  },
+  {
+    "name": "A/P Reserve Invoice Detail",
+    "viewId": "oegNbD3i6Z1iKJqkT2imAM",
+    "table": "OPCH_RV"
+  },
+  {
+    "name": "A/R Reserve Invoices List",
+    "viewId": "hhz2bV9KfdW2SCeZDect59",
+    "table": "OINV_RV"
+  },
+  {
+    "name": "A/R Reserve Invoice Detail",
+    "viewId": "svNPbXik4Qdes8qKyyBAk4",
+    "table": "OINV_RV"
+  },
+  {
+    "name": "Goods Returns List",
+    "viewId": "6CFgszWVr5u7JXRSSKkpei",
+    "table": "ORPD"
+  },
+  {
+    "name": "Goods Return Detail",
+    "viewId": "dL7tM3gzTSoJTRkGVkVNpr",
+    "table": "ORPD"
+  },
+  {
+    "name": "A/P Credit Memos List",
+    "viewId": "nYExpTtdgvfMHv8SynjWAs",
+    "table": "ORPC"
+  },
+  {
+    "name": "A/P Credit Memo Detail",
+    "viewId": "n38tudyJkPb7iFmcH3Px4s",
+    "table": "ORPC"
+  },
+  {
+    "name": "Goods Issues List",
+    "viewId": "822dP4v9VUhALEfsXr5Jxb",
+    "table": "OIGE"
+  },
+  {
+    "name": "Goods Issue Detail",
+    "viewId": "9bWaZyRKc65J9sX4bCkf8Q",
+    "table": "OIGE"
+  },
+  {
+    "name": "Approval Decisions List",
+    "viewId": "fyX5Mu6Gn5LES4rqpysMhL",
+    "table": "VOWDDAPD"
+  },
+  {
+    "name": "Outgoing Payments in Approval Process List",
+    "viewId": "andPigASEq72QgDqWpwwZE",
+    "table": "VOWDDPM"
+  },
+  {
+    "name": "Return Requests List",
+    "viewId": "tR2LZMMvMbQDpFQixM6eXt",
+    "table": "ORRR"
+  },
+  {
+    "name": "Return Request Detail",
+    "viewId": "873DgJAjJsxsbcxDzPyJkU",
+    "table": "ORRR"
+  },
+  {
+    "name": "Goods Return Requests List",
+    "viewId": "mpUUt5VTKAtyQVKEHanyxn",
+    "table": "OPRR"
+  },
+  {
+    "name": "Goods Return Request Detail",
+    "viewId": "bT39GHR3UcFALK7MNPS5bn",
+    "table": "OPRR"
+  },
+  {
+    "name": "Purchase Requests List",
+    "viewId": "bg14SXLh3jtQXR2fb6bGf1",
+    "table": "OPRQ"
+  },
+  {
+    "name": "Purchase Request Detail",
+    "viewId": "3rpieKdLXXV47brAZNBoRQ",
+    "table": "OPRQ"
+  },
+  {
+    "name": "Inventory Counting Transactions List",
+    "viewId": "tkkodqDtJZaxGFSLohtqBG",
+    "table": "VOWDDICD"
+  },
+  {
+    "name": "Inventory Counting Transaction Detail",
+    "viewId": "aMuF2qL3vLvYa8g7L9RfSh",
+    "table": "VOWDDICD"
+  },
+  {
+    "name": "Service Contracts List",
+    "viewId": "5z22kL3whftwvgtnV1PeNF",
+    "table": "OCTR"
+  },
+  {
+    "name": "Service Contract Detail",
+    "viewId": "wrf2ZcpNhq8TMrC3vKgbsZ",
+    "table": "OCTR"
+  },
+  {
+    "name": "Goods Receipts List",
+    "viewId": "caZQgjJBBrwuP7aLaAS9gT",
+    "table": "OIGN"
+  },
+  {
+    "name": "Goods Receipt Detail",
+    "viewId": "d5EnaDRUExUoFm2xDczEpf",
+    "table": "OIGN"
+  },
+  {
+    "name": "Production Orders List",
+    "viewId": "8rkzbHNVBZvmu81YoLDXvJ",
+    "table": "OWOR"
+  },
+  {
+    "name": "Production Order Detail",
+    "viewId": "oUnCgTGTQTUp9iZohX4Msj",
+    "table": "OWOR"
+  },
+  {
+    "name": "Issues for Production List",
+    "viewId": "a31xZbfitwvGwDQ8sJ2NU7",
+    "table": "VOIGEP"
+  },
+  {
+    "name": "Issue for Production Detail",
+    "viewId": "rGquNwb2uKraHAqH1UgRTp",
+    "table": "VOIGEP"
+  },
+  {
+    "name": "Receipts from Production List",
+    "viewId": "a31xZbfitwvGwDQ8sJ2NU7",
+    "table": "VOIGNP"
+  },
+  {
+    "name": "Receipt from Production Detail",
+    "viewId": "sdmBg4NWG8zEYB843kxmCp",
+    "table": "VOIGNP"
+  },
+  {
+    "name": "Bills of Materials List",
+    "viewId": "2R6t6C9BFWDu5pdkYsZWhE",
+    "table": "OITT"
+  },
+  {
+    "name": "Bill of Materials Detail",
+    "viewId": "vokuUPnVfswUqQkttWbCkn",
+    "table": "OITT"
+  },
+  {
+    "name": "Journal Entries List",
+    "viewId": "9p96Q3bure6fZyitMWEYce",
+    "table": "OJDT"
+  },
+  {
+    "name": "Journal Entry Detail",
+    "viewId": "kovUqgE6ACk426R2ivwE6z",
+    "table": "OJDT"
+  },
+  {
+    "name": "Business Partners List",
+    "viewId": "qm82JkXipzvgT16TczA45D",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
+    "table": "OCRD"
+  },
+  {
+    "name": "Business Partner Detail",
+    "viewId": "r8vmgQw0nUukEmmwrtSsmA",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
+    "table": "OCRD"
+  },
+  {
+    "name": "Time Sheets List",
+    "viewId": "kNHUEJK36piNAW548WGFXV",
+    "table": "OTSH"
+  },
+  {
+    "name": "Time Sheet Detail",
+    "viewId": "iS7xxsW4mT3ZGTiNyUcMVK",
+    "table": "OTSH"
+  },
+  {
+    "name": "Activities List",
+    "viewId": "pGvaoePBbC7Z2Be2HiUmvx",
+    "table": "OCLG"
+  },
+  {
+    "name": "Activity Detail",
+    "viewId": "bnRX1wwRcaXJa5KNoKi1eC",
+    "table": "OCLG"
+  },
+  {
+    "name": "Outgoing Payments List",
+    "viewId": "sUa12T6UycXxFuipADK4U7",
+    "table": "OVPM"
+  },
+  {
+    "name": "Outgoing Payment Detail",
+    "viewId": "ds1L3wF81UMBR6g9Diom97",
+    "table": "OVPM"
+  },
+  {
+    "name": "Opportunities List",
+    "viewId": "mMyB8Q2nQAuRKqXcwvdLw2",
+    "table": "OOPR"
+  },
+  {
+    "name": "Opportunity Detail",
+    "viewId": "oBc2TrRM4gWH42UZY1MNsy",
+    "table": "OOPR"
+  },
+  {
+    "name": "Service Calls List",
+    "viewId": "viXSihAHrLp5RygkJX4gSo",
+    "table": "OSCL"
+  },
+  {
+    "name": "Items List",
+    "viewId": "hEz9gkBXjaLXKMDFt92wMF",
+    "table": "OITM"
+  },
+  {
+    "name": "Item Master Data Detail",
+    "viewId": "w8xN9coCjonmoudGQ9d1zy",
+    "table": "OITM"
+  },
+  {
+    "name": "Equipment Cards List",
+    "viewId": "sKk5nvoeorjP4dwkC7XJ3V",
+    "table": "OINS"
+  },
+  {
+    "name": "Equipment Card Detail",
+    "viewId": "6oWqGASC2AyCvSnMgDnqob",
+    "table": "OINS"
+  },
+  {
+    "name": "Incoming Payments List",
+    "viewId": "pKiEwka1jRUhNn2DxPnU36",
+    "table": "ORCT"
+  },
+  {
+    "name": "Incoming Payment Detail",
+    "viewId": "ds1L3wF81UMBR6g9Diom11",
+    "table": "ORCT"
+  },
+  {
+    "name": "Solutions Knowledge Base List",
+    "viewId": "7WfRoBipUA49ExPkyyHTb5",
+    "table": "OSLT"
+  },
+  {
+    "name": "Solutions Knowledge Base Detail",
+    "viewId": "e5EWefuDWrpkEcgjdfcgHa",
+    "table": "OSLT"
+  },
+  {
+    "name": "Inventory Transfer Request List",
+    "viewId": "f84sYnb4WMCJVbfW6DDjH2",
+    "table": "OWTQ"
+  },
+  {
+    "name": "Inventory Transfer Request Detail",
+    "viewId": "x7BHWfzws623oDLywz8hJn",
+    "table": "OWTQ"
+  },
+  {
+    "name": "Inventory Transfers List",
+    "viewId": "h5bJFrq4wmJ2WSQgX7foVh",
+    "table": "OWTR"
+  },
+  {
+    "name": "Inventory Transfer Detail",
+    "viewId": "x7BHWfzws623oDLywz8hJn",
+    "table": "OWTR"
+  },
+  {
+    "name": "Recurring Journal Entries List",
+    "viewId": "kZcVHykCxLXT2oZFZQATC3k",
+    "table": "ORCR"
+  },
+  {
+    "name": "Recurring Posting Detail",
+    "viewId": "9bAkZpRKd78J9sX4bClf8T",
+    "table": "ORCR"
+  },
+  {
+    "name": "Journal Voucher Entry Detail",
+    "viewId": "8kwk4TcZaQxY3Mai5QLPJ9",
+    "table": "OBTD"
+  },
+  {
+    "name": "Deposits List",
+    "value": "uT3Ls6Y2KBgmHqDvLjsXp9",
+    "table": "ODPS"
+  },
+  {
+    "name": "Deposit Detail",
+    "value": "dSFqSe8KzhyBmr5v6tsC9p",
+    "table": "ODPS"
+  },
+  {
+    "name": "Landed Costs List",
+    "value": "nK8mP2xT4vY6wZ9qR3sU5h",
+    "table": "OIPF"
+  },
+  {
+    "name": "Landed Cost Detail",
+    "value": "1phugsZoMqZsdjLTdipuuE",
+    "table": "OIPF"
+  },
+  {
+    "name": "Recurring Transaction Templates List",
+    "value": "9p96Q3bure6fZyitMWEYc1",
+    "table": "ORCP"
+  },
+  {
+    "name": "Recurring Transaction Template Detail",
+    "value": "ko2UqgE6ACk426R2ivwE6z",
+    "table": "ORCP"
+  },
+  {
+    "name": "Recurring Transactions List",
+    "value": "viXSihAHrLp5RygkJX4gS1",
+    "table": "ORCL"
+  },
+  {
+    "name": "A/R Down Payment Invoices List",
+    "value": "0Q2w3e4r5t6y7u8i9o0p1a",
+    "table": "ODPI"
+  },
+  {
+    "name": "A/R Down Payment Invoice Detail",
+    "value": "2gkJZwrdZ9nJ6og6fCbgLE",
+    "table": "ODPI"
+  },
+  {
+    "name": "A/P Down Payment Invoices List",
+    "value": "1B2c3d4e5f6g7h8j9k0l1m",
+    "table": "ODPO"
+  },
+  {
+    "name": "A/P Down Payment Invoice Detail",
+    "value": "zfGbY2dULXMzThsKfCUPQB",
+    "table": "ODPO"
+  },
+  {
+    "name": "Inventory Counting Drafts List",
+    "value": "wa6dt7DZ2V9y32B9XFtYcS",
+    "table": "OICD"
+  },
+  {
+    "name": "Inventory Counting Draft Detail",
+    "value": "aMuF1qL2vLvxAAq7L9RfSh",
+    "table": "OICD"
+  },
+  {
+    "name": "Sales Blanket Agreements List",
+    "value": "faoK4WgFxmbScRnr5q2e9x",
+    "table": "OOAT"
+  },
+  {
+    "name": "Sales Blanket Agreement Detail",
+    "value": "jxk36vc4xiAVMeAtuoSc5s",
+    "table": "OOAT"
+  },
+  {
+    "name": "Purchase Blanket Agreements List",
+    "value": "faoK4WgFxmbSsRnr5q2e9x",
+    "table": "OOAT"
+  },
+  {
+    "name": "Purchase Blanket Agreement Detail",
+    "value": "vb7MASzgU8T9r6pon5RrHB",
+    "table": "OOAT"
+  },
+  {
+    "name": "Inventory Postings List",
+    "value": "YT3Lq7Y2KBRmHqDvLjsX86",
+    "table": "OIQR"
+  },
+  {
+    "name": "Inventory Posting Detail",
+    "value": "f925b9e619904360ac5007",
+    "table": "OIQR"
+  },
+  {
+    "name": "Payment Runs List",
+    "value": "qStR6sJZmmfA24MCnLY8Ce",
+    "table": "OPWZ"
+  },
+  {
+    "name": "Payment Run Detail",
+    "value": "pWkYU3OnVP7G5Oyf64YeoK",
+    "table": "OPWZ"
+  },
+  {
+    "name": "A/R Correction Invoices List",
+    "value": "hhz2bV9KfdW2SsdCeZDect59",
+    "table": "OCSI"
+  },
+  {
+    "name": "A/R Correction Invoice Detail",
+    "value": "8jSDAC1PS6U6rPfaGoE5Vy",
+    "table": "OCSI"
+  },
+  {
+    "name": "A/P Correction Invoices List",
+    "value": "nhHNt6gTfxHhBiR2jfrA4q",
+    "table": "OCPI"
+  },
+  {
+    "name": "A/P Correction Invoice Detail",
+    "value": "uwa2chzuqeCA1ZwTT8FGsN",
+    "table": "OCPI"
+  },
+  {
+    "name": "A/R Correction Invoice Reversals List",
+    "value": "rBFUoWnaqPxmka344Mm9W8",
+    "table": "OCSV"
+  },
+  {
+    "name": "A/R Correction Invoice Reversal Detail",
+    "value": "x1iXHDg8jamrtKg8xM2jmF",
+    "table": "OCSV"
+  },
+  {
+    "name": "A/P Correction Invoice Reversals List",
+    "value": "cC77sTQN7v4iNaRUBWBScL",
+    "table": "OCPV"
+  },
+  {
+    "name": "A/P Correction Invoice Reversal Detail",
+    "value": "7vTG4YRob92wGaj9WrTU9g",
+    "table": "OCPV"
+  },
+  {
+    "name": "DATEV Export List",
+    "value": "j554eFVK8Chc2etHSQKCHQ",
+    "table": "ODTV"
+  },
+  {
+    "name": "DATEV Export Detail",
+    "value": "ekNuV6Gr7LxVG1VssmSjGg",
+    "table": "ODTV"
+  },
+  {
+    "name": "Checks for Payment List",
+    "value": "vUUGRmX8n6qCsNdXC1a4g2",
+    "table": "OCHO"
+  },
+  {
+    "name": "Check for Payment Detail",
+    "value": "vMgBa4vtTAFtoGypBG4Suz",
+    "table": "OCHO"
+  },
+  {
+    "name": "Void Checks for Payment List",
+    "value": "7Qvsv5eDhQyM9dkv1gJQWN",
+    "table": "VOCHO"
+  },
+  {
+    "name": "Checks for Payment Drafts List",
+    "value": "agkbR5Fe5RPZhi4xNcUWsS",
+    "table": "OCHD"
+  },
+  {
+    "name": "Check for Payment Draft Detail",
+    "value": "cmp0xm2w50000z0922h4z7",
+    "table": "OCHD"
+  },
+  {
+    "name": "Inventory Opening Balances List",
+    "value": "uT3Ls6Y2KBgmHqDvLjs007",
+    "table": "OIQI"
+  },
+  {
+    "name": "Inventory Opening Balance Detail",
+    "value": "f925b9e619904360ac5006",
+    "table": "OIQI"
+  },
+  {
+    "name": "Inventory Opening Balance Drafts List",
+    "value": "uT3Ls6Y2KvgMHqDzLjs007",
+    "table": "OIOD"
+  },
+  {
+    "name": "Inventory Opening Balance Draft Detail",
+    "value": "ecHztBkZL0vUrQ2vVA2b01",
+    "table": "OIOD"
+  },
+  {
+    "name": "Internal Reconciliations List",
+    "value": "4Bfn6LqUuMMWZeTJPg9Fpz",
+    "table": "OITRLV"
+  },
+  {
+    "name": "Employees List",
+    "value": "p5i3TmWdJ7HuEjJEp3TuDa",
+    "table": "OHEM"
+  },
+  {
+    "name": "Employee Detail",
+    "value": "xoN2sfX2etmmhr7uGN13wQ",
+    "table": "OHEM"
+  },
+  {
+    "name": "Projects List",
+    "value": "mm5k2fo75aJyRtaTRA5ra5",
+    "table": "OPMG"
+  },
+  {
+    "name": "Project Detail",
+    "value": "fra2sfX2etmmhr7uGN13wQ",
+    "table": "OPMG"
+  },
+  {
+    "name": "Inventory Revaluation List",
+    "value": "zeh9gkBXjaLXKMDFt92wMF",
+    "table": "OMRV"
+  },
+  {
+    "name": "Inventory Revaluation Detail",
+    "value": "uK92iFF8wZ4jGWUeDKjn5Q",
+    "table": "OMRV"
+  },
+  {
+    "name": "Reconciliation List",
+    "value": "p96Q3bure6fZyitMWEYce1",
+    "table": "VOCRD"
+  },
+  {
+    "name": "External Reconciliation Detail",
+    "value": "mT4kW9xR2vN7bJ5pL8cY3q",
+    "table": "VOCRD"
+  },
+  {
+    "name": "Campaigns List",
+    "value": "hSMuZeDa6a3jrHAoGEKidP",
+    "table": "OCPN"
+  },
+  {
+    "name": "Campaign Detail",
+    "value": "eH8Qoqw6trnPYwgv5DX5WP",
+    "table": "OCPN"
+  },
+  {
+    "name": "Forecasts List",
+    "value": "dX1auh9sbEXomUwA4xRoXb",
+    "table": "OFCT"
+  },
+  {
+    "name": "Forecast Detail",
+    "value": "pLG31vyYrkxDLb6DxrmMX2",
+    "table": "OFCT"
+  },
+  {
+    "name": "MRP Runs List",
+    "value": "9p96Q3bure6fZyitMWE67Y",
+    "table": "OMSN"
+  },
+  {
+    "name": "MRP Run Detail",
+    "value": "jfR13JZzDqYS9BsHyfhxbL",
+    "table": "OMSN"
+  },
+  {
+    "name": "Resources List",
+    "value": "77x2KFFk1DUp5zRwf1svyW",
+    "table": "ORSC"
+  },
+  {
+    "name": "Resource Detail",
+    "value": "fnhjbY7CWGKXdJ7usR2Ek5",
+    "table": "ORSC"
+  },
+  {
+    "name": "Pick Lists List",
+    "value": "6WFfjiyb4atN1XnAbPNfjK",
+    "table": "OPKL"
+  },
+  {
+    "name": "Pick List Detail",
+    "value": "x7BHWft4iDLywz8hJn",
+    "table": "OPKL"
+  },
+  {
+    "name": "Previous External Reconciliation List",
+    "value": "4bSQQ6KHcCiYcC8xLxn8GC",
+    "table": "OMTH"
+  },
+  {
+    "name": "Previous External Reconciliation Detail",
+    "value": "gaJnpG87nR7fe1nEeALHTu",
+    "table": "OMTH"
+  }
+]

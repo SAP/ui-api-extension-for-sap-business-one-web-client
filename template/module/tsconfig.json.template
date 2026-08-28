@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowJs": true,
+    "module": "AMD",
+    "outDir": "./webapp",
+    "moduleResolution": "node",
+    "preserveConstEnums": false,
+    "isolatedModules": false,
+    "lib": ["es2017", "dom"],
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "rootDirs": [
+      "./src/controller",
+      "./src"
+    ],
+    "paths": {
+      "sbo/*": [
+        "../node_modules/sbo-webclient-uiapi-sdk/types/index.d.ts"
+      ]
+    }
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"],
+  "compileOnSave": true
+}

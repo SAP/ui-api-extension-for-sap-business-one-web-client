@@ -1,0 +1,379 @@
+/**
+ * !!! Skeleton code generated automatically. Do not modify it. !!!
+ * This script is to start the UI API extension development server, mirror changes from src to webapp and start TypeScript watchers for each module.
+ * By default, the development server will be started at http://localhost:8082.
+ */
+
+const fs = require("fs");
+const path = require("path");
+const { exec, spawn, spawnSync } = require("child_process");
+const settingsFilePath = path.join(__dirname, ".vscode", "settings.json");
+
+function installDependenciesIfNeeded() {
+    const packageJsonPath = path.join(__dirname, "package.json");
+    const packageLockPath = path.join(__dirname, "package-lock.json");
+    const nodeModulesPath = path.join(__dirname, "node_modules");
+    const installMarkerPath = path.join(nodeModulesPath, ".package-lock.json");
+
+    const hasFreshInstall = fs.existsSync(nodeModulesPath)
+        && fs.existsSync(packageJsonPath)
+        && fs.existsSync(packageLockPath)
+        && fs.existsSync(installMarkerPath)
+        && fs.statSync(installMarkerPath).mtimeMs >= fs.statSync(packageJsonPath).mtimeMs
+        && fs.statSync(installMarkerPath).mtimeMs >= fs.statSync(packageLockPath).mtimeMs;
+
+    if (hasFreshInstall) {
+        console.log("Dependencies already installed; skipping npm install.");
+        return 0;
+    }
+
+    const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+    const result = spawnSync(npmCommand, ["install"], {
+        cwd: __dirname,
+        stdio: "inherit",
+    });
+
+    return typeof result.status === "number" ? result.status : 1;
+}
+
+if (process.argv.includes("--install-if-needed")) {
+    process.exit(installDependenciesIfNeeded());
+}
+
+const express = require("express");
+const http = require("http");
+const cors = require("cors");
+const morgan = require("morgan");
+const chokidar = require("chokidar");
+const color = require("colors/safe");
+
+function toWorkspaceRelative(filePath) {
+    try {
+        return path.relative(__dirname, filePath).split(path.sep).join("/");
+    } catch (_) {
+        return filePath;
+    }
+}
+
+function getWorkspacePort() {
+    try {
+        if (!fs.existsSync(settingsFilePath)) {
+            return undefined;
+        }
+        const settingsFileContent = fs.readFileSync(settingsFilePath, "utf-8");
+        const settings = JSON.parse(settingsFileContent);
+        return settings["WebClientUIAPICopilot.devServer.port"];
+    } catch (error) {
+        return undefined;
+    }
+}
+
+function getDevServerPort() {
+    return getWorkspacePort() ?? 8082;
+}
+
+function getDevServerUrl() {
+    return `http://localhost:${getDevServerPort()}`;
+}
+
+function readAppJson() {
+    return JSON.parse(fs.readFileSync(path.join(__dirname, "app.json"), "utf-8"));
+}
+
+function isValidAppJson(body) {
+    return body
+        && typeof body === "object"
+        && Array.isArray(body.applications)
+        && body.applications.every((application) => {
+            return application
+                && typeof application === "object"
+                && typeof application.name === "string"
+                && typeof application.path === "string";
+        });
+}
+
+function isDevelopmentServerRunning() {
+    return new Promise((resolve) => {
+        const request = http.get(`${getDevServerUrl()}/app.json`, { timeout: 1500 }, (response) => {
+            if (!response.statusCode || response.statusCode < 200 || response.statusCode >= 300) {
+                response.resume();
+                resolve(false);
+                return;
+            }
+
+            let responseBody = "";
+            response.setEncoding("utf8");
+            response.on("data", (chunk) => {
+                responseBody += chunk;
+            });
+            response.on("end", () => {
+                try {
+                    resolve(isValidAppJson(JSON.parse(responseBody)));
+                } catch (_) {
+                    resolve(false);
+                }
+            });
+        });
+
+        request.on("error", () => resolve(false));
+        request.on("timeout", () => {
+            request.destroy();
+            resolve(false);
+        });
+    });
+}
+
+function getModulesFromAppJson(appsContent) {
+    const modules = appsContent.applications.map((app) => {
+        const segments = app.path.split("/");
+        const localWebappPath = app.path.replace(segments[0] + "/", "");
+        const moduleRel = localWebappPath.split("/")[0];
+        const moduleAbs = path.join(__dirname, moduleRel);
+        const localSrcPath = localWebappPath.replace("/webapp", "/src");
+        const moduleSrcAbs = path.join(__dirname, localSrcPath);
+        return {
+            urlPrefix: app.path,
+            localWebappPath,
+            localSrcPath,
+            moduleRel,
+            moduleAbs,
+            moduleSrcAbs,
+        };
+    });
+
+    const byRoot = new Map();
+    for (const mod of modules) {
+        byRoot.set(mod.moduleRel, mod);
+    }
+    return Array.from(byRoot.values());
+}
+
+function runGulpDebug(moduleAbs) {
+    return new Promise((resolve, reject) => {
+        const gulpBin = path.join(__dirname, "node_modules", "gulp", "bin", "gulp");
+        const gulpfile = path.join(__dirname, "gulpfile.js");
+
+        const verboseGulp = process.env.UIAPI_DEV_GULP_VERBOSE === "1";
+        const silentFlag = verboseGulp ? "" : "--silent ";
+        const cmd = `node ${gulpBin} ${silentFlag}--gulpfile ${gulpfile} --cwd ${moduleAbs} debug`;
+        exec(cmd, { maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
+            if (error) {
+                if (stdout) process.stdout.write(stdout);
+                if (stderr) process.stderr.write(stderr);
+                reject(error);
+                return;
+            }
+
+            if (verboseGulp) {
+                if (stdout) process.stdout.write(stdout);
+                if (stderr) process.stderr.write(stderr);
+            }
+            resolve();
+        });
+    });
+}
+
+async function runGulpForAllModules(modules) {
+    for (const mod of modules) {
+        await runGulpDebug(mod.moduleAbs);
+    }
+}
+
+function startDevServer(appsContent) {
+    const app = express();
+    app.use(cors({ origin: "*" }));
+    app.use(morgan("tiny"));
+
+    console.log(color.bold("Start Web Client Extension Development Server..."));
+    console.log(color.green("Start serving...."));
+
+    appsContent.applications.forEach(function (obj) {
+        let module = obj.path.split("/");
+        module = obj.path.replace(module[0] + "/", "");
+        app.use(`/${obj.path}`, (req, res, next) => {
+            req.accepts("application/json");
+            const result = req.url.match(/\/gulpfile.js$/);
+            if (result) {
+                return res.status(404).end("Cannot GET " + req.url);
+            }
+            return next();
+        });
+
+        app.use(`/${obj.path}`, express.static(`${module}`));
+        const srcPath = obj.path.replace("/webapp", "/src");
+        const localSrc = module.replace("/webapp", "/src");
+        app.use(`/${srcPath}`, express.static(`${localSrc}`));
+    });
+
+    app.use("/app.json", express.static("app.json"));
+    app.get("/", function (req, res) {
+        res.sendFile(path.join(__dirname, "index.html"));
+    });
+
+    const port = getDevServerPort();
+    return new Promise((resolve, reject) => {
+        const server = app.listen(port, "localhost");
+        server.once("listening", () => {
+            console.log(`Development server is working at: ${getDevServerUrl()}\n`);
+            resolve({ server, port });
+        });
+        server.once("error", (error) => {
+            if (error && error.code === "EADDRINUSE") {
+                console.error(
+                    color.red(
+                        `Port ${port} is already in use. ` +
+                        `Stop the other dev server or change WebClientUIAPICopilot.devServer.port in .vscode/settings.json.`
+                    )
+                );
+            }
+            reject(error);
+        });
+    });
+}
+
+function startMirrorWatcher(modules) {
+    function mirrorFile(sourceFilePath) {
+        const srcFolderRegExp = new RegExp(`\\${path.sep}src\\${path.sep}`, "g");
+        const mirroredFilePath = sourceFilePath.replace(
+            srcFolderRegExp,
+            `${path.sep}webapp${path.sep}`
+        );
+
+        const folder = path.dirname(mirroredFilePath);
+        if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder, { recursive: true });
+        }
+
+        const fileContent = fs.readFileSync(sourceFilePath, "utf8");
+        fs.writeFileSync(mirroredFilePath, fileContent);
+        console.log(
+            color.gray(
+                `[mirror] ${toWorkspaceRelative(sourceFilePath)} -> ${toWorkspaceRelative(mirroredFilePath)}`
+            )
+        );
+    }
+
+    function deleteMirroredFile(sourceFilePath) {
+        const srcFolderRegExp = new RegExp(`\\${path.sep}src\\${path.sep}`, "g");
+        const mirroredFilePath = sourceFilePath.replace(
+            srcFolderRegExp,
+            `${path.sep}webapp${path.sep}`
+        );
+
+        if (fs.existsSync(mirroredFilePath)) {
+            fs.unlinkSync(mirroredFilePath);
+            console.log(color.gray(`[mirror] removed ${toWorkspaceRelative(mirroredFilePath)}`));
+        }
+    }
+
+    const moduleNames = modules.map((m) => m.moduleRel);
+    console.log(color.magenta(`Watching source asset: ${moduleNames.join(", ")}`));
+
+    const watchRoots = modules.map((m) => m.moduleSrcAbs);
+    const watcher = chokidar.watch(watchRoots, {
+        ignored: /(^|[\/\\])\..*|\.ts$/,
+        ignoreInitial: true,
+        persistent: true,
+    });
+
+    watcher
+        .on("add", (filePath) => {
+            console.log(`[watch] File '${toWorkspaceRelative(filePath)}' added`);
+            mirrorFile(filePath);
+        })
+        .on("change", (filePath) => {
+            console.log(`[watch] File '${toWorkspaceRelative(filePath)}' changed`);
+            mirrorFile(filePath);
+        })
+        .on("unlink", (filePath) => {
+            console.log(`[watch] File '${toWorkspaceRelative(filePath)}' removed`);
+            deleteMirroredFile(filePath);
+        });
+
+    return watcher;
+}
+
+function startTscWatchers(modules) {
+    const tscBin = path.join(__dirname, "node_modules", "typescript", "bin", "tsc");
+    const moduleNames = modules.map((m) => m.moduleRel);
+    console.log(color.magenta(`Watching source code: ${moduleNames.join(", ")}`));
+    const children = modules.map((mod) => {
+        const args = [tscBin, "-p", mod.moduleRel, "--watch", "--preserveWatchOutput"];
+        const child = spawn("node", args, {
+            cwd: __dirname,
+            stdio: "inherit",
+        });
+        child.on("exit", (code) => {
+            if (code && code !== 0) {
+                console.log(color.red(`tsc watcher exited (${mod.moduleRel}) with code ${code}`));
+            }
+        });
+        return child;
+    });
+    return children;
+}
+
+function stopDevelopmentServer() {
+    return new Promise((resolve) => {
+        const port = getDevServerPort();
+        const killCommand = process.platform === "win32"
+            ? `FOR /F "tokens=5" %P IN ('netstat -ano ^| findstr ":${port}" ^| findstr "LISTENING"') DO TaskKill /FI "PID eq %P" /FI "IMAGENAME eq node.exe" /F`
+            : `lsof -ti tcp:${port} -sTCP:LISTEN -a -c node | xargs kill -9`;
+        exec(killCommand, () => resolve());
+    });
+}
+
+async function main() {
+    if (await isDevelopmentServerRunning()) {
+        console.warn(color.yellow(`Development server is already running at: ${getDevServerUrl()}. Stopping it first...`));
+        await stopDevelopmentServer();
+        console.log(color.yellow("Waiting for the port to be released..."));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
+
+    const appsContent = readAppJson();
+    const modules = getModulesFromAppJson(appsContent);
+    await runGulpForAllModules(modules);
+
+    const { server } = await startDevServer(appsContent);
+    const watcher = startMirrorWatcher(modules);
+    const tscChildren = startTscWatchers(modules);
+    const shutdown = async () => {
+        try {
+            watcher.close();
+        } catch (_) {
+        }
+        try {
+            server.close();
+        } catch (_) {
+        }
+        for (const child of tscChildren) {
+            try {
+                child.kill("SIGINT");
+            } catch (_) {
+            }
+        }
+    };
+
+    process.on("SIGINT", async () => {
+        console.log(color.yellow("\nShutting down..."));
+        await shutdown();
+        process.exit(0);
+    });
+    process.on("SIGTERM", async () => {
+        console.log(color.yellow("\nShutting down..."));
+        await shutdown();
+        process.exit(0);
+    });
+}
+
+main()
+    .then((exitCode) => {
+        if (typeof exitCode === "number") {
+            process.exit(exitCode);
+        }
+    })
+    .catch((error) => {
+        console.error(String(error));
+        process.exit(1);
+    });

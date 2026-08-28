@@ -1,0 +1,35 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist-test",
+    "sourceMap": false
+  },
+  "include": [
+    "src/MetadataParser.ts",
+    "test/MetadataParser.test.ts",
+    "test/MetadataParser.edge.test.ts",
+    "test/BrowserStartupFlagsTokenizer.test.ts",
+    "test/Utils.test.ts",
+    "test/AgentInstructions.test.ts",
+    "test/ContentProvider.test.ts",
+    "test/SettingChangesHandler.test.ts",
+    "test/StartDevServer.test.ts",
+    "test/StopDevServer.test.ts",
+    "test/PreviewApplication.test.ts",
+    "test/UUIDTool.test.ts",
+    "test/FindFilesTool.test.ts",
+    "test/SchemaFilePathTool.test.ts",
+    "test/RunInTerminalTool.test.ts",
+    "test/ExposedUIControlsTool.test.ts",
+    "test/CurrentAppInformationTool.test.ts",
+    "test/MetadataTools.test.ts",
+    "test/CreateUIAPIAppTool.test.ts",
+    "test/AddUIAPIModuleTool.test.ts",
+    "test/ToolsRegister.test.ts",
+    "test/ViewsMetaTools.test.ts"
+  ],
+  "exclude": [
+    "dist-test"
+  ]
+}

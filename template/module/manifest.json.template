@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "name": "<%= namespace %>",
+  "description": "SAPBusinessOne WebClient UI API extension created by Visual Studio Code",
+  "b1.bundles": [
+    {
+      "id": "<%= viewName %>.layout",
+      "baseViewGuid": "<%= viewUUID %>",
+      "layout": "layout/<%= viewName %>.layout.json",
+      "description": "<%= viewName %>",
+      "i18n": {
+        "@@i18n": ["<%= namespace %>.i18n.i18n"]
+      }
+    }
+  ],
+  "allowedExternalURLs": "*",
+  "allowedServiceLayerAPIs": "*"
+}

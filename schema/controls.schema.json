@@ -1,0 +1,3529 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "controls.schema.json",
+  "title": "SAP Business One Web Client UI API Controls Schema",
+  "description": "A schema to define the control definitions for Web Client UI API.",
+  "type": "object",
+  "definitions": {
+    "b1.sdk.Item": {
+      "$id": "b1.sdk.Item",
+      "title": "UI Control Aggregate: Item",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "key of the item",
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is enabled",
+          "default": true,
+          "readOnly": false
+        },
+        "additionalText": {
+          "type": "string",
+          "description": "additional text to be displayed along with this item",
+          "default": "",
+          "readOnly": false
+        }
+      },
+      "required": [
+        "key"
+      ]
+    },
+    "b1.sdk.Button": {
+      "$id": "b1.sdk.Button",
+      "type": "object",
+      "title": "UI Control: Button",
+      "description": "A button control that enables users to trigger actions.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Button control type.",
+          "const": "b1.sdk.Button"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is enabled."
+        },
+        "text": {
+          "type": "string",
+          "default": "",
+          "description": "Display text"
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "Tooltip text when user hover on this control."
+        },
+        "icon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "Represent an RFC3986 conformant URI."
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is visible."
+        },
+        "buttonType": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ButtonType"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Default"
+        },
+        "press": {
+          "description": "Fired when the user clicks or taps on the button control.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.CheckBox": {
+      "$id": "b1.sdk.CheckBox",
+      "type": "object",
+      "title": "UI Control: CheckBox",
+      "description": "CheckBox control allows users to set a boolean value, such as true/false or yes/no for an item",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.CheckBox control type.",
+          "const": "b1.sdk.CheckBox"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "selected": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is selected",
+          "default": false,
+          "readOnly": false
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "tooltip text when user hover on this control",
+          "default": "",
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is editable",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "select": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when check box is selected/unselected"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.Input": {
+      "$id": "b1.sdk.Input",
+      "type": "object",
+      "title": "UI Control: Input",
+      "description": "Input control allows users to enter and edit text or numeric values in one line.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Input control type.",
+          "const": "b1.sdk.Input"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is editable"
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is enabled"
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "Whether display a red asterisk before label text"
+        },
+        "inputType": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.InputType"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "String"
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "Tooltip text when user hover on this control"
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is visible"
+        },
+        "label": {
+          "type": "string",
+          "default": "",
+          "description": "Control introduction / title"
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "readOnly": true,
+          "description": "Whether to hide label"
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ]
+        },
+        "textAlign": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextAlign"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ]
+        },
+        "maxLength": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.number",
+          "default": 0,
+          "description": "Maximum number of characters for input value"
+        },
+        "value": {
+          "type": "string",
+          "default": "",
+          "description": "The value of the control"
+        },
+        "wrapping": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "Whether break a new line if not editable"
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "valueStateText": {
+          "type": "string",
+          "default": "",
+          "description": "An additional text show around for valueState"
+        },
+        "showSuggestion": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "Whether to show suggestion when user inputs"
+        },
+        "suggestionItems": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/b1.sdk.Item"
+          },
+          "description": "Items displayed in the suggestion popup(see `b1.sdk.Item`)."
+        },
+        "currency": {
+          "type": "string",
+          "default": null,
+          "description": "The currency part ($, EUR) of a Currency (Sum,Tax,Price) Input. The currency value will be validated and can not be empty when input bind the currency property"
+        },
+        "change": {
+          "description": "Fired when value changed in the input control.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "suggest": {
+          "description": "Fired when user input and \"showSuggestion\" is true.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.ComboBox": {
+      "$id": "b1.sdk.ComboBox",
+      "type": "object",
+      "title": "UI Control: ComboBox",
+      "description": "ComboBox control is a drop-down list for selecting and filtering values. The control represents a drop-down menu with a list of the available options and a text input field to narrow down the options.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.ComboBox control type.",
+          "const": "b1.sdk.ComboBox"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is editable",
+          "default": true,
+          "readOnly": false
+        },
+        "selectedKey": {
+          "type": "string",
+          "description": "the key of selected item",
+          "default": "",
+          "readOnly": false
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "tooltip text when hovering on this control",
+          "default": "",
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction / title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to select a value",
+          "default": false,
+          "readOnly": false
+        },
+        "filterSecondaryValues": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether filter apply to additionalText",
+          "default": false,
+          "readOnly": false
+        },
+        "showSecondaryValues": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether display additionalText",
+          "default": false,
+          "readOnly": false
+        },
+        "items": {
+          "anyOf": [
+            {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/definitions/b1.sdk.Item"
+              }
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "items contained within this control(see `b1.sdk.Item`)",
+          "default": [],
+          "readOnly": false
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None",
+          "readOnly": false
+        },
+        "valueStateText": {
+          "type": "string",
+          "description": "additional text to show for `valueState`",
+          "default": "",
+          "readOnly": false
+        },
+        "change": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when one of the ComboBox Item is selected"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.StaticText": {
+      "$id": "b1.sdk.StaticText",
+      "type": "object",
+      "title": "UI Control: StaticText",
+      "description": "StaticText control is used for embedding longer text paragraphs that need text wrapping into your app.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.StaticText control type.",
+          "const": "b1.sdk.StaticText"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "a label display before control",
+          "default": ""
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "text": {
+          "type": "string",
+          "description": "determines the text to be displayed",
+          "default": ""
+        },
+        "maxLines": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.number",
+          "description": "limits the number of lines for wrapping texts",
+          "readOnly": false
+        },
+        "renderWhitespace": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether whitespace will be preserved",
+          "default": true
+        },
+        "wrapping": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "enable text wrapping",
+          "default": true
+        },
+        "wrappingType": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.WrappingType"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Normal"
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "tooltip text when user hover on this control",
+          "default": ""
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.Group": {
+      "$id": "b1.sdk.Group",
+      "type": "object",
+      "title": "UI Control: Group",
+      "description": "Group arranges labels and fields (like input fields) into groups and rows.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Group control type.",
+          "const": "b1.sdk.Group"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "the title of group",
+          "default": "",
+          "readOnly": false
+        },
+        "align": {
+          "type": "string",
+          "description": "show group on right side if assign value right",
+          "default": "left",
+          "readOnly": false
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "default display two group each line, if you want use entire line for one group, set to 12",
+          "default": 6,
+          "readOnly": false
+        },
+        "items": {
+          "type": "array",
+          "description": "control list in the group",
+          "readOnly": false,
+          "default": [],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/b1.sdk.Button"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.CheckBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.StaticText"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Input"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ComboBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Grid"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MessageStrip"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.HBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.DatePicker"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.TimePicker"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ObjectStatus"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Image"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.TextArea"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.RadioButton"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.RadioButtonGroup"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ObjectNumber"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ProgressIndicator"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.SegmentedButton"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.FileUploader"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ChooseFromList"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MultiComboBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MultiInput"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.SubSection": {
+      "$id": "b1.sdk.SubSection",
+      "type": "object",
+      "title": "UI Control Aggregate: SubSection",
+      "description": "Subsection is a second-level information container, which is generally used in an object page layout.",
+      "properties": {
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.SubSection control type.",
+          "const": "b1.sdk.SubSection"
+        },
+        "text": {
+          "type": "string",
+          "default": "",
+          "description": "Subsection title."
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is visible."
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/b1.sdk.Group"
+          },
+          "description": "Groups in this subsection, see `b1.sdk.Group`."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.Section": {
+      "$id": "b1.sdk.Section",
+      "type": "object",
+      "title": "UI Control: Section",
+      "description": "Section is a top-level information container, which is generally used in an object page layout and is for the purpose of aggregating subsections containing second-level information.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Section control type.",
+          "const": "b1.sdk.Section"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "section title",
+          "default": "",
+          "readOnly": false
+        },
+        "subSections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/b1.sdk.SubSection"
+          },
+          "description": "subsections in section, see `b1.sdk.SubSection`.",
+          "default": [],
+          "readOnly": false
+        },
+        "showTitle": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the text is visible",
+          "default": true,
+          "readOnly": false
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.Column": {
+      "$id": "b1.sdk.Column",
+      "type": "object",
+      "title": "UI Control Aggregate: Column",
+      "description": "Column allows users to define column specific properties that will be applied when rendering the table.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Column control type.",
+          "const": "b1.sdk.Column"
+        },
+        "defaultVisible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "description": "Global unique identifier. All the grid columns will add 'COLUMN_' as prefix, and for all the template in column will add 'CELL_' as prefix automatically.",
+          "readOnly": true
+        },
+        "text": {
+          "type": "string",
+          "description": "Label of the column which is displayed in the column header.",
+          "default": "",
+          "readOnly": false
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "The tooltip that should be shown for this Element.",
+          "default": "",
+          "readOnly": false
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Width of the column in CSS units.",
+          "default": "",
+          "readOnly": false
+        },
+        "minWidth": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "Defines the minimum width of a column in pixels.",
+          "default": 0,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Determine whether the control is visible.",
+          "default": true,
+          "readOnly": false
+        },
+        "useDefaultSort": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "If set to false, developer need to implement the sorting logic in grid sort event.",
+          "default": true,
+          "readOnly": false
+        },
+        "sortProperty": {
+          "type": "string",
+          "description": "Specifies the binding property on which the column will sort. Since the column template may have composite bindings, it's not possible to figure out on which binding property the sort shall be applied. Therefore the binding property for sorting must be specified. For example, if the first name and last name are displayed in the same column, only one of the two can be defined as sortProperty.",
+          "default": "",
+          "readOnly": false
+        },
+        "filtered": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Indicates if the column is filtered.",
+          "default": "",
+          "readOnly": true
+        },
+        "filterProperty": {
+          "type": "string",
+          "description": "Specifies the binding property on which the column shall be filtered.",
+          "default": "",
+          "readOnly": false
+        },
+        "hAlign": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.HorizontalAlign"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Horizontal alignment of the column content. Controls with a text align do not inherit the horizontal alignment. You have to set the text align directly on the template.",
+          "default": "Begin",
+          "readOnly": false
+        },
+        "template": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/b1.sdk.Button"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.CheckBox"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.Input"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.ComboBox"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.StaticText"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.MessageStrip"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.HBox"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.DatePicker"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.TimePicker"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.ObjectStatus"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.MenuButton"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.Image"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.TextArea"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.RadioButton"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.RadioButtonGroup"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.ObjectNumber"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.ProgressIndicator"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.SegmentedButton"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.ChooseFromList"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.MultiComboBox"
+            },
+            {
+              "$ref": "#/definitions/b1.sdk.MultiInput"
+            }
+          ]
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.Grid": {
+      "$id": "b1.sdk.Grid",
+      "type": "object",
+      "title": "UI Control: Grid",
+      "description": "Grid control provides a comprehensive set of features for displaying and dealing with vast amounts of data.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Grid control type.",
+          "const": "b1.sdk.Grid"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "title": {
+          "type": "string",
+          "description": "title of the grid",
+          "default": "",
+          "readOnly": false
+        },
+        "rowsData": {
+          "description": "the property for binding data",
+          "readOnly": true,
+          "anyOf": [
+            {
+              "type": "array",
+              "description": "the property for binding data",
+              "items": {
+                "type": "object",
+                "description": "A row object."
+              }
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression",
+              "description": "ui5 data binding expression including a customized data model distinct with \"@@\". For example, \"{@@demo>/rows}\"."
+            }
+          ]
+        },
+        "visibleRowCount": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "number of visible rows of the grid",
+          "default": 20,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether the control should be visible on the screen",
+          "default": true,
+          "readOnly": false
+        },
+        "selectionMode": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.SelectionMode"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "selection mode of the table",
+          "default": "Multiple",
+          "readOnly": false
+        },
+        "columnHeaderHeight": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "header row height in pixel",
+          "readOnly": false
+        },
+        "columnHeaderVisible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "flag whether the column header is visible or not",
+          "default": true,
+          "readOnly": false
+        },
+        "enableSelectAll": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "specifies if a select all button should be displayed in the top left corner. This button is only displayed if the row selector is visible and the selection mode is set to any kind of multi selection",
+          "default": true,
+          "readOnly": false
+        },
+        "firstVisibleRow": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "first visible row",
+          "default": 0,
+          "readOnly": false
+        },
+        "fixedColumnCount": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "",
+          "default": 0,
+          "readOnly": false
+        },
+        "rowHeight": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "row height in pixel",
+          "readOnly": false
+        },
+        "selectionBehavior": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.SelectionBehavior"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "selection behavior of the table. This property defines whether the row selector is displayed and whether the row, the row selector or both can be clicked to select a row",
+          "default": "RowSelector",
+          "readOnly": false
+        },
+        "showNoData": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "flag whether to show the no data overlay or not once the table is empty. If set to false the table will just show a grid of empty cells",
+          "default": true,
+          "readOnly": false
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "width of the Table",
+          "default": "100%",
+          "readOnly": false
+        },
+        "noData": {
+          "type": "string",
+          "description": "the text in table in case of no data",
+          "readOnly": false
+        },
+        "busy": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether the control is currently in busy state",
+          "default": false,
+          "readOnly": false
+        },
+        "itemPressed": {
+          "description": "Fired when the cell of row is pressed",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "rowSelectionChange": {
+          "description": "Fired when the row selection of the gird has been changed.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "firstVisibleRowChanged": {
+          "description": "Fired when the first visible row is changed.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "filter": {
+          "description": "Fired when the grid is filtered.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "sort": {
+          "description": "Fired when the grid is sorted.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "paste": {
+          "description": "Fired when the user pastes content from the clipboard to the table.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "actionBar": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/b1.sdk.Button"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.CheckBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.StaticText"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Input"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ComboBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.HBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MenuButton"
+              }
+            ]
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/b1.sdk.Column"
+          }
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType",
+        "rowsData"
+      ]
+    },
+    "b1.sdk.HBox": {
+      "$id": "b1.sdk.HBox",
+      "type": "object",
+      "title": "UI Control: HBox",
+      "description": "The HBox control builds the container for a horizontal flexible box layout.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.HBox control type.",
+          "const": "b1.sdk.HBox"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Whether display a red asterisk before label text",
+          "default": false,
+          "readOnly": false
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "The width of the flexible box",
+          "default": "",
+          "readOnly": false
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.FlexDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Determines the direction of the layout of child elements",
+          "default": "Row",
+          "readOnly": false
+        },
+        "justifyContent": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.FlexJustifyContent"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Determines the layout behavior along the main axis",
+          "default": "Start",
+          "readOnly": false
+        },
+        "alignItems": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.FlexAlignItems"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Determines the layout behavior of items along the cross-axis",
+          "default": "Stretch",
+          "readOnly": false
+        },
+        "items": {
+          "type": "array",
+          "description": "Flex items within the flexible box layout",
+          "default": [],
+          "readOnly": false,
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/b1.sdk.Button"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.CheckBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.StaticText"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Input"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ComboBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Grid"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MessageStrip"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.DatePicker"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.TimePicker"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ObjectStatus"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MenuButton"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Image"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.TextArea"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.RadioButton"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.RadioButtonGroup"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ObjectNumber"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.FileUploader"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ChooseFromList"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MultiComboBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MultiInput"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.MessageStrip": {
+      "$id": "b1.sdk.MessageStrip",
+      "type": "object",
+      "title": "UI Control: MessageStrip",
+      "description": "MessageStrip control enables the embedding of application-related messages in the application",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.MessageStrip control type.",
+          "const": "b1.sdk.MessageStrip"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "customIcon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "Represent an RFC3986 conformant URI starting with 'sap-icon://'"
+        },
+        "showCloseButton": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine if the message has a close button in the upper right corner",
+          "default": false,
+          "readOnly": false
+        },
+        "showIcon": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine if an icon is displayed for the message",
+          "default": false,
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "determines the text of the message",
+          "default": "",
+          "readOnly": false
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.MessageType"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "determine the type of message",
+          "default": "Information",
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": false,
+          "readOnly": false
+        },
+        "close": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when the user clicks the close button."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.DatePicker": {
+      "$id": "b1.sdk.DatePicker",
+      "type": "object",
+      "title": "UI Control: DatePicker",
+      "description": "DatePicker control lets the users select a localized date using touch, mouse, or keyboard input",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.DatePicker control type.",
+          "const": "b1.sdk.DatePicker"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "value": {
+          "type": "string",
+          "default": "",
+          "description": "the value of the control"
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "whether display a red asterisk before label text"
+        },
+        "displayFormat": {
+          "type": "string",
+          "description": "determines the format, displayed in the input field, by default the medium format of the used locale is used",
+          "readOnly": false
+        },
+        "displayFormatType": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.CalendarType"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            },
+            {
+              "type": "string",
+              "maxLength": 0
+            }
+          ]
+        },
+        "valueFormat": {
+          "type": "string",
+          "description": "determines the format of the value property",
+          "default": "yyyyMMdd",
+          "readOnly": true
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "defines a short hint intended to aid the user with data entry when the control has no value, if no placeholder is set, the used displayFormat is displayed as a placeholder",
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines whether the control is editable",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": false,
+          "readOnly": false
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "valueStateText": {
+          "type": "string",
+          "default": "",
+          "description": "An additional text show around for valueState"
+        },
+        "textAlign": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextAlign"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Begin"
+        },
+        "maxDate": {
+          "type": "string",
+          "description": "maximum date that can be shown and selected in the DatePicker",
+          "default": "",
+          "readOnly": false
+        },
+        "minDate": {
+          "type": "string",
+          "description": "minimum date that can be shown and selected in the DatePicker",
+          "default": "",
+          "readOnly": false
+        },
+        "showCurrentDateButton": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether there is a shortcut navigation to Today",
+          "default": false,
+          "readOnly": false
+        },
+        "showFooter": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "hides or shows the popover's footer",
+          "default": false,
+          "readOnly": false
+        },
+        "change": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when value changed."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.TimePicker": {
+      "$id": "b1.sdk.TimePicker",
+      "type": "object",
+      "title": "UI Control: TimePicker",
+      "description": "TimePicker control enables the users to fill time related input fields using touch, mouse, or keyboard input",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.TimePicker control type.",
+          "const": "b1.sdk.TimePicker"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "value": {
+          "type": "string",
+          "default": "",
+          "description": "the value of the control"
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "whether display a red asterisk before label text"
+        },
+        "displayFormat": {
+          "type": "string",
+          "description": "determines the format, displayed in the input field",
+          "default": "HH:mm",
+          "readOnly": false
+        },
+        "valueFormat": {
+          "type": "string",
+          "description": "determines the format of the value property",
+          "default": "HHmm",
+          "readOnly": true
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "defines a short hint intended to aid the user with data entry when the control has no value",
+          "default": "",
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines whether the control is editable",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": false,
+          "readOnly": false
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "valueStateText": {
+          "type": "string",
+          "default": "",
+          "description": "An additional text show around for valueState"
+        },
+        "textAlign": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextAlign"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Begin"
+        },
+        "showCurrentTimeButton": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether there is a shortcut navigation to current time",
+          "default": false,
+          "readOnly": false
+        },
+        "change": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when value changed."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.ObjectStatus": {
+      "$id": "b1.sdk.ObjectStatus",
+      "type": "object",
+      "title": "UI Control: ObjectStatus",
+      "description": "ObjectStatus control displays status information that can be either text with a value state, or an icon.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.ObjectStatus control type.",
+          "const": "b1.sdk.ObjectStatus"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "defines the ObjectStatus text",
+          "default": "",
+          "readOnly": false
+        },
+        "active": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "indicates if the ObjectStatus text and icon can be clicked/tapped by the user",
+          "default": true,
+          "readOnly": true
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "Tooltip text when user hover on this control."
+        },
+        "state": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.IndicationColor"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "icon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "Represent an RFC3986 conformant URI."
+        },
+        "emptyIndicatorMode": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.EmptyIndicatorMode"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Off",
+          "readOnly": false
+        },
+        "inverted": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines whether the background color reflects the set state instead of the control's text",
+          "default": false,
+          "readOnly": false
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Inherit"
+        },
+        "press": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when the user clicks or taps on the control."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.MenuItem": {
+      "$id": "b1.sdk.MenuItem",
+      "type": "object",
+      "title": "UI Control Aggregate: MenuItem",
+      "description": "A MenuItem is a control to create items for the MenuButton.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.MenuItem control type.",
+          "const": "b1.sdk.MenuItem"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "key": {
+          "type": "string",
+          "description": "Can be used as input for subsequent actions.",
+          "default": "",
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "The text to be displayed for the item.",
+          "default": "",
+          "readOnly": false
+        },
+        "icon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "Represent an RFC3986 conformant URI."
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is enabled",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "startsSection": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Defines whether a visual separator should be rendered before the item.",
+          "default": false,
+          "readOnly": false
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Inherit",
+          "description": "Available options for the text direction."
+        },
+        "press": {
+          "description": "Fired after the item has been pressed.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.MenuButton": {
+      "$id": "b1.sdk.MenuButton",
+      "type": "object",
+      "title": "UI Control: MenuButton",
+      "description": "MenuButton control enables the user to show a hierarchical menu.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.MenuButton control type.",
+          "const": "b1.sdk.MenuButton"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "text": {
+          "type": "string",
+          "description": "Defines the text of the MenuButton",
+          "default": "",
+          "readOnly": false
+        },
+        "icon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "Represent an RFC3986 conformant URI."
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is enabled",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ButtonType"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Defines the type of the MenuButton",
+          "default": "Transparent"
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "Tooltip text when user hover on this control."
+        },
+        "buttonMode": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.MenuButtonMode"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Defines whether the MenuButton is set to Regular or Split mode.",
+          "default": "Regular",
+          "readOnly": false
+        },
+        "useDefaultActionOnly": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Controls whether the default action handler is invoked always or it is invoked only until a menu item is selected. Usable only if buttonMode is set to Split.",
+          "default": false,
+          "readOnly": false
+        },
+        "menuPosition": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.PopupDock"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Specifies the position of the popup menu with enumerated options.",
+          "default": "BeginBottom",
+          "readOnly": false
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Specifies the element's text directionality with enumerated options.",
+          "default": "Inherit",
+          "readOnly": false
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Width of the MenuButton in CSS units.",
+          "default": "",
+          "readOnly": false
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/b1.sdk.MenuItem"
+          },
+          "description": "Defines the menu that opens for this button.",
+          "default": [],
+          "readOnly": false
+        },
+        "itemSelected": {
+          "description": "Fired when the menu item is selected.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "loadItems": {
+          "description": "Fired when menu item is clicked and the data used to display items is not already loaded.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "defaultAction": {
+          "description": "Fired when the buttonMode is set to Split and the user presses the main button unless useDefaultActionOnly is set to false and another action from the menu has been selected previously.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.Image": {
+      "$id": "b1.sdk.Image",
+      "type": "object",
+      "title": "UI Control: Image",
+      "description": "Image control displays image loaded from a remote or local server.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Image control type.",
+          "const": "b1.sdk.Image"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "tooltip text when user hover on this control",
+          "readOnly": false
+        },
+        "src": {
+          "type": "string",
+          "default": "",
+          "description": "relative or absolute path to URL where the image file is stored",
+          "readOnly": false
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "width in CSS units",
+          "default": "",
+          "readOnly": false
+        },
+        "height": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "height in CSS units",
+          "default": "",
+          "readOnly": false
+        },
+        "alt": {
+          "type": "string",
+          "description": "the alternative text that is displayed in case the image is not available, or cannot be displayed",
+          "default": "",
+          "readOnly": false
+        },
+        "lazyLoading": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "enables lazy loading for images that are offscreen",
+          "default": false,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "imageContent": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/b1.sdk.LightBoxItem"
+          },
+          "description": "items displayed in the popup (see `b1.sdk.LightBoxItem`)."
+        },
+        "load": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when the image resource is loaded."
+        },
+        "press": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fired when the user clicks on the control."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.LightBoxItem": {
+      "$id": "b1.sdk.LightBoxItem",
+      "type": "object",
+      "title": "UI Control Aggregate: LightBoxItem",
+      "description": "LightBoxItem control represents an item which is displayed within a LightBox.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.LightBoxItem control type.",
+          "const": "b1.sdk.LightBoxItem"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "imageSrc": {
+          "type": "string",
+          "default": "",
+          "description": "source for the image",
+          "readOnly": false
+        },
+        "alt": {
+          "type": "string",
+          "description": "alt value for the image",
+          "default": "",
+          "readOnly": false
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "subtitle text for the image",
+          "default": "",
+          "readOnly": false
+        },
+        "title": {
+          "type": "string",
+          "description": "title text for the image",
+          "default": "",
+          "readOnly": false
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.TextArea": {
+      "$id": "b1.sdk.TextArea",
+      "type": "object",
+      "title": "UI Control: TextArea",
+      "description": "TextArea control is used to enter multiple lines of text.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.TextArea control type.",
+          "const": "b1.sdk.TextArea"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "tooltip text when user hover on this control",
+          "default": "",
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is editable",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "Whether display a red asterisk before label text"
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "LTR",
+          "description": "Defines the text directionality of the input field."
+        },
+        "rows": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "Defines the number of visible text lines for the control.",
+          "default": 4,
+          "readOnly": false
+        },
+        "cols": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "Defines the visible width of the control, in average character widths.",
+          "default": 1000,
+          "readOnly": false
+        },
+        "maxLength": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "Defines the maximum number of characters that the value can be.",
+          "default": 0,
+          "readOnly": false
+        },
+        "value": {
+          "type": "string",
+          "default": "",
+          "description": "Defines the value of the control."
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None",
+          "description": "Visualizes the validation state of the control."
+        },
+        "valueStateText": {
+          "type": "string",
+          "default": "",
+          "description": "Defines the text that appears in the value state message pop-up."
+        },
+        "growing": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Indicates the ability of the control to automatically grow and shrink dynamically with its content",
+          "default": false,
+          "readOnly": false
+        },
+        "growingMaxLines": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "Defines the maximum number of lines that the control can grow",
+          "default": 0,
+          "readOnly": false
+        },
+        "height": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Defines the height of the control in CSS units",
+          "default": "",
+          "readOnly": false
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Defines the width of the control in CSS units",
+          "default": "",
+          "readOnly": false
+        },
+        "showExceededText": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Determines whether the characters, exceeding the maximum allowed character count, are visible in the input field.",
+          "default": false,
+          "readOnly": false
+        },
+        "valueLiveUpdate": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Indicates when the value property gets updated with the user changes",
+          "default": false,
+          "readOnly": false
+        },
+        "wrapping": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.Wrapping"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None",
+          "description": "Indicates how the control wraps the text."
+        },
+        "change": {
+          "description": "Fired when value changed in the control.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.RadioButton": {
+      "$id": "b1.sdk.RadioButton",
+      "type": "object",
+      "title": "UI Control: RadioButton",
+      "description": "RadioButton is a control similar to a checkbox, but it allows you to choose only one of the predefined set of options. Multiple radio buttons have to belong to the same group (have the same value for groupName) in order to be mutually exclusive.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.RadioButton control type.",
+          "const": "b1.sdk.RadioButton"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "text": {
+          "type": "string",
+          "description": "Specifies the text displayed next to the radio button",
+          "default": "",
+          "readOnly": false
+        },
+        "selected": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Specifies the select state of the radio button",
+          "default": false,
+          "readOnly": false
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Specifies if the radio button is disabled",
+          "default": true,
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Specifies whether the user can select the radio button.",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Specifies whether the user can see the radio button",
+          "default": true,
+          "readOnly": false
+        },
+        "key": {
+          "type": "string",
+          "description": "Indicates a unique key for radio button",
+          "default": "",
+          "readOnly": false
+        },
+        "groupName": {
+          "type": "string",
+          "description": "Name of the radio button group the current radio button belongs to.",
+          "default": "",
+          "readOnly": false
+        },
+        "textAlign": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextAlign"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Begin"
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Inherit"
+        },
+        "useEntireWidth": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Indicates if the given width will be applied for the whole RadioButton or only it's label. By Default width is set only for the label",
+          "default": false,
+          "readOnly": false
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None",
+          "description": "Marker for the correctness of the current value e.g., Error, Success, etc."
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Width of the RadioButton or it's label depending on the useEntireWidth property. By Default width is set only for the label.",
+          "default": "",
+          "readOnly": false
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "tooltip text when user hover on this control",
+          "default": "",
+          "readOnly": false
+        },
+        "select": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Event is triggered when the user makes a change on the radio button (selecting or unselecting it)."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.RadioButtonGroup": {
+      "$id": "b1.sdk.RadioButtonGroup",
+      "type": "object",
+      "title": "UI Control: RadioButtonGroup",
+      "description": "radio button group used as a wrapper for a group of b1.sdk.RadioButton controls, which can be used as a single UI element. You can select only one of the grouped radio buttons at a time.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.RadioButtonGroup control type.",
+          "const": "b1.sdk.RadioButtonGroup"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Switches the enabled state of the control. All RadioButtons inside a disabled group are disabled.",
+          "default": true,
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Specifies whether the user can change the selected value of the RadioButtonGroup.",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "selectedIndex": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "Determines the index of the selected/checked RadioButton.",
+          "default": 0,
+          "readOnly": false
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Inherit"
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Specifies the width of the RadioButtonGroup.",
+          "default": "",
+          "readOnly": false
+        },
+        "columns": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "description": "Specifies the maximum number of radio buttons displayed in one line.",
+          "default": 1,
+          "readOnly": false
+        },
+        "select": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fires when selection is changed by user interaction."
+        },
+        "items": {
+          "anyOf": [
+            {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/definitions/b1.sdk.RadioButton"
+              }
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "Aggregation of items to be displayed (see `b1.sdk.RadioButton`)."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.ObjectNumber": {
+      "$id": "b1.sdk.ObjectNumber",
+      "type": "object",
+      "title": "UI Control: ObjectNumber",
+      "description": "The ObjectNumber control displays number and number unit properties for an object. The number can be displayed using semantic colors to provide additional meaning about the object to the user.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.ObjectNumber control type.",
+          "const": "b1.sdk.ObjectNumber"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "number": {
+          "type": "string",
+          "description": "Defines the number field",
+          "default": "",
+          "readOnly": false
+        },
+        "unit": {
+          "type": "string",
+          "description": "Defines the number units qualifier",
+          "default": "",
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "state": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None",
+          "description": "determines the object number's value state"
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Inherit",
+          "description": "available options for the number and unit text direction"
+        },
+        "textAlign": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextAlign"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Begin",
+          "description": "Sets the horizontal alignment of the number and unit"
+        },
+        "active": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Indicates if the ObjectNumber text and icon can be clicked/tapped by the user",
+          "default": false,
+          "readOnly": false
+        },
+        "inverted": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Determines whether the background color reflects the set state instead of the control's text",
+          "default": false,
+          "readOnly": false
+        },
+        "emptyIndicatorMode": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.EmptyIndicatorMode"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Off",
+          "description": "Specifies if an empty indicator should be displayed when there is no number.",
+          "readOnly": false
+        },
+        "emphasized": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Indicates if the object number should appear emphasized.",
+          "default": true,
+          "readOnly": false
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.ProgressIndicator": {
+      "$id": "b1.sdk.ProgressIndicator",
+      "type": "object",
+      "title": "UI Control: ProgressIndicator",
+      "description": "The ProgressIndicator control shows the progress of a process in a graphical way.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.ProgressIndicator control type.",
+          "const": "b1.sdk.ProgressIndicator"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "tooltip text when user hover on this control",
+          "default": "",
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "state": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None",
+          "description": "specifies the state of the bar"
+        },
+        "percentValue": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.number",
+          "description": "specifies the numerical value in percent for the length of the progress bar",
+          "default": 0,
+          "readOnly": false
+        },
+        "displayValue": {
+          "type": "string",
+          "description": "specifies the text value to be displayed in the bar",
+          "default": "",
+          "readOnly": false
+        },
+        "showValue": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "indicates whether the displayValue should be shown in the ProgressIndicator",
+          "default": true,
+          "readOnly": false
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is enabled",
+          "default": true,
+          "readOnly": false
+        },
+        "displayAnimation": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines whether a percentage change is displayed with animation",
+          "default": true,
+          "readOnly": false
+        },
+        "displayOnly": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines whether the control is in display-only state where the control has different visualization and cannot be focused",
+          "default": false,
+          "readOnly": false
+        },
+        "height": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "specifies the height of the control in CSS units",
+          "default": "",
+          "readOnly": false
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Inherit",
+          "description": "Specifies the element's text directionality with enumerated options"
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "specifies the width of the control in CSS units",
+          "default": "",
+          "readOnly": false
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.SegmentedButton": {
+      "$id": "b1.sdk.SegmentedButton",
+      "type": "object",
+      "title": "UI Control: SegmentedButton",
+      "description": "A horizontal control made of multiple buttons, which can display a title or an image.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.SegmentedButton control type.",
+          "const": "b1.sdk.SegmentedButton"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "whether display a red asterisk before label text"
+        },
+        "selectedKey": {
+          "type": "string",
+          "default": "",
+          "description": "key of the selected item"
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "determine whether the control is enabled"
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "determine whether the control is visible"
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "tooltip text when user hover on this control"
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "width in CSS units",
+          "default": "",
+          "readOnly": false
+        },
+        "items": {
+          "anyOf": [
+            {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/definitions/b1.sdk.SegmentedButtonItem"
+              }
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "Aggregation of items to be displayed (see `b1.sdk.SegmentedButtonItem`)."
+        },
+        "selectionChange": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fires when the user selects an item, which returns the item object."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.SegmentedButtonItem": {
+      "$id": "b1.sdk.SegmentedButtonItem",
+      "type": "object",
+      "title": "UI Control Aggregate: SegmentedButtonItem",
+      "description": "Used for creating buttons for the SegmentedButton.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.SegmentedButtonItem control type.",
+          "const": "b1.sdk.SegmentedButtonItem"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "key": {
+          "type": "string",
+          "description": "key of the item",
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "display text",
+          "default": "",
+          "readOnly": false
+        },
+        "icon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "Represent an RFC3986 conformant URI."
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "determine whether the control is enabled"
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "determine whether the control is visible"
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "width in CSS units",
+          "default": "",
+          "readOnly": false
+        },
+        "textDirection": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.TextDirection"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "Inherit"
+        },
+        "press": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event",
+          "description": "Fires when the user clicks on an individual button."
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.FormContainer": {
+      "$id": "b1.sdk.FormContainer",
+      "type": "object",
+      "title": "UI Control Aggregate: FormContainer",
+      "description": "A FormContainer represents a group inside a Form. The rendering of the FormContainer is done by the gridLayoutData assigned to the Form.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.FormContainer control type.",
+          "const": "b1.sdk.FormContainer"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the FormContainer.",
+          "default": true,
+          "readOnly": false
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/b1.sdk.Button"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.CheckBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Input"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ComboBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.StaticText"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MessageStrip"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.HBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.DatePicker"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.TimePicker"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ObjectStatus"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MenuButton"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.Image"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.TextArea"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.RadioButton"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.RadioButtonGroup"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ObjectNumber"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ProgressIndicator"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.SegmentedButton"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.FileUploader"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.ChooseFromList"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MultiComboBox"
+              },
+              {
+                "$ref": "#/definitions/b1.sdk.MultiInput"
+              }
+            ]
+          },
+          "description": "Items contained within this container.",
+          "default": [],
+          "readOnly": false
+        }
+      }
+    },
+    "b1.sdk.Form": {
+      "$id": "b1.sdk.Form",
+      "type": "object",
+      "title": "UI Control: Form",
+      "description": "A Form control arranges labels and fields (like input fields) into groups and rows.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Form control type.",
+          "const": "b1.sdk.Form"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the Form.",
+          "default": "",
+          "readOnly": false
+        },
+        "leftLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Determine whether labels inside the Form is left aligned.",
+          "default": true,
+          "readOnly": true
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "Determine whether the control is visible",
+          "default": true,
+          "readOnly": false
+        },
+        "gridLayoutData": {
+          "type": "object",
+          "description": "The form responsive grid layout data.",
+          "properties": {
+            "columnsM": {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+              "description": "Number of columns for medium size."
+            },
+            "columnsL": {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+              "description": "Number of columns for large size."
+            },
+            "columnsXL": {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+              "description": "Number of columns for extra large size."
+            },
+            "labelSpanXL": {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+              "description": "Default span for labels in extra large size."
+            },
+            "emptySpanL": {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+              "description": "Number of grid cells that are empty at the end of each line on large size."
+            },
+            "emptySpanXL": {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+              "description": "Number of grid cells that are empty at the end of each line on extra large size."
+            },
+            "labelSpanM": {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+              "description": "Default span for labels in medium size."
+            }
+          },
+          "readOnly": true
+        },
+        "formContainers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/b1.sdk.FormContainer"
+          },
+          "description": "Containers with the content of the form. A FormContainer represents a group inside the Form.",
+          "default": [],
+          "readOnly": false
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.FileUploader": {
+      "$id": "b1.sdk.FileUploader",
+      "type": "object",
+      "title": "UI Control: FileUploader",
+      "description": "FileUploader control allows users to upload files from their local file system.",
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.FileUploader control type.",
+          "const": "b1.sdk.FileUploader"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "description": "control introduction/title",
+          "default": "",
+          "readOnly": false
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "whether to hide label",
+          "default": false,
+          "readOnly": true
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "tooltip text when user hover on this control",
+          "default": "",
+          "readOnly": false
+        },
+        "additionalData": {
+          "type": "string",
+          "description": "additional data to be sent to the back end service",
+          "default": "",
+          "readOnly": false
+        },
+        "buttonOnly": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines if the FileUploader is rendered as Button only",
+          "default": false,
+          "readOnly": false
+        },
+        "buttonText": {
+          "type": "string",
+          "description": "defines the text shown for the button",
+          "default": "",
+          "readOnly": false
+        },
+        "icon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "icon to be displayed as graphical element within the button"
+        },
+        "directory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "allows users to upload all files from a given directory and its corresponding subdirectories",
+          "default": false,
+          "readOnly": false
+        },
+        "uploadUrl": {
+          "type": "string",
+          "description": "URL where the uploaded files should be sent to",
+          "default": "",
+          "readOnly": false
+        },
+        "name": {
+          "type": "string",
+          "description": "unique control name for identification on the server side after sending data to the server",
+          "default": "",
+          "readOnly": false
+        },
+        "value": {
+          "type": "string",
+          "description": "value of the path for file upload",
+          "default": "",
+          "readOnly": true
+        },
+        "width": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "width of the control in CSS units",
+          "default": "100%",
+          "readOnly": false
+        },
+        "style": {
+          "type": "string",
+          "description": "style of the button, values \"Transparent\", \"Accept\", \"Reject\", or \"Emphasized\" are allowed.",
+          "default": "",
+          "readOnly": false
+        },
+        "fileType": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "file types allowed for upload",
+          "default": [],
+          "readOnly": false
+        },
+        "uploadOnChange": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines if upload immediately starts after file selection",
+          "default": false,
+          "readOnly": false
+        },
+        "sendXHR": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines whether the request will be sent as XHR request instead of a form submit",
+          "default": false,
+          "readOnly": false
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines whether the control is enabled",
+          "default": true,
+          "readOnly": false
+        },
+        "multiple": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "allows multiple files to be chosen and uploaded from the same folder",
+          "default": false,
+          "readOnly": false
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "placeholder for the text field",
+          "default": "",
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is editable, it's visible when editable",
+          "default": true,
+          "readOnly": false
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "valueStateText": {
+          "type": "string",
+          "default": "",
+          "description": "An additional text show around for valueState"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.ChooseFromList": {
+      "$id": "b1.sdk.ChooseFromList",
+      "type": "object",
+      "title": "UI Control: ChooseFromList",
+      "description": "ChooseFromList control that allows users to select items from a table defined in B1. This is commonly used in scenarios where users need to associate records or values with a particular field in a form, such as selecting a business partner, item, or warehouse from a list.",
+      "additionalProperties": false,
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.ChooseFromList control type.",
+          "const": "b1.sdk.ChooseFromList"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is editable"
+        },
+        "multiSelection": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "Whether to allow select multiple items"
+        },
+        "showLinkButton": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "Whether to show link button"
+        },
+        "filter": {
+          "type": "string",
+          "default": "",
+          "description": "OData filter string to filter the table data"
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is visible"
+        },
+        "label": {
+          "type": "string",
+          "default": "",
+          "description": "Control introduction / title"
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "readOnly": true,
+          "description": "Whether to hide label"
+        },
+        "value": {
+          "type": "string",
+          "default": "",
+          "description": "The value of the control"
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "valueStateText": {
+          "type": "string",
+          "default": "",
+          "description": "An additional text show around for valueState"
+        },
+        "linkTo": {
+          "type": "string",
+          "description": "The table name associated with the current ChooseFromList."
+        },
+        "change": {
+          "description": "Fired when value changed in the input control.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType",
+        "linkTo"
+      ]
+    },
+    "b1.sdk.MultiComboBox": {
+      "$id": "b1.sdk.MultiComboBox",
+      "type": "object",
+      "title": "UI Control: MultiComboBox",
+      "description": "MultiComboBox control provides a list box with items and a text field allowing the user to either type a value directly into the control or choose from the list of existing items.",
+      "additionalProperties": false,
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.MultiComboBox control type.",
+          "const": "b1.sdk.MultiComboBox"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "default": "",
+          "description": "Control introduction / title"
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "readOnly": true,
+          "description": "Whether to hide label"
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "Tooltip text when user hover on this control."
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is visible"
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is enabled",
+          "default": true,
+          "readOnly": false
+        },
+        "selectedKeys": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "keys of the selected items",
+          "default": [],
+          "readOnly": false
+        },
+        "showSecondaryValues": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "indicates whether the text values of the additionalText property of a `b1.sdk.Item` are shown",
+          "default": false,
+          "readOnly": false
+        },
+        "showSelectAll": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determines if the select all checkbox is visible on top of suggestions",
+          "default": false,
+          "readOnly": false
+        },
+        "valueState": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "None"
+        },
+        "valueStateText": {
+          "type": "string",
+          "default": "",
+          "description": "An additional text show around for valueState"
+        },
+        "items": {
+          "anyOf": [
+            {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/definitions/b1.sdk.Item"
+              }
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "items contained within this control(see `b1.sdk.Item`)."
+        },
+        "selectionChange": {
+          "description": "Fired when selection of an item is changed.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "selectionFinish": {
+          "description": "Fired when user has finished a selection of items in a list box and list box has been closed.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "loadItems": {
+          "description": "Fired when the end user clicks the control button to open the dropdown list and the data used to display items is not already loaded.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.MultiInput": {
+      "$id": "b1.sdk.MultiInput",
+      "type": "object",
+      "title": "UI Control: MultiInput",
+      "description": "MultiInput control allows the user to enter multiple values, which are displayed as tokens.",
+      "additionalProperties": false,
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.MultiInput control type.",
+          "const": "b1.sdk.MultiInput"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "label": {
+          "type": "string",
+          "default": "",
+          "description": "Control introduction / title"
+        },
+        "hideLabel": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "readOnly": true,
+          "description": "Whether to hide label"
+        },
+        "tooltip": {
+          "type": "string",
+          "default": "",
+          "description": "Tooltip text when user hover on this control."
+        },
+        "visible": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determine whether the control is visible"
+        },
+        "enabled": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is enabled",
+          "default": true,
+          "readOnly": false
+        },
+        "editable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "description": "determine whether the control is editable",
+          "default": true,
+          "readOnly": false
+        },
+        "mandatory": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "Whether display a red asterisk before label text"
+        },
+        "maxTokens": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.integer",
+          "default": 10,
+          "description": "the max number of tokens that is allowed in control",
+          "readOnly": false
+        },
+        "showValueHelp": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "a value help indicator will be displayed inside the control"
+        },
+        "showSuggestion": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "suggest event is fired when user types in the control"
+        },
+        "enableTextToken": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": false,
+          "description": "determine whether the text value is converted into a token"
+        },
+        "suggestionItems": {
+          "anyOf": [
+            {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/definitions/b1.sdk.Item"
+              }
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "Items displayed in the suggestion popup(see `b1.sdk.Item`)."
+        },
+        "tokens": {
+          "anyOf": [
+            {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/definitions/b1.sdk.Token"
+              }
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "currently displayed tokens(see `b1.sdk.Token`)."
+        },
+        "change": {
+          "description": "Fired when the text in the control field has changed and the focus leaves the control field or the enter key is pressed.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "valueHelpRequest": {
+          "description": "Fired When the value help indicator is clicked.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "tokenUpdate": {
+          "description": "Fired when the tokens aggregation changed due to a user interaction (add / remove token).",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        },
+        "suggest": {
+          "description": "Fired when user types in the input and showSuggestion is set to true.",
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.Event"
+        }
+      },
+      "required": [
+        "guid",
+        "ctrlType"
+      ]
+    },
+    "b1.sdk.Token": {
+      "$id": "b1.sdk.Token",
+      "type": "object",
+      "title": "UI Control Aggregate: Token",
+      "description": "Tokens are small items of information (similar to tags) that mainly serve to visualize previously selected items.",
+      "additionalProperties": false,
+      "properties": {
+        "ctrlType": {
+          "type": "string",
+          "description": "The b1.sdk.Token control type.",
+          "const": "b1.sdk.Token"
+        },
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "key": {
+          "type": "string",
+          "description": "key of the token",
+          "default": "",
+          "readOnly": false
+        },
+        "text": {
+          "type": "string",
+          "description": "displayed text of the token",
+          "default": "",
+          "readOnly": false
+        }
+      },
+      "required": [
+        "key"
+      ]
+    }
+  }
+}

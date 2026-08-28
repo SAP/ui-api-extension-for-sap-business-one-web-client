@@ -1,0 +1,640 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "common.schema.json",
+  "title": "SAP Business One Web Client UI API Common Schema",
+  "description": "A base schema to define common parts(e.g. types, enums, event) for Web Client UI API. It is referenced by all other schemas.",
+  "type": "object",
+  "definitions": {
+    "b1.sdk.core.GUID": {
+      "$id": "b1.sdk.core.GUID",
+      "title": "Control ID",
+      "type": "string",
+      "description": "Control ID represented by a typical short uuid v4 (e.g. mApT49EtHH3qtUFeH3GGS3) or other stable unique ID.",
+      "minLength": 12,
+      "maxLength": 36,
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$|^[0-9A-Za-z]{22}$|^UDF_.{8,32}$"
+    },
+    "b1.sdk.core.ui5Expression": {
+      "$id": "b1.sdk.core.ui5Expression",
+      "type": "string",
+      "pattern": "^\\{.*?\\}$"
+    },
+    "b1.sdk.core.cssSize": {
+      "$id": "b1.sdk.core.cssSize",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(auto|\\d+(\\.\\d+)?(em|ex|rem|vw|vh|vmin|vmax|cm|mm|in|pc|pt|px|%))$"
+        },
+        {
+          "type": "string",
+          "maxLength": 0
+        },
+        {
+          "$ref": "#/definitions/b1.sdk.core.ui5Expression"
+        }
+      ]
+    },
+    "b1.sdk.core.boolean": {
+      "$id": "b1.sdk.core.boolean",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/b1.sdk.core.ui5Expression"
+        }
+      ]
+    },
+    "b1.sdk.core.number": {
+      "$id": "b1.sdk.core.number",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/definitions/b1.sdk.core.ui5Expression"
+        }
+      ]
+    },
+    "b1.sdk.core.integer": {
+      "$id": "b1.sdk.core.integer",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "$ref": "#/definitions/b1.sdk.core.ui5Expression"
+        }
+      ]
+    },
+    "b1.sdk.core.Event": {
+      "$id": "b1.sdk.core.Event",
+      "title": "Event",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "procName": {
+          "type": "string",
+          "description": "A function to handle the event."
+        },
+        "before": {
+          "type": "string",
+          "description": " A function to call before handling the event."
+        },
+        "after": {
+          "type": "string",
+          "description": "A function to call after handling the event."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "before"
+          ]
+        },
+        {
+          "required": [
+            "procName"
+          ]
+        },
+        {
+          "required": [
+            "after"
+          ]
+        }
+      ]
+    },
+    "b1.sdk.ButtonType": {
+      "$id": "b1.sdk.ButtonType",
+      "title": "b1.sdk.ButtonType",
+      "type": "string",
+      "enum": [
+        "Accept",
+        "Back",
+        "Default",
+        "Emphasized",
+        "Ghost",
+        "Reject",
+        "Transparent",
+        "Unstyled",
+        "Up"
+      ],
+      "default": "Default",
+      "description": "Different predefined button types for the b1.sdk.Button.",
+      "markdownEnumDescriptions": [
+        "Accept type",
+        "Back type (back navigation button for header)",
+        "Default type (no special styling)",
+        "Emphasized type",
+        "Ghost type",
+        "Reject style",
+        "Transparent type",
+        "Unstyled type (no styling)",
+        "Up type (up navigation button for header)"
+      ]
+    },
+    "b1.sdk.ValueState": {
+      "$id": "b1.sdk.ValueState",
+      "title": "b1.sdk.ValueState",
+      "type": "string",
+      "enum": [
+        "Error",
+        "Information",
+        "Success",
+        "Warning",
+        "None"
+      ],
+      "description": "Marker for the correctness of the current value.",
+      "markdownEnumDescriptions": [
+        "State is not valid",
+        "State is informative",
+        "State is valid",
+        "State is valid but with a warning",
+        "State is not specified"
+      ]
+    },
+    "b1.sdk.InputType": {
+      "$id": "b1.sdk.InputType",
+      "title": "b1.sdk.InputType",
+      "type": "string",
+      "enum": [
+        "Measure",
+        "Percent",
+        "Price",
+        "Quantity",
+        "Rate",
+        "String",
+        "Sum",
+        "Tax",
+        "Unit",
+        "Integer",
+        "Hour"
+      ],
+      "description": "A subset of input types that fits to a specific input format.",
+      "markdownEnumDescriptions": [
+        "Support format like number1+unit1+number2+unit2, such as \"1.234Lb11.000Oz\"",
+        "There is a \"%\" behind the input area",
+        "Currency format",
+        "Float format, with rounding accuracy setting for quantity",
+        "Float format, with rounding accuracy setting for rate",
+        "Text format",
+        "Currency format",
+        "Currency format",
+        "Float format, with rounding accuracy setting for unit",
+        "Integer format, without Fractional part",
+        "Display \"Hr\" behind the input area"
+      ]
+    },
+    "b1.sdk.TextDirection": {
+      "$id": "b1.sdk.TextDirection",
+      "title": "b1.sdk.TextDirection",
+      "type": "string",
+      "enum": [
+        "Inherit",
+        "LTR",
+        "RTL"
+      ],
+      "description": "Configuration options for the direction of texts.",
+      "markdownEnumDescriptions": [
+        "Inherits the direction from its parent control/container",
+        "Left to right",
+        "Right to left"
+      ]
+    },
+    "b1.sdk.TextAlign": {
+      "$id": "b1.sdk.TextAlign",
+      "title": "b1.sdk.TextAlign",
+      "type": "string",
+      "enum": [
+        "Begin",
+        "End",
+        "Left",
+        "Right",
+        "Center",
+        "Initial"
+      ],
+      "description": "Configuration options for text alignments.",
+      "markdownEnumDescriptions": [
+        "Locale-specific positioning at the beginning of the line",
+        "Locale-specific positioning at the end of the line",
+        "Hard option for left alignment",
+        "Hard option for right alignment",
+        "Centered text alignment",
+        "Sets no text align, so the browser default is used"
+      ]
+    },
+    "b1.sdk.WrappingType": {
+      "$id": "b1.sdk.WrappingType",
+      "title": "b1.sdk.WrappingType",
+      "type": "string",
+      "enum": [
+        "Hyphenated",
+        "Normal"
+      ],
+      "description": "Wrapping types for text controls.",
+      "markdownEnumDescriptions": [
+        "Hyphenation will be used to break words on syllables where possible.",
+        "Normal text wrapping will be used. Words won't break based on hyphenation."
+      ]
+    },
+    "b1.sdk.MessageBoxAction": {
+      "$id": "b1.sdk.MessageBoxAction",
+      "title": "b1.sdk.MessageBoxAction",
+      "type": "string",
+      "enum": [
+        "Cancel",
+        "Close",
+        "Delete",
+        "Ignore",
+        "No",
+        "Ok",
+        "Retry",
+        "Yes",
+        "Abort"
+      ],
+      "description": "Enumeration of supported actions in a MessageBox. Each action is represented as a button in the message box. ",
+      "markdownEnumDescriptions": [
+        "Adds a \"Cancel\" button to the message box",
+        "Adds a \"Close\" button to the message box",
+        "Adds a \"Delete\" button to the message box",
+        "Adds a \"Ignore\" button to the message box",
+        "Adds a \"No\" button to the message box",
+        "Adds a \"OK\" button to the message box",
+        "Adds a \"Retry\" button to the message box",
+        "Adds a \"Yes\" button to the message box",
+        "Adds a \"Abort\" button to the message box"
+      ]
+    },
+    "b1.sdk.MessageBoxType": {
+      "$id": "b1.sdk.MessageBoxType",
+      "title": "b1.sdk.MessageBoxType",
+      "type": "string",
+      "enum": [
+        "None",
+        "Error",
+        "Success",
+        "Warning",
+        "Information",
+        "Confirm"
+      ],
+      "description": "Enumeration of supported MessageBox types with different icons.",
+      "markdownEnumDescriptions": [
+        "Displays an error dialog with no icon",
+        "Displays an error dialog with an ERROR icon",
+        "Displays a success dialog with a SUCCESS icon",
+        "Displays a warning dialog with a WARNING icon",
+        "Displays a warning dialog with a INFORMATION icon",
+        "Displays a warning dialog with a CONFIRM icon"
+      ]
+    },
+    "b1.sdk.MessageType": {
+      "$id": "b1.sdk.MessageType",
+      "title": "b1.sdk.MessageType",
+      "type": "string",
+      "enum": [
+        "Error",
+        "Information",
+        "None",
+        "Success",
+        "Warning"
+      ],
+      "description": "Enumeration of supported types of messages.",
+      "markdownEnumDescriptions": [
+        "Message is an error",
+        "Message is an information",
+        "Message has no specific level",
+        "Message is a success message",
+        "Message is a warning"
+      ]
+    },
+    "b1.sdk.SelectionMode": {
+      "$id": "b1.sdk.SelectionMode",
+      "title": "b1.sdk.SelectionMode",
+      "type": "string",
+      "enum": [
+        "Multiple",
+        "Single",
+        "None"
+      ],
+      "description": "Selection mode of the table.",
+      "markdownEnumDescriptions": [
+        "Select multiple rows at a time (toggle behavior)",
+        "Select one row at a time",
+        "No rows can be selected"
+      ]
+    },
+    "b1.sdk.SelectionBehavior": {
+      "$id": "b1.sdk.SelectionBehavior",
+      "title": "b1.sdk.SelectionBehavior",
+      "type": "string",
+      "enum": [
+        "Row",
+        "RowOnly",
+        "RowSelector"
+      ],
+      "description": "Selection behavior of the table.",
+      "markdownEnumDescriptions": [
+        "Rows can be selected on the complete row.",
+        "Rows can only be selected on the row (and the selector is hidden).",
+        "Rows can only be selected on the row selector."
+      ]
+    },
+    "b1.sdk.ModelFilterOperator": {
+      "$id": "b1.sdk.ModelFilterOperator",
+      "title": "b1.sdk.ModelFilterOperator",
+      "type": "string",
+      "enum": [
+        "BT",
+        "Contains",
+        "EQ",
+        "EndsWith",
+        "GE",
+        "GT",
+        "LE",
+        "LT",
+        "NB",
+        "NE",
+        "NotContains",
+        "NotEndsWith",
+        "NotStartsWith",
+        "StartsWith"
+      ],
+      "description": "Operators for the Filter.",
+      "markdownEnumDescriptions": [
+        "FilterOperator between",
+        "FilterOperator contains",
+        "FilterOperator equals",
+        "FilterOperator ends with",
+        "FilterOperator greater or equals",
+        "FilterOperator greater than",
+        "FilterOperator less or equals",
+        "FilterOperator less than",
+        "FilterOperator Not Between",
+        "FilterOperator not equals",
+        "FilterOperator not contains",
+        "FilterOperator not ends with",
+        "FilterOperator not starts with",
+        "FilterOperator starts with"
+      ]
+    },
+    "b1.sdk.HorizontalAlign": {
+      "$id": "b1.sdk.HorizontalAlign",
+      "title": "b1.sdk.HorizontalAlign",
+      "type": "string",
+      "enum": [
+        "Begin",
+        "Center",
+        "End",
+        "Left",
+        "Right"
+      ],
+      "description": "Configuration options for horizontal alignments of controls.",
+      "markdownEnumDescriptions": [
+        "Locale-specific positioning at the beginning of the line",
+        "Centered alignment of text",
+        "Locale-specific positioning at the end of the line",
+        "Hard option for left alignment",
+        "Hard option for right alignment"
+      ]
+    },
+    "b1.sdk.FlexAlignItems": {
+      "$id": "b1.sdk.FlexAlignItems",
+      "title": "b1.sdk.FlexAlignItems",
+      "type": "string",
+      "enum": [
+        "Baseline",
+        "Center",
+        "End",
+        "Inherit",
+        "Start",
+        "Stretch"
+      ],
+      "description": "Determines the behavior of items along the cross-axis.",
+      "markdownEnumDescriptions": [
+        "The flex item's margin edges are placed flush against the cross-start edge of the line",
+        "The flex item's margin boxes are centered in the cross-axis within the line",
+        "The flex item's margin edges are placed flush with the cross-end edge of the line",
+        "Inherits the value from its parent",
+        "The flex item's margin edges are placed flush with the cross-start edge of the line",
+        "The flex item's margin boxes are close to the same size as the line as possible"
+      ]
+    },
+    "b1.sdk.FlexDirection": {
+      "$id": "b1.sdk.FlexDirection",
+      "title": "b1.sdk.FlexDirection",
+      "type": "string",
+      "enum": [
+        "Column",
+        "ColumnReverse",
+        "Inherit",
+        "Row",
+        "RowReverse"
+      ],
+      "description": "Determines the direction of child elements.",
+      "markdownEnumDescriptions": [
+        "Flex items are laid out along the direction of the block axis (usually top to bottom)",
+        "Flex items are laid out along the reverse direction of the block axis (usually bottom to top)",
+        "Inherits the value from its parent",
+        "Flex items are laid out along the direction of the inline axis (text direction)",
+        "Flex items are laid out along the reverse direction of the inline axis (against the text direction)"
+      ]
+    },
+    "b1.sdk.FlexJustifyContent": {
+      "$id": "b1.sdk.FlexJustifyContent",
+      "title": "b1.sdk.FlexJustifyContent",
+      "type": "string",
+      "enum": [
+        "Center",
+        "End",
+        "Inherit",
+        "SpaceAround",
+        "SpaceBetween",
+        "Start"
+      ],
+      "description": "Determines the behavior along the main axis.",
+      "markdownEnumDescriptions": [
+        "Flex items are packed toward the center of the line",
+        "Flex items are packed toward the end of the line",
+        "Inherits the value from its parent",
+        "Flex items are evenly distributed in the line, with half-size spaces on either end",
+        "Flex items are evenly distributed in the line",
+        "Flex items are packed toward the start of the line"
+      ]
+    },
+    "b1.sdk.CalendarType": {
+      "$id": "b1.sdk.CalendarType",
+      "title": "b1.sdk.CalendarType",
+      "type": "string",
+      "enum": [
+        "Buddhist",
+        "Gregorian",
+        "Islamic",
+        "Japanese",
+        "Persian"
+      ],
+      "description": "The types of Calendar.",
+      "markdownEnumDescriptions": [
+        "The Thai buddhist calendar",
+        "The Gregorian calendar",
+        "The Islamic calendar",
+        "The Japanese emperor calendar",
+        "The Persian Jalali calendar"
+      ]
+    },
+    "b1.sdk.EmptyIndicatorMode": {
+      "$id": "b1.sdk.EmptyIndicatorMode",
+      "title": "b1.sdk.EmptyIndicatorMode",
+      "type": "string",
+      "enum": [
+        "Auto",
+        "Off",
+        "On"
+      ],
+      "description": "Modes in which a control will render empty indicator if its content is empty.",
+      "markdownEnumDescriptions": [
+        "Empty indicator will be rendered depending on the context in which the control is placed",
+        "Empty indicator is never rendered",
+        "Empty indicator is rendered always when the control's content is empty"
+      ]
+    },
+    "b1.sdk.MenuButtonMode": {
+      "$id": "b1.sdk.MenuButtonMode",
+      "title": "b1.sdk.MenuButtonMode",
+      "type": "string",
+      "enum": [
+        "Regular",
+        "Split"
+      ],
+      "description": "Different modes for a MenuButton.",
+      "markdownEnumDescriptions": [
+        "Default Regular type - MenuButton appears as a regular button, pressing it opens a menu",
+        "Split type - MenuButton appears as a split button separated into two areas"
+      ]
+    },
+    "b1.sdk.PopupDock": {
+      "$id": "b1.sdk.PopupDock",
+      "title": "b1.sdk.PopupDock",
+      "type": "string",
+      "enum": [
+        "BeginBottom",
+        "BeginCenter",
+        "BeginTop",
+        "CenterBottom",
+        "CenterCenter",
+        "CenterTop",
+        "EndBottom",
+        "EndCenter",
+        "EndTop",
+        "LeftBottom",
+        "LeftCenter",
+        "LeftTop",
+        "RightBottom",
+        "RightCenter",
+        "RightTop"
+      ],
+      "description": "Enumeration providing options for docking of some element to another.",
+      "markdownEnumDescriptions": [
+        "BeginBottom",
+        "BeginCenter",
+        "BeginTop",
+        "CenterBottom",
+        "CenterCenter",
+        "CenterTop",
+        "EndBottom",
+        "EndCenter",
+        "EndTop",
+        "LeftBottom",
+        "LeftCenter",
+        "LeftTop",
+        "RightBottom",
+        "RightCenter",
+        "RightTop"
+      ]
+    },
+    "b1.sdk.Wrapping": {
+      "$id": "b1.sdk.Wrapping",
+      "title": "b1.sdk.Wrapping",
+      "type": "string",
+      "enum": [
+        "Hard",
+        "None",
+        "Off",
+        "Soft"
+      ],
+      "description": "Configuration options for text wrapping.",
+      "markdownEnumDescriptions": [
+        "Inserts actual line breaks in the text at the wrap point.",
+        "The standard browser behavior is considered for wrapping.",
+        "Wrapping shall not be allowed.",
+        "The text is actually on the same line but displayed within several lines."
+      ]
+    },
+    "b1.sdk.PageMode": {
+      "$id": "b1.sdk.PageMode",
+      "title": "b1.sdk.PageMode",
+      "type": "string",
+      "enum": [
+        "addMode",
+        "editMode",
+        "viewMode"
+      ],
+      "description": "Page mode for current view",
+      "markdownEnumDescriptions": [
+        "Indicate the current view is in the state of creating a business object.",
+        "Indicate the current view is in the state of editing a business object.",
+        "Indicate the current view is in the state of viewing a business object."
+      ]
+    },
+    "b1.sdk.IndicationColor": {
+      "$id": "b1.sdk.IndicationColor",
+      "title": "b1.sdk.IndicationColor",
+      "type": "string",
+      "enum": [
+        "Indication01",
+        "Indication02",
+        "Indication03",
+        "Indication04",
+        "Indication05",
+        "Indication06",
+        "Indication07",
+        "Indication08",
+        "Indication09",
+        "Indication10",
+        "Indication11",
+        "Indication12",
+        "Indication13",
+        "Indication14",
+        "Indication15",
+        "Indication16",
+        "Indication17",
+        "Indication18",
+        "Indication19",
+        "Indication20"
+      ],
+      "description": "Colors to highlight certain UI elements.",
+      "markdownEnumDescriptions": [
+        "Indication Color 1",
+        "Indication Color 2",
+        "Indication Color 3",
+        "Indication Color 4",
+        "Indication Color 5",
+        "Indication Color 6",
+        "Indication Color 7",
+        "Indication Color 8",
+        "Indication Color 9",
+        "Indication Color 10",
+        "Indication Color 11",
+        "Indication Color 12",
+        "Indication Color 13",
+        "Indication Color 14",
+        "Indication Color 15",
+        "Indication Color 16",
+        "Indication Color 17",
+        "Indication Color 18",
+        "Indication Color 19",
+        "Indication Color 20"
+      ]
+    }
+  }
+}

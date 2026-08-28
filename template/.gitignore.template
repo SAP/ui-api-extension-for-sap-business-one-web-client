@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+Makefile*.mta
+mta-*
+resources
+archive.zip
+webapp/
+package-lock.json
+mta.yaml
+index.html
+app.json
+.vscode/
+mta_archives/
+*.js
+.vscode/chrome-dev-profile/

@@ -1,0 +1,13 @@
+{
+    "search.exclude": {
+        "out": true
+    },
+    "git.branchProtection": [
+        "main"
+    ],
+    "files.trimTrailingWhitespace": true,
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+
+    ]
+}

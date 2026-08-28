@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebClient UI API Development Server</title>
+    <style>
+        body {
+            font: 16px/1.5 sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 720px;
+        }
+        h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1.5rem;
+        }
+        .status {
+            margin: 0 0 0.75rem 0;
+            font-weight: 600;
+        }
+        .links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .links a {
+            text-decoration: none;
+            border-bottom: 1px solid currentColor;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebClient UI API Development Server</h1>
+        <p class="status">Status: Running</p>
+        <p>Development server is active. Reference links:</p>
+
+        <div class="links">
+            <a href="https://help.sap.com/docs/SAP_BUSINESS_ONE_WEB_CLIENT/e6ac71d18c7543828bd4463f77d67ff7/91136d4d359f427e973260dd401dec1e.html" target="_blank">WebClient UI API</a>
+            <a href="https://help.sap.com/docs/SAP_BUSINESS_ONE_WEB_CLIENT/e6ac71d18c7543828bd4463f77d67ff7/f4806a69fb6840c89824fea38116c271.html" target="_blank">WebClient Extensions</a>
+        </div>
+    </div>
+</body>
+</html>

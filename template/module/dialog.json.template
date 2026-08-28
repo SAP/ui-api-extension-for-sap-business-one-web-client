@@ -1,0 +1,85 @@
+{
+  "guid": "QCA767J8TyuShDZbBKPJJQ",
+  "type": "Complex",
+  "controller": "<%= namespace %>.controller.<%= controllerName %>",
+  "title": "<%= title %>",
+  "horizontalScrolling": true,
+  "verticalScrolling": true,
+  "icon": "sap-icon://accept",
+  "state": "None",
+  "contentWidth": "<%= width %>",
+  "contentHeight": "<%= height %>",
+  "draggable": <%= draggable %>,
+  "resizable": <%= resizable %>,
+  "showHeader": true,
+  "header": {
+    "groups": [
+      {
+        "guid": "w21VGqOcTYqRSQZq7PRsxg",
+        "ctrlType": "b1.sdk.Group",
+        "items": [
+          {
+            "guid": "pAFX5CoGSlusNe2PzXSItf",
+            "ctrlType": "b1.sdk.StaticText",
+            "text": "{@@i18n>sampleDialogText}"
+          },
+          {
+            "guid": "glAdKJNLSWKkltsCsLPlLg",
+            "ctrlType": "b1.sdk.Button",
+            "text": "Get Company Information",
+            "icon": "sap-icon://activate",
+            "buttonType": "Emphasized",
+            "press": {
+              "procName": "onGetCompanyInfo"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "tabs": [
+    {
+      "guid": "H9EAuF73ShWkl2UbIctrYQ",
+      "ctrlType": "b1.sdk.Section",
+      "text": "Company Information",
+      "subSections": [
+        {
+          "guid": "NbakKcJ9RyiWaSwmBuKr4g",
+          "ctrlType": "b1.sdk.SubSection",
+          "text": "Company Information",
+          "groups": [
+            {
+              "guid": "pMwOS9RQSQW0s0SCDk0XEg",
+              "ctrlType": "b1.sdk.Group",
+              "items": [
+                {
+                  "guid": "94c8jezmQYw7SM1hktlCeA",
+                  "ctrlType": "b1.sdk.StaticText",
+                  "label": "Company Name",
+                  "text": "{@@data>/companyName}"
+                },
+                {
+                  "guid": "aVBp9PPSTzTa3ZdI7tgBtg",
+                  "ctrlType": "b1.sdk.StaticText",
+                  "label": "Company Version",
+                  "text": "{@@data>/companyVersion}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "guid": "rK0V08FAQlmErncDwhoR2Q",
+      "ctrlType": "b1.sdk.Button",
+      "press": {
+        "procName": "onClose"
+      },
+      "text": "Close",
+      "buttonType": "Emphasized"
+    }
+  ]
+}

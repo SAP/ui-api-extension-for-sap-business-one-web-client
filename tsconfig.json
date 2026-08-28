@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"module": "Node16",
+		"target": "ES2022",
+		"lib": [
+			"ES2022"
+		],
+		"sourceMap": true,
+		"rootDir": "src",
+		"strict": true,
+		"outDir": "out",
+		"jsx": "react",
+		"jsxFactory": "vscpp",
+		"jsxFragmentFactory": "vscppf",
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedParameters": true,
+	},
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"test",
+		"dist-test"
+	]
+}

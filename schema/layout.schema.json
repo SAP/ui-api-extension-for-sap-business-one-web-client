@@ -1,0 +1,260 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "layout.schema.json",
+  "title": "SAP Business One Web Client UI API View Layout Schema",
+  "description": "A schema to define the Web Client UI API view layout. For example, the view layout file `SalesOrderDetailView.layout.json` follows this schema.",
+  "definitions": {
+    "b1.overlay.Direction": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "Insert new controls beside one existing control by specifying its guid.",
+        "properties": {
+          "guid": {
+            "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+            "description": "An existing control's guid."
+          },
+          "items": {
+            "type": "array",
+            "description": "A list of controls to add.",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.Button"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.CheckBox"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.Input"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.ComboBox"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.StaticText"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.Group"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.SubSection"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.Section"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.Grid"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.MessageStrip"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.HBox"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.DatePicker"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.TimePicker"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.ObjectStatus"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.MenuButton"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.Image"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.TextArea"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.RadioButton"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.RadioButtonGroup"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.ObjectNumber"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.ProgressIndicator"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.SegmentedButton"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.FileUploader"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.ChooseFromList"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.MultiComboBox"
+                },
+                {
+                  "$ref": "./controls.schema.json#/definitions/b1.sdk.MultiInput"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "guid",
+          "items"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "b1.overlay.On": {
+      "type": "array",
+      "description": "A list of existing controls to override by specifying the GUID.",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.Button"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.CheckBox"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.Input"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.ComboBox"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.StaticText"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.Section"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.Grid"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.MessageStrip"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.HBox"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.DatePicker"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.TimePicker"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.ObjectStatus"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.MenuButton"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.Image"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.TextArea"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.RadioButton"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.RadioButtonGroup"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.ObjectNumber"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.ProgressIndicator"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.SegmentedButton"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.FileUploader"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.ChooseFromList"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.MultiComboBox"
+          },
+          {
+            "$ref": "./controls.schema.json#/definitions/b1.sdk.MultiInput"
+          }
+        ]
+      }
+    },
+    "b1.overlay.Move": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+            "description": "An existing guid of a control."
+          },
+          "targetGroupGuid": {
+            "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+            "description": "The target group's guid."
+          }
+        }
+      }
+    },
+    "sbo.webClient.uiApi.layout": {
+      "type": "object",
+      "title": "SAP Business One Web Client UI API Layout Schema",
+      "description": "A schema to define the overlay layout, the exposed controls/properties/methods/events and the exposed types.",
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "description": "The resource identifier for the JSON schema to be used. The value of this keyword MUST be a URI [RFC3986] (containing a scheme) and this URI MUST be normalized. The current schema MUST be valid against the meta-schema identified by this URI. If this URI identifies a retrievable resource, that resource SHOULD be of media type \"application/schema+json\".",
+          "format": "uri",
+          "type": "string"
+        },
+        "version": {
+          "description": "Represents Application Descriptor format version. It is managed by schema owner.",
+          "type": "string",
+          "enum": [
+            "1.0.0"
+          ]
+        },
+        "controller": {
+          "type": "string",
+          "description": "The full path controller name, with provider name, app name, module name and controller name joined with dot, e.g. {appProvider}.{appName}.{moduleName}.controller.{controllerName}."
+        },
+        "overlay": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "An overlay mechanism to implement the UI customization on system built-in views, or UDO/UDT views.",
+          "properties": {
+            "before": {
+              "$ref": "#/definitions/b1.overlay.Direction",
+              "description": "Insert new controls before existing controls."
+            },
+            "after": {
+              "$ref": "#/definitions/b1.overlay.Direction",
+              "description": "Insert new controls after existing controls."
+            },
+            "on": {
+              "$ref": "#/definitions/b1.overlay.On",
+              "description": "Override or update existing controls."
+            },
+            "move": {
+              "$ref": "#/definitions/b1.overlay.Move",
+              "description": "Move some controls to a group of a section/subsection, e.g. move UDF from the system UDF section to customized section."
+            }
+          }
+        }
+      },
+      "required": [
+        "controller",
+        "overlay"
+      ]
+    }
+  },
+  "$ref": "#/definitions/sbo.webClient.uiApi.layout"
+}

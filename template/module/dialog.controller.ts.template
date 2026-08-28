@@ -1,0 +1,137 @@
+/**
+ * This dialog controller is used to handle the dialog events and interactions for the dialog defined in `dialog/<%= ID %>.dialog.json`.
+ */
+
+import { SDKEnv} from "sbo/ui/core/SDKEnv";
+import Event from "sbo/ui/base/Event";
+import { MessageBoxAction, MessageBoxType } from "sbo/m/MessageBox";
+import Controller from "sbo/ui/core/mvc/Controller";
+import { StringJoin } from "./utility";
+import MyData from "../model/models";
+
+export default class <%= controllerName %>Controller implements Controller {
+  /**
+   * Event handler when initializing the current dialog.
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the view init event
+   */
+  public async onInit(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    const param = await oEvent.getParameter("context");
+    console.log("dialog onInit: " + JSON.stringify(param));
+  }
+
+  /**
+   * Event handler when loading data to the current dialog. It is asynchronously triggered after onInit.
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the view dataLoad event
+   */
+  public async onDataLoad(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    console.log("onDataLoad invoked");
+    const oView = await oEnv.ActiveView();
+    const data = {
+      companyVersion: "",
+      companyName: "",
+    };
+    await oView.setCustomizedData(data, "data");
+  }
+
+  /**
+   * Event handler when exiting from the current dialog.
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the view exit event
+   */
+  public async onExit(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    console.log("onExit invoked");
+  }
+
+  /**
+   * Event handler on clicking the button to get company information.
+   * 
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the view exit event
+  */
+  async onClose(oEnv: SDKEnv, oEvent: Event): Promise<any> {
+    const oView = await oEnv.ActiveView();
+    const oWindow = await oView.getWindow();
+    const result = await oView.getCustomizedData("data");
+    // Return the dialog data to the parent view. If you do not want to return anything, call oWindow.close()
+    await oWindow.close(result);
+    console.log("return data from dialog to view: " + JSON.stringify(result));
+  }
+
+  /**
+   * Event handler on clicking the customized button.
+   * @param {SDKEnv} oEnv the current sdk environment
+   * @param {Event} oEvent the button click event
+   */
+  public async onGetCompanyInfo(oEnv: SDKEnv, oEvent: Event): Promise<void> {
+    const oView = await oEnv.ActiveView(); 
+    await oView.showBusy();
+    const service = await oEnv.getService();
+    const response = await service.ServiceLayer.get("CompanyService_GetCompanyInfo");
+
+    if (response.isSuccess()) {
+      const companyInfo = response.getData();
+      const messageArr = [
+        `Company Name: ${companyInfo.CompanyName}`,
+        `Version: ${companyInfo.Version}`,
+      ];
+
+      await oEnv.showMessageBox(
+        MessageBoxType.Information,
+        StringJoin(messageArr, "\n"),
+        {
+          title:  MyData.title,
+          initialFocus: MessageBoxAction.OK,
+          actions: [MessageBoxAction.OK],
+        }
+      );
+       // Set the data model to the view
+       const data = {
+        companyVersion: companyInfo.Version,
+        companyName: companyInfo.CompanyName,
+      };
+      await oView.setCustomizedData(data, "data");
+
+    } else {
+      await oEnv.showMessageBox(
+        MessageBoxType.Warning,
+        "Failed to get company information by Service Layer",{
+          title: MyData.title,
+          initialFocus: MessageBoxAction.OK,
+          actions: [MessageBoxAction.OK],
+        }
+      );
+    }
+    await oView.hideBusy();
+  }
+}
+
+/**
+ * Instructions on how to use this dialog:
+ * 1. define a method `openDialog` like the following code snippet in the view controller file.
+ * 2. call the method `openDialog` with the current sdk environment as the parameter.
+ */
+
+// async openDialog(oEnv: SDKEnv) {
+//   let dialog = null;
+//   try {
+//     // Create a dialog with an unique id.
+//     dialog = await oEnv.newDialog({
+//       id: "<%= ID %>.dialog",
+
+//     });
+//   } catch (error) {
+//     console.error("dialog id not found");
+//     return;
+//   }
+
+//   try {
+//     // Open the dialog with some initial parameter.
+//     const result = await dialog.open({ abc: "1234" });
+//     console.log(result);
+//   } catch (error) {
+//     console.error("dialog file not found");
+//   }
+//   await dialog.close();
+// }

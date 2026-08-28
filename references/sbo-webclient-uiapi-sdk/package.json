@@ -1,0 +1,22 @@
+{
+    "name": "sbo-webclient-uiapi-sdk",
+    "version": "1.0.0",
+    "description": "TypeScript definitions for SAP Business One Web Client UI API",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/sbo",
+    "license": "MIT",
+    "contributors": [],
+    "main": "",
+    "types": "./types/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/sbo"
+    },
+    "scripts": {
+        "doc":"typedoc ./types/*.d.ts"
+    },
+    "typeScriptVersion": "4.3",
+    "devDependencies": {
+        "typedoc": "^0.25.13"
+    }
+}

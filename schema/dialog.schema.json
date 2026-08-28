@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dialog.schema.json",
+  "title": "SAP Business One Web Client UI API Dialog Schema",
+  "description": "A schema to define the dialog file for Web Client UI API. For example, the dialog layout file `HelloWorld.dialog.json` follows this schema.",
+  "type": "object",
+  "definitions": {
+    "sbo.webClient.uiApi.dialog": {
+      "type": "object",
+      "title": "SAP Business One Web Client UI API Dialog Schema",
+      "description": "A schema to define the dialog, including the simple and complex dialogs.",
+      "additionalProperties": false,
+      "properties": {
+        "guid": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.GUID",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Simple",
+            "Complex"
+          ],
+          "description": "The dialog type, e.g. Simple."
+        },
+        "controller": {
+          "type": "string",
+          "description": "The full path controller name, with provider name, app name, module name and controller name joined with dot, e.g. {appProvider}.{appName}.{moduleName}.controller.{dialogControllerName}."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title text appears in the Dialog header."
+        },
+        "contentWidth": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Preferred width of the content in the Dialog."
+        },
+        "contentHeight": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.cssSize",
+          "description": "Preferred height of the content in the Dialog."
+        },
+        "draggable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Indicates whether the Dialog is draggable."
+        },
+        "resizable": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Indicates whether the Dialog is resizable."
+        },
+        "showHeader": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Determines whether the header is shown inside the Dialog."
+        },
+        "icon": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "default": "",
+          "description": "Icon displayed in the Dialog header."
+        },
+        "state": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.ValueState"
+            },
+            {
+              "$ref": "./common.schema.json#/definitions/b1.sdk.core.ui5Expression"
+            }
+          ],
+          "description": "Affects the icon and the title color. If a value other than None is set, a predefined icon will be added to the Dialog. Setting the icon property will overwrite the predefined icon.",
+          "default": "None"
+        },
+        "horizontalScrolling": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Indicates if the user can scroll horizontally inside the Dialog when the content is bigger than the content area."
+        },
+        "verticalScrolling": {
+          "$ref": "./common.schema.json#/definitions/b1.sdk.core.boolean",
+          "default": true,
+          "description": "Indicates if the user can scroll vertically inside the Dialog when the content is bigger than the content area."
+        },
+        "content": {
+          "type": "array",
+          "description": "The content inside the Dialog.",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "./controls.schema.json#/definitions/b1.sdk.Form"
+              }
+            ],
+            "description": "items contained within this dialog",
+            "default": [],
+            "readOnly": false
+          }
+        },
+        "tabs": {
+          "type": "array",
+          "description": "The content inside the Dialog.",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "./controls.schema.json#/definitions/b1.sdk.Section"
+              }
+            ],
+            "description": "sections contained within this dialog",
+            "default": [],
+            "readOnly": false
+          }
+        },
+        "footer": {
+          "type": "array",
+          "description": "The dialog footer, including button controls.",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "./controls.schema.json#/definitions/b1.sdk.Button"
+              },
+              {
+                "$ref": "./controls.schema.json#/definitions/b1.sdk.MenuButton"
+              }
+            ],
+            "description": "Buttons contained within the dialog footer",
+            "default": [],
+            "readOnly": false
+          }
+        },
+        "header": {
+          "type": "object",
+          "description": "The dialog header to define read-only controls (e.g. StaticText, ObjectNumber) and actions (e.g. Button).",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "./controls.schema.json#/definitions/b1.sdk.Group"
+                  }
+                ]
+              },
+              "description": "Groups contained within this dialog header",
+              "default": [],
+              "readOnly": false
+            }
+          }
+        }
+      },
+      "required": [
+        "guid",
+        "type",
+        "controller",
+        "footer"
+      ],
+      "oneOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Simple"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "content"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Complex"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "tabs"
+            ],
+            "optional": [
+              "header"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "$ref": "#/definitions/sbo.webClient.uiApi.dialog"
+}

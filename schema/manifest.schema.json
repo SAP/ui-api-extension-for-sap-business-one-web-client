@@ -1,0 +1,572 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "manifest.schema.json",
+  "$ref": "#/definitions/sbo.webClient.uiApi.manifest",
+  "title": "SAP Business One Web Client UI API Manifest Schema",
+  "description": "A schema to define the manifest file for Web Client UI API.",
+  "definitions": {
+    "sbo.webClient.uiApi.manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "description": "The resource identifier for the JSON schema to be used. The value of this keyword MUST be a URI [RFC3986] (containing a scheme) and this URI MUST be normalized. The current schema MUST be valid against the meta-schema identified by this URI. If this URI identifies a retrievable resource, that resource SHOULD be of media type \"application/schema+json\".",
+          "format": "uri",
+          "type": "string"
+        },
+        "version": {
+          "description": "Represents Application Descriptor format version. It is managed by schema owner",
+          "type": "string",
+          "enum": [
+            "1.0.0"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "Represent the full qualified module name, concatenated by provider name, app name and module name, delimited by a dot."
+        },
+        "description": {
+          "type": "string",
+          "description": "Briefly describe your module from the functionality perspective."
+        },
+        "b1.bundles": {
+          "type": "array",
+          "description": "Define the UI bundles for the current module",
+          "items": {
+            "$ref": "#/definitions/B1Bundle"
+          },
+          "uniqueItems": true
+        },
+        "allowedServiceLayerAPIs": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\*$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AllowedServiceLayerAPI"
+              },
+              "uniqueItems": true
+            }
+          ],
+          "defaultSnippets": [
+            {
+              "label": "Allow all APIs (Default)",
+              "body": "*"
+            },
+            {
+              "label": "Allow no APIs",
+              "body": []
+            },
+            {
+              "label": "Allow some APIs (Sample)",
+              "body": [
+                {
+                  "api": "BusinessPartners",
+                  "authorization": "full",
+                  "description": "full authorization on business partners"
+                },
+                {
+                  "api": "Items",
+                  "authorization": "readOnly",
+                  "description": "readOnly authorization on items"
+                },
+                {
+                  "api": "CompanyService_GetCompanyInfo",
+                  "authorization": "full",
+                  "description": "full authorization to get company info from company service"
+                }
+              ]
+            }
+          ],
+          "description": "Define the allowed Service Layer APIs in a list. All APIs are allowed if specifying its value as \"*\". No API is allowed if this list is empty [].",
+          "markdownDescription": "Define the allowed Service Layer APIs in a list. All APIs are allowed if specifying its value as `\"*\"`. No API is allowed if this list is empty `[]`.\nThe following example shows a typical usage to define an allowed list.\n```json\n\"allowedServiceLayerAPIs\": [\n    {\n      \"api\": \"BusinessPartners\",\n      \"authorization\": \"full\",\n      \"description\": \"full authorization on business partners\"\n    },\n    {\n      \"api\": \"CompanyService_GetCompanyInfo\",\n      \"authorization\": \"readOnly\",\n      \"description\": \"read-only authorization on company info from company service\"\n    }\n  ]\n```\n"
+        },
+        "allowedExternalURLs": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AllowedExternalURL"
+              }
+            },
+            {
+              "type": "string",
+              "pattern": "^\\*$"
+            }
+          ],
+          "defaultSnippets": [
+            {
+              "label": "Allow all URLs (Default)",
+              "body": "*"
+            },
+            {
+              "label": "Allow no URLs",
+              "body": []
+            },
+            {
+              "label": "Allow some URLs (Sample)",
+              "body": [
+                {
+                  "endpoint": "https://services.odata.org",
+                  "description": "public OData service"
+                },
+                {
+                  "endpoint": "http://api.weatherapi.com",
+                  "description": "free weather api"
+                }
+              ]
+            }
+          ],
+          "markdownDescription": "Define the allowed external URLs in a list. All URLs are allowed to access if specifying its value as \"*\". No URL is allowed if this list is empty [].",
+          "description": "Define the allowed external URLs in a list. All URLs are allowed to access if specifying its value as `\"*\"`. No URL is allowed if this list is empty `[]`.\nThe following example shows a typical usage to define an allowed list.\n```json\n\"allowedExternalURLs\": [\n    {\n      \"endpoint\": \"https://services.odata.org/V4/OData/OData.svc\",\n      \"description\": \"A public OData service in V4\"\n    },\n    {\n      \"endpoint\": \"http://api.weatherapi.com/v1\",\n      \"description\": \"A free weather api\"\n    }\n  ]\n```\n"
+        },
+        "mainBundle": {
+          "type": "string",
+          "description": "Specify the packaged JavaScript bundle file for production."
+        }
+      },
+      "required": [
+        "b1.bundles",
+        "name",
+        "allowedServiceLayerAPIs",
+        "allowedExternalURLs"
+      ],
+      "title": "sbo.webClient.uiApi.manifest"
+    },
+    "AllowedExternalURL": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "format": "uri",
+          "qt-uri-protocols": [
+            "http",
+            "https"
+          ],
+          "qt-uri-extensions": [
+            ".svc"
+          ],
+          "description": "A valid http/https URI scheme."
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpoint"
+      ],
+      "title": "AllowedExternalURL"
+    },
+    "AllowedServiceLayerAPI": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "api": {
+          "type": "string",
+          "description": "Specify the exposed Service Layer entity or function/action, such as Orders, Items, BusinessPartners, CompanyService_GetCompanyInfo, etc."
+        },
+        "authorization": {
+          "type": "string",
+          "enum": [
+            "full",
+            "readOnly",
+            "none"
+          ],
+          "default": "full",
+          "markdownDescription": "Select a valid authorization value from this value list `[\"full\", \"readOnly\", \"none\"]`.",
+          "description": "Select an authorization value from the valid value list [\"full\", \"readOnly\", \"none\"]."
+        },
+        "description": {
+          "type": "string",
+          "description": "Give a human-readable description for this API."
+        }
+      },
+      "required": [
+        "api"
+      ],
+      "title": "AllowedServiceLayerAPI"
+    },
+    "B1Bundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Specify an unique id for your overlay view."
+        },
+        "baseViewGuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Specify the id of the system built-in view on which your app is to extend.",
+          "defaultSnippets": [
+            {
+              "label": "Sales Quotations List",
+              "body": "3priuW5ZRPeCHdaXSBbT2a"
+            },
+            {
+              "label": "Sales Quotation Detail",
+              "body": "fyRUqq6CGc7ZSqfiQNJnXf"
+            },
+            {
+              "label": "Sales Orders List",
+              "body": "pKpVH1rrb6JUQmB1KjFvKo"
+            },
+            {
+              "label": "Sales Order Detail",
+              "body": "2Jx8aiyfYXojYjGBy5rr8X"
+            },
+            {
+              "label": "Deliveries List",
+              "body": "sgWawzBTVWaXkGX3Kp4tG7"
+            },
+            {
+              "label": "Delivery Detail",
+              "body": "i3HeGp7FLJZ8ufsKQDB9gL"
+            },
+            {
+              "label": "A/R Invoices List",
+              "body": "8Yuz91zU4PsycGhaSEMtvh"
+            },
+            {
+              "label": "A/R Invoice Detail",
+              "body": "9gkJZwrdZ9nJ6og6fCbgLE"
+            },
+            {
+              "label": "Sales Drafts List",
+              "body": "gTPe5SYuVytss1gYGWRsBM"
+            },
+            {
+              "label": "Docs in Approval Process List",
+              "body": "h1t47kVRWq4JLHjNE5qx3w"
+            },
+            {
+              "label": "Returns List",
+              "body": "fdHSbskDsykTFtXxZfNWDa"
+            },
+            {
+              "label": "Return Detail",
+              "body": "kYnxw18X29vkdUwjtNu6ee"
+            },
+            {
+              "label": "A/R Credit Memos List",
+              "body": "etqH3LnioPwNTf1BfWvNQ4"
+            },
+            {
+              "label": "A/R Credit Memo Detail",
+              "body": "3kRn3JMpmMbFvtVJWyKkPm"
+            },
+            {
+              "label": "Purchase Orders List",
+              "body": "qmt6v9trd8XWMAiJb9LDHL"
+            },
+            {
+              "label": "Purchase Order Detail",
+              "body": "hsKfCUPQBzfGbY2dULXMzT"
+            },
+            {
+              "label": "Purchase Quotations List",
+              "body": "vCx9G5jry15zLjWg2SgSPG"
+            },
+            {
+              "label": "Purchase Quotation Detail",
+              "body": "eTwFqCEn2YGMMtQkVnHLs5"
+            },
+            {
+              "label": "Goods Receipt POs List",
+              "body": "s8KoRKM3mEH9wHToghkMb1"
+            },
+            {
+              "label": "Goods Receipt PO Detail",
+              "body": "aVVLEve6ZfSoLUwxpquFaS"
+            },
+            {
+              "label": "A/P Invoices List",
+              "body": "nFfDsxKTbmkDrgVcf6MdHo"
+            },
+            {
+              "label": "A/P Invoice Detail",
+              "body": "xo3V7LHXsh1duNC4AiSESA"
+            },
+            {
+              "label": "A/P Reserve Invoices List",
+              "body": "fgGy7uLwvjSzFfBrWRzCuY"
+            },
+            {
+              "label": "A/P Reserve Invoice Detail",
+              "body": "oegNbD3i6Z1iKJqkT2imAM"
+            },
+            {
+              "label": "A/R Reserve Invoices List",
+              "body": "hhz2bV9KfdW2SCeZDect59"
+            },
+            {
+              "label": "A/R Reserve Invoice Detail",
+              "body": "svNPbXik4Qdes8qKyyBAk4"
+            },
+            {
+              "label": "Goods Returns List",
+              "body": "6CFgszWVr5u7JXRSSKkpei"
+            },
+            {
+              "label": "Goods Return Detail",
+              "body": "dL7tM3gzTSoJTRkGVkVNpr"
+            },
+            {
+              "label": "A/P Credit Memos List",
+              "body": "nYExpTtdgvfMHv8SynjWAs"
+            },
+            {
+              "label": "A/P Credit Memo Detail",
+              "body": "n38tudyJkPb7iFmcH3Px4s"
+            },
+            {
+              "label": "Goods Issues List",
+              "body": "822dP4v9VUhALEfsXr5Jxb"
+            },
+            {
+              "label": "Goods Issue Detail",
+              "body": "9bWaZyRKc65J9sX4bCkf8Q"
+            },
+            {
+              "label": "Approval Decisions List",
+              "body": "fyX5Mu6Gn5LES4rqpysMhL"
+            },
+            {
+              "label": "Outgoing Payments in Approval Process List",
+              "body": "andPigASEq72QgDqWpwwZE"
+            },
+            {
+              "label": "Return Requests List",
+              "body": "tR2LZMMvMbQDpFQixM6eXt"
+            },
+            {
+              "label": "Return Request Detail",
+              "body": "873DgJAjJsxsbcxDzPyJkU"
+            },
+            {
+              "label": "Goods Return Requests List",
+              "body": "mpUUt5VTKAtyQVKEHanyxn"
+            },
+            {
+              "label": "Goods Return Request Detail",
+              "body": "bT39GHR3UcFALK7MNPS5bn"
+            },
+            {
+              "label": "Purchase Requests List",
+              "body": "bg14SXLh3jtQXR2fb6bGf1"
+            },
+            {
+              "label": "Purchase Request Detail",
+              "body": "3rpieKdLXXV47brAZNBoRQ"
+            },
+            {
+              "label": "Inventory Counting Transactions List",
+              "body": "tkkodqDtJZaxGFSLohtqBG"
+            },
+            {
+              "label": "Inventory Counting Transaction Detail",
+              "body": "aMuF2qL3vLvYa8g7L9RfSh"
+            },
+            {
+              "label": "Service Contracts List",
+              "body": "5z22kL3whftwvgtnV1PeNF"
+            },
+            {
+              "label": "Service Contract Detail",
+              "body": "wrf2ZcpNhq8TMrC3vKgbsZ"
+            },
+            {
+              "label": "Goods Receipts List",
+              "body": "caZQgjJBBrwuP7aLaAS9gT"
+            },
+            {
+              "label": "Goods Receipt Detail",
+              "body": "d5EnaDRUExUoFm2xDczEpf"
+            },
+            {
+              "label": "Production Orders List",
+              "body": "8rkzbHNVBZvmu81YoLDXvJ"
+            },
+            {
+              "label": "Production Order Detail",
+              "body": "oUnCgTGTQTUp9iZohX4Msj"
+            },
+            {
+              "label": "Issues for Production List",
+              "body": "a31xZbfitwvGwDQ8sJ2NU7"
+            },
+            {
+              "label": "Issue for Production Detail",
+              "body": "rGquNwb2uKraHAqH1UgRTp"
+            },
+            {
+              "label": "Receipts from Production List",
+              "body": "a31xZbfitwvGwDQ8sJ2NU7"
+            },
+            {
+              "label": "Receipt from Production Detail",
+              "body": "sdmBg4NWG8zEYB843kxmCp"
+            },
+            {
+              "label": "Bills of Materials List",
+              "body": "2R6t6C9BFWDu5pdkYsZWhE"
+            },
+            {
+              "label": "Bill of Materials Detail",
+              "body": "vokuUPnVfswUqQkttWbCkn"
+            },
+            {
+              "label": "Journal Entries List",
+              "body": "9p96Q3bure6fZyitMWEYce"
+            },
+            {
+              "label": "Journal Entry Detail",
+              "body": "kovUqgE6ACk426R2ivwE6z"
+            },
+            {
+              "label": "Business Partners List",
+              "body": "qm82JkXipzvgT16TczA45D"
+            },
+            {
+              "label": "Business Partner Detail",
+              "body": "r8vmgQw0nUukEmmwrtSsmA"
+            },
+            {
+              "label": "Time Sheets List",
+              "body": "kNHUEJK36piNAW548WGFXV"
+            },
+            {
+              "label": "Time Sheet Detail",
+              "body": "iS7xxsW4mT3ZGTiNyUcMVK"
+            },
+            {
+              "label": "Activities List",
+              "body": "pGvaoePBbC7Z2Be2HiUmvx"
+            },
+            {
+              "label": "Activity Detail",
+              "body": "bnRX1wwRcaXJa5KNoKi1eC"
+            },
+            {
+              "label": "Outgoing Payments List",
+              "body": "sUa12T6UycXxFuipADK4U7"
+            },
+            {
+              "label": "Outgoing Payment Detail",
+              "body": "ds1L3wF81UMBR6g9Diom97"
+            },
+            {
+              "label": "Opportunities List",
+              "body": "mMyB8Q2nQAuRKqXcwvdLw2"
+            },
+            {
+              "label": "Opportunity Detail",
+              "body": "oBc2TrRM4gWH42UZY1MNsy"
+            },
+            {
+              "label": "Service Calls List",
+              "body": "viXSihAHrLp5RygkJX4gSo"
+            },
+            {
+              "label": "Items List",
+              "body": "hEz9gkBXjaLXKMDFt92wMF"
+            },
+            {
+              "label": "Item Master Data Detail",
+              "body": "w8xN9coCjonmoudGQ9d1zy"
+            },
+            {
+              "label": "Equipment Cards List",
+              "body": "sKk5nvoeorjP4dwkC7XJ3V"
+            },
+            {
+              "label": "Equipment Card Detail",
+              "body": "6oWqGASC2AyCvSnMgDnqob"
+            },
+            {
+              "label": "Incoming Payments List",
+              "body": "pKiEwka1jRUhNn2DxPnU36"
+            },
+            {
+              "label": "Incoming Payment Detail",
+              "body": "ds1L3wF81UMBR6g9Diom11"
+            },
+            {
+              "label": "Solutions Knowledge Base List",
+              "body": "7WfRoBipUA49ExPkyyHTb5"
+            },
+            {
+              "label": "Solutions Knowledge Base Detail",
+              "body": "e5EWefuDWrpkEcgjdfcgHa"
+            },
+            {
+              "label": "Inventory Transfer Request List",
+              "body": "f84sYnb4WMCJVbfW6DDjH2"
+            },
+            {
+              "label": "Inventory Transfer Request Detail",
+              "body": "x7BHWfzws623oDLywz8hJn"
+            },
+            {
+              "label": "Inventory Transfers List",
+              "body": "h5bJFrq4wmJ2WSQgX7foVh"
+            },
+            {
+              "label": "Inventory Transfer Detail",
+              "body": "x7BHWfzws623oDLywz8hJn"
+            },
+            {
+              "label": "Recurring Journal Entries List",
+              "body": "kZcVHykCxLXT2oZFZQATC3k"
+            },
+            {
+              "label": "Recurring Posting Detail",
+              "body": "9bAkZpRKd78J9sX4bClf8T"
+            },
+            {
+              "label": "Journal Voucher Entry Detail",
+              "body": "8kwk4TcZaQxY3Mai5QLPJ9"
+            }
+          ]
+        },
+        "layout": {
+          "type": "string",
+          "description": "Specify your overlay file name."
+        },
+        "description": {
+          "type": "string",
+          "description": "Give a human-readable description for your overlay file."
+        },
+        "view": {
+          "type": "string",
+          "description": "Specify your dialog overlay file name."
+        },
+        "i18n": {
+          "type": "object",
+          "description": "Specify your i18n files in an object, with a key as the i18n data model name and the value as the i18n files in a list."
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "baseViewGuid",
+            "layout"
+          ]
+        },
+        {
+          "required": [
+            "view"
+          ]
+        }
+      ],
+      "title": "B1Bundle"
+    }
+  }
+}
