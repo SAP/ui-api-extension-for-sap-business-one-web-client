@@ -23,7 +23,7 @@ interface ICommandChatResult extends vscode.ChatResult {
 
 export function registerChatParticipant(context: vscode.ExtensionContext) {
     const logger = getClassLogger(registerChatParticipant.name);
-    logger.info('Registering WebClient UIAPI copilot chat participant.');
+    logger.info('Registering WebClient UIAPI copilot as chat participant.');
     const handler: vscode.ChatRequestHandler = async (chatRequest: vscode.ChatRequest, chatContext: vscode.ChatContext, stream: vscode.ChatResponseStream, cancellationToken: vscode.CancellationToken) => {
         logger.debug(`Handling chat request. command=${chatRequest.command ?? '<none>'}, model=${chatRequest.model.id}`);
         if (chatRequest.command === 'list') {
@@ -34,7 +34,7 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
         // Use all tools, or tools with the tags that are relevant.
         const tools = chatRequest.command === 'all' ?
             vscode.lm.tools :
-            vscode.lm.tools.filter(tool => tool.tags.includes('UIAPICopilot') && tool.tags.includes('WebClient'));
+            vscode.lm.tools.filter(tool => tool.tags.includes('WebClientUIAPI'));
 
         const llm = chatRequest.model;
         const isClaudeModel =

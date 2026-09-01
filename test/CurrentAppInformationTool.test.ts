@@ -33,7 +33,7 @@ class MockLanguageModelToolResult {
 
 const mockVscode = {
   Uri: {
-    joinPath: (base: MockUri, ...parts: string[]) => ({ fsPath: path.join(base.fsPath, ...parts) })
+    joinPath: (base: MockUri, ...parts: string[]) => ({ fsPath: path.posix.join(base.fsPath, ...parts) })
   },
   workspace: {
     fs: {

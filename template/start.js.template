@@ -62,7 +62,7 @@ function getWorkspacePort() {
         }
         const settingsFileContent = fs.readFileSync(settingsFilePath, "utf-8");
         const settings = JSON.parse(settingsFileContent);
-        return settings["WebClientUIAPICopilot.devServer.port"];
+        return settings["WebClientUIAPI.devServer.port"];
     } catch (error) {
         return undefined;
     }
@@ -222,7 +222,7 @@ function startDevServer(appsContent) {
                 console.error(
                     color.red(
                         `Port ${port} is already in use. ` +
-                        `Stop the other dev server or change WebClientUIAPICopilot.devServer.port in .vscode/settings.json.`
+                        `Stop the other dev server or change WebClientUIAPI.devServer.port in .vscode/settings.json.`
                     )
                 );
             }

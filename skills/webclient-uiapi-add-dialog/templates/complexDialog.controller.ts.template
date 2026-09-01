@@ -1,5 +1,5 @@
 /**
- * This dialog controller is used to handle the dialog events and interactions for the dialog defined in `dialog/<%= ID %>.dialog.json`.
+ * This dialog controller is used to handle the dialog events and interactions for the dialog defined in `dialog/{{ID}}.dialog.json`.
  */
 
 import { SDKEnv} from "sbo/ui/core/SDKEnv";
@@ -32,7 +32,7 @@ type CurrentCompanyInfo = {
   companyVersion: string;
 };
 
-export default class <%= controllerName %> implements Controller {
+export default class {{controllerName}} implements Controller {
   /**
    * Event handler when initializing the current dialog.
    * @param {SDKEnv} oEnv the current sdk environment
@@ -185,11 +185,12 @@ export default class <%= controllerName %> implements Controller {
  */
 
 // async openDialog(oEnv: SDKEnv) {
-//   let dialog = null;
+//   let dialog: Dialog;
+
 //   try {
 //     // Create a dialog with an unique id.
 //     dialog = await oEnv.newDialog({
-//       id: "<%= ID %>",
+//       id: "{{ID}}.dialog",
 
 //     });
 //   } catch (error) {

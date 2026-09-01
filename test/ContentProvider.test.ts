@@ -83,8 +83,8 @@ const mockLoggerWrapper = {
 };
 
 const mockSettingItems = {
-  DEV_SERVER_PORT_PROP: 'WebClientUIAPICopilot.devServer.port',
-  WEB_CLIENT_URL_PROP: 'WebClientUIAPICopilot.webClient.url',
+  DEV_SERVER_PORT_PROP: 'WebClientUIAPI.devServer.port',
+  WEB_CLIENT_URL_PROP: 'WebClientUIAPI.webClient.url',
   getDebugServerPortSetting: () => debugServerPort,
   getWebClientUrlSetting: () => webClientUrl,
   getBrowserStartupFlagsSetting: () => browserStartupFlags

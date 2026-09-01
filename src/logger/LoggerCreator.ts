@@ -32,7 +32,7 @@ function createExtensionLogger(context: ExtensionContext): void {
       ? extensionPackageJson.name
       : context.extension.id;
 
-  const CHANNEL_NAME = "B1 Web Client UI API Copilot";
+  const CHANNEL_NAME = "SAP Business One Web Client UI API development extension";
   const extensionLoggerOpts: getExtensionLoggerOpts = {
     extName: extensionName,
     level: logLevelSetting,

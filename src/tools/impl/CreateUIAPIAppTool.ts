@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import { AppMeta, AppModuleMeta, AppViewMeta, ContentProvider } from "../../content/ContentProvider";
+import { AppMeta, ContentProvider } from "../../content/ContentProvider";
 import { ensureCurrentWorkspaceFolder, sanitizeIdentifier } from "../../utils/Utils";
-import { getViewsMeta, isNonEmptyString, MAX_CATEGORY_LENGTH, MAX_NAME_LENGTH } from "./ToolShared";
+import { isNonEmptyString, MAX_CATEGORY_LENGTH, MAX_NAME_LENGTH, resolveViews } from "./ToolShared";
 
 interface ICreateUIAPIAppParameter {
   appName: string;
@@ -98,46 +98,6 @@ function validateCreateAppInput(input: ICreateUIAPIAppParameter): string | undef
   return undefined;
 }
 
-async function resolveAppViews(
-  modules: ICreateUIAPIAppParameter["modules"]
-): Promise<{ modules?: AppModuleMeta[]; invalidBaseViews: string[] }> {
-  const viewList = await getViewsMeta();
-  const invalidBaseViews: string[] = [];
-  const resolvedModules: AppModuleMeta[] = [];
-
-  for (const module of modules) {
-    const resolvedViews: AppViewMeta[] = [];
-
-    for (const view of module.views) {
-      const matchedView = viewList.find((item) => item.name === view.baseViewName);
-      if (!matchedView) {
-        invalidBaseViews.push(view.baseViewName);
-        continue;
-      }
-
-      resolvedViews.push({
-        viewName: sanitizeIdentifier(view.viewName),
-        baseViewCategory: view.baseViewCategory ?? "System",
-        baseViewName: view.baseViewName,
-        baseViewUUID: matchedView.viewId,
-        table: matchedView.table,
-        sampleControlUuid: matchedView.sampleControlUuid,
-      });
-    }
-
-    resolvedModules.push({
-      moduleName: sanitizeIdentifier(module.moduleName),
-      views: resolvedViews,
-    });
-  }
-
-  if (invalidBaseViews.length) {
-    return { invalidBaseViews };
-  }
-
-  return { modules: resolvedModules, invalidBaseViews };
-}
-
 export class CreateUIAPIApp
   implements vscode.LanguageModelTool<ICreateUIAPIAppParameter> {
   async invoke(
@@ -152,13 +112,19 @@ export class CreateUIAPIApp
       ]);
     }
 
-    const resolved = await resolveAppViews(param.modules);
+    const allInvalidBaseViews: string[] = [];
+    const resolvedModules = [];
+    for (const module of param.modules) {
+      const { resolvedViews, invalidBaseViews } = await resolveViews(module.views);
+      allInvalidBaseViews.push(...invalidBaseViews);
+      resolvedModules.push({ moduleName: sanitizeIdentifier(module.moduleName), views: resolvedViews });
+    }
 
-    if (resolved.invalidBaseViews.length) {
+    if (allInvalidBaseViews.length) {
       await vscode.window.showWarningMessage("One or more view IDs were not found, retry...");
       return new vscode.LanguageModelToolResult([
         new vscode.LanguageModelTextPart(
-          `Invalid base view names: ${resolved.invalidBaseViews.map((viewName) => `'${viewName}'`).join(", ")}. Please retrieve the relevant UI API base views by tools and select the most relevant.`
+          `Invalid base view names: ${allInvalidBaseViews.map((v) => `'${v}'`).join(", ")}. Please retrieve the relevant UI API base views by tools and select the most relevant.`
         ),
       ]);
     }
@@ -166,13 +132,12 @@ export class CreateUIAPIApp
     const appName = sanitizeIdentifier(param.appName);
     const appProvider = sanitizeIdentifier(param.appProvider);
     const appVersion = param.appVersion || "1.0.0";
-    const modules = resolved.modules ?? [];
 
     const appMeta: AppMeta = {
       appName,
       appVersion,
       appProvider,
-      modules,
+      modules: resolvedModules,
     };
 
     const workspaceFolder = await ensureCurrentWorkspaceFolder();

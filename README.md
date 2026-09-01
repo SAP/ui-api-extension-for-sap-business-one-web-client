@@ -4,11 +4,11 @@
 
 ## About this project
 
-A VS Code extension on top of GitHub Copilot for SAP Business One Web client UI API development, specializing in assisting partners in building UI API extensions.
+A VS Code extension on top of GitHub Copilot for SAP Business One Web client UI API development, specializing in assisting partners in building UI API extensions. For a complete overview of the extension and its features, see the [detailed documentation](docs/README.md).
 
 ## Requirements and Setup
 
-*Insert a short description what is required to get your project running...*
+For prerequisites, dependencies, installation instructions, and development setup, see the [Requirements and Setup](docs/README.md#requirements) section in the detailed documentation.
 
 ## Support, Feedback, Contributing
 

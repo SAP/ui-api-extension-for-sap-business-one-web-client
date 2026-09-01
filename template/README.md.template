@@ -41,15 +41,10 @@ The References folder contains support material links used during development an
 - `mbt` and `make` are installed and available in PATH for packaging and deployment.
 
 
-## Install
-
-```bash
-npm install
-```
-
 ## Run In Development
 
 ```bash
+npm install
 npm start
 ```
 
@@ -63,16 +58,22 @@ Typical startup flow:
 6. Watches non-TS source assets and mirrors updates.
 7. Starts TypeScript watch mode.
 
+Equivalent command in the GitHub Copilot Chat:
+
+```
+@uiapi /webclient-uiapi-start
+```
+
 ## Launch Options In VS Code
 
 Launch profiles are defined in `.vscode/launch.json`.
 
 - Browser launch profile:
   - Type: chrome
-  - Use when debugging in an external browser window.
+  - Use when previewing in an external browser window.
 - Embedded launch profile:
   - Type: editor-browser
-  - Use when debugging inside VS Code.
+  - Use when previewing inside VS Code.
 
 Shared behavior:
 
@@ -81,8 +82,14 @@ Shared behavior:
 
 Required settings for launch:
 
-- `WebClientUIAPICopilot.webClient.url`
-- `WebClientUIAPICopilot.devServer.port`
+- `WebClientUIAPI.webClient.url`: the SAP Business One Web Client URL used when opening the preview browser.
+- `WebClientUIAPI.devServer.port`: the port the local dev server listens on (default: 8082).
+
+Equivalent command in the GitHub Copilot Chat:
+
+```
+@uiapi /webclient-uiapi-preview
+```
 
 ## Workspace Settings Reference
 
@@ -100,8 +107,11 @@ Settings are defined in `.vscode/settings.json`.
 npm run clean
 npm run pack
 ```
-
 Packaging uses `mbt` build with `mta.yaml` and outputs artifacts to `mta_archives`.
+
+```
+@uiapi /webclient-uiapi-package
+```
 
 ## Development Guidelines
 
@@ -127,4 +137,4 @@ Packaging uses `mbt` build with `mta.yaml` and outputs artifacts to `mta_archive
 ## Notes
 
 - This project is scaffolded by SAP Business One Web Client UI API tooling.
-- Generated skeleton files may contain warnings not to change scaffold internals unless necessary.
+- Generated skeleton files may contain comments warning you not to modify scaffold internals unless necessary.

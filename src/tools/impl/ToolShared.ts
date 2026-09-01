@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { AppViewMeta } from "../../content/ContentProvider";
 import { getCurrentExtension, sanitizeIdentifier } from "../../utils/Utils";
 
 export interface IResolvedAppContext {
@@ -54,6 +55,65 @@ export async function getViewsMeta(): Promise<IViewMeta[]> {
     sampleControlUuid: view.sampleControlUUID ?? DEFAULT_SAMPLE_CONTROL_UUID,
     viewType: inferViewTypeFromViewName(view.name),
   }));
+}
+
+export interface IViewInput {
+  viewName: string;
+  baseViewCategory?: string;
+  baseViewName: string;
+}
+
+const UDT_UDO_PATTERN = /^(UDT|UDO)_(LISTVIEW|DETAILVIEW)_(@\w+)$/i;
+
+export async function resolveViews(
+  views: IViewInput[]
+): Promise<{ resolvedViews: AppViewMeta[]; invalidBaseViews: string[] }> {
+  const invalidBaseViews: string[] = [];
+  const resolvedViews: AppViewMeta[] = [];
+  let viewList: IViewMeta[] | undefined;
+
+  for (const view of views) {
+    const isSystemView = !view.baseViewCategory || view.baseViewCategory.toLowerCase() === 'system';
+
+    if (isSystemView) {
+      if (!viewList) {
+        viewList = await getViewsMeta();
+      }
+      const matchedView = viewList.find((item) => item.name === view.baseViewName);
+      if (!matchedView) {
+        invalidBaseViews.push(view.baseViewName);
+        continue;
+      }
+      resolvedViews.push({
+        viewName: sanitizeIdentifier(view.viewName),
+        baseViewCategory: view.baseViewCategory ?? 'System',
+        baseViewName: view.baseViewName,
+        baseViewUUID: matchedView.viewId,
+        table: matchedView.table,
+        sampleControlUuid: matchedView.sampleControlUuid,
+      });
+    } else {
+      // For UDT, a detail view's name is like: UDT_DETAILVIEW_@NO_OBJECT
+      // For UDT, a list view's name is like: UDT_LISTVIEW_@NO_OBJECT
+      // For UDO, a list view's name is like: UDO_LISTVIEW_@OOTM
+      // For UDO, a detail view's name is like: UDO_DETAILVIEW_@OOTM
+      const match = UDT_UDO_PATTERN.exec(view.baseViewName);
+      if (!match) {
+        invalidBaseViews.push(view.baseViewName);
+        continue;
+      }
+      resolvedViews.push({
+        viewName: sanitizeIdentifier(view.viewName),
+        baseViewCategory: view.baseViewCategory!,
+        baseViewName: view.baseViewName,
+        baseViewUUID: view.baseViewName,
+        table: match[3],
+        sampleControlUuid: DEFAULT_SAMPLE_CONTROL_UUID,
+      });
+    }
+  }
+
+  return { resolvedViews, invalidBaseViews };
 }
 
 export function resolveAppContextFromAppJson(appJson: unknown): IResolvedAppContext {

@@ -342,6 +342,6 @@ If code is requested, provide a small controller-oriented example unless the use
 ## Related Sources
 
 - `references/document/uiapi-wiki/concepts/sdk-env.md`
-- `references/document/uiapi-wiki/concepts/service-layer-api.md`
+- `references/document/uiapi-wiki/concepts/service-api.md`
 - `references/document/uiapi-wiki/concepts/security.md`
 - `schema/manifest.schema.json`

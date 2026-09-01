@@ -43,7 +43,13 @@ Scan the user's message for the following signals:
 
 First, determine the Base View Category from the user's message:
 
-- If the user mentions **UDT** or **UDO** (e.g., "based on a UDT", "UDO called MyObject"), set `baseViewCategory` to `UDT` or `UDO` accordingly and **skip the `skills/assets/viewsMeta.json` search entirely** — instead, ask the user for the UDT/UDO name or ID directly. Do not attempt to match it against the catalog.
+- If the user mentions **UDT** or **UDO** (e.g., "based on a UDT", "UDO called MyObject"), set `baseViewCategory` to `UDT` or `UDO` accordingly and **skip the `skills/assets/viewsMeta.json` search entirely**.
+  - Try to extract the **object/table code** from the user's message (e.g., "UDO called OOTM" → `OOTM`, "UDT @NO_OBJECT" → `NO_OBJECT`). Strip any leading `@` for storage; it will be re-added when constructing the name.
+  - Try to detect the **view type** from the user's message: keywords like "list", "list view" → `LISTVIEW`; "detail", "form" → `DETAILVIEW`.
+  - Construct `baseViewName` using the pattern:
+    - UDO: `UDO_LISTVIEW_@<ObjectCode>` or `UDO_DETAILVIEW_@<ObjectCode>`
+    - UDT: `UDT_LISTVIEW_@<TableName>` or `UDT_DETAILVIEW_@<TableName>`
+  - If the object/table code or view type cannot be inferred, ask for them (see Step 3). Do not ask the user to type the full pattern — construct it from their answers.
 - Otherwise, assume `System` category and proceed with the fuzzy match below.
 
 **For System category only:**
@@ -147,7 +153,10 @@ Validation:
 - Convert `viewName` to PascalCase before storing.
 - Accept only `System`, `UDT`, or `UDO` for `baseViewCategory`; prefer fixed choices.
 - For **System** category: `baseViewName` must match a `name` entry in `skills/assets/viewsMeta.json`; prefer searchable or fixed choices.
-- For **UDT** or **UDO** category: skip the catalog entirely — just ask the user for the UDT/UDO name or ID and accept whatever they provide.
+- For **UDT** or **UDO** category: do not ask for the full name — ask for two sub-fields instead:
+  1. **Object/table code** — the code without the `@` prefix (e.g., `OOTM`, `NO_OBJECT`)
+  2. **View type** — offer `List View` / `Detail View` as fixed choices
+  Then construct `baseViewName` as: `<CATEGORY>_<LISTVIEW|DETAILVIEW>_@<Code>` (e.g., `UDO_LISTVIEW_@OOTM`)
 - If a field is invalid, explain allowed values and re-ask only that field.
 
 ## Step 4: Confirm Summary
@@ -201,11 +210,12 @@ Before finishing, verify:
 - New module exists and matches project conventions.
 - At least one new view was added to the module.
 - All view names and module name are PascalCase.
-- All selected Base View Names came from `skills/assets/viewsMeta.json`.
+- For System views: all selected Base View Names came from `skills/assets/viewsMeta.json`.
+- For UDT/UDO views: all selected Base View Names follow the pattern `(UDT|UDO)_(LISTVIEW|DETAILVIEW)_@<Code>`.
 
 Then state that `app.json`, `mta.yaml`, and launch configuration are already handled by `WebClientUIAPI_addModule` and generally do not require manual edits.
 If needed, state that generated module view layout/controller files can be refined to match user intent.
-- After all editing is done, run `npm start` in the app workspace and verify correctness by checking terminal output.
+- After all editing is done, rerun `npm start` in the app workspace — even if it is already running — and verify correctness by checking terminal output.
 
 Then summarize created/updated files and remind user to run their build command.
 
@@ -234,7 +244,7 @@ After making edits:
 - New module and view files exist in `src`
 - No manual post-tool edits were made to `app.json`, `mta.yaml`, or launch configuration unless explicitly requested
 - Any post-tool edits to generated module view layout/controller files are intent-driven and limited to aligning template output with user requirements
-- `npm start` was run after editing and terminal output shows a healthy startup
+- `npm start` was rerun after editing (regardless of whether it was already running) and terminal output shows a healthy startup
 
 ---
 

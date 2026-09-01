@@ -75,6 +75,7 @@ export class GetCurrentAppInformationTool
       moduleDetails: {
         name: string;
         moduleFolder: string;
+        namespace: string;
         dialogs: {
           name: string;
           layoutFile: string;
@@ -183,6 +184,7 @@ export class GetCurrentAppInformationTool
       appInfo.moduleDetails.push({
         name: moduleName,
         moduleFolder: moduleName,
+        namespace: `${appInfo.appProvider}.${appInfo.appName}.${moduleName}`,
         dialogs,
         views,
       });

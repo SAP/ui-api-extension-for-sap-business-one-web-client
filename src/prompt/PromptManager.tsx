@@ -137,7 +137,7 @@ class ToolCalls extends PromptElement<ToolCallsPromptElementProps, void> {
 			return undefined;
 		}
 
-		/// Note: for the copilot models, the final prompt must end with a non-tool-result UserMessage
+		/// Note: for the GitHub copilot models, the final prompt must end with a non-tool-result UserMessage
 		return <>
 			{this.props.toolCallRounds.map(round => this.renderOneToolCallRound(round))}
 			<UserMessage>Above is the result of calling one or more tools. The user cannot see the results, so you should explain them to the user if referencing them in your answer.</UserMessage>

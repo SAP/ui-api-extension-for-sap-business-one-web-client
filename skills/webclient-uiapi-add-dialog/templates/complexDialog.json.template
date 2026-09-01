@@ -1,33 +1,33 @@
 {
-  "guid": "<GUID>",
+  "guid": "{{GUID}}",
   "type": "Complex",
-  "controller": "<%= namespace %>.controller.<%= controllerName %>",
-  "title": "<%= title %>",
+  "controller": "{{namespace}}.controller.{{controllerName}}",
+  "title": "{{title}}",
   "horizontalScrolling": true,
   "verticalScrolling": true,
   "icon": "sap-icon://accept",
   "state": "None",
-  "contentWidth": "<%= width %>",
-  "contentHeight": "<%= height %>",
-  "draggable": <%= draggable %>,
-  "resizable": <%= resizable %>,
+  "contentWidth": "800px",
+  "contentHeight": "500px",
+  "draggable": true,
+  "resizable": true,
   "showHeader": true,
   "header": {
     "groups": [
       {
-        "guid": "<GUID>",
+        "guid": "{{GUID}}",
         "ctrlType": "b1.sdk.Group",
         "text": "",
         "visible": true,
         "items": [
           {
-            "guid": "<GUID>",
+            "guid": "{{GUID}}",
             "ctrlType": "b1.sdk.StaticText",
             "label": "Company Name",
             "text": "{@@data>/companyName}"
           },
           {
-            "guid": "<GUID>",
+            "guid": "{{GUID}}",
             "ctrlType": "b1.sdk.StaticText",
             "label": "Company Version",
             "text": "{@@data>/companyVersion}"
@@ -35,19 +35,19 @@
         ]
       },
       {
-        "guid": "<GUID>",
+        "guid": "{{GUID}}",
         "ctrlType": "b1.sdk.Group",
         "text": "",
         "visible": true,
         "items": [
           {
-            "guid": "<GUID>",
+            "guid": "{{GUID}}",
             "ctrlType": "b1.sdk.StaticText",
             "label": "User Code",
             "text": "{@@data>/userCode}"
           },
           {
-            "guid": "<GUID>",
+            "guid": "{{GUID}}",
             "ctrlType": "b1.sdk.StaticText",
             "label": "User Name",
             "text": "{@@data>/userName}"
@@ -58,26 +58,26 @@
   },
   "tabs": [
     {
-      "guid": "<GUID>",
+      "guid": "{{GUID}}",
       "ctrlType": "b1.sdk.Section",
       "text": "General",
       "subSections": [
         {
-          "guid": "<GUID>",
+          "guid": "{{GUID}}",
           "ctrlType": "b1.sdk.SubSection",
           "groups": [
             {
-              "guid": "<GUID>",
+              "guid": "{{GUID}}",
               "ctrlType": "b1.sdk.Group",
               "items": [
                 {
-                  "guid": "<GUID>",
+                  "guid": "{{GUID}}",
                   "ctrlType": "b1.sdk.StaticText",
                   "label": "Description",
                   "text": "This dialog serves as a sample created on top of the built-in template for WebClient. You can customize it by adding more UI controls and interactive logic."
                 },
                 {
-                  "guid": "<GUID>",
+                  "guid": "{{GUID}}",
                   "ctrlType": "b1.sdk.CheckBox",
                   "label": "My CheckBox",
                   "selected": "{@@data>/myCheckBox}",
@@ -87,7 +87,7 @@
                   "visible": true
                 },
                 {
-                  "guid": "<GUID>",
+                  "guid": "{{GUID}}",
                   "ctrlType": "b1.sdk.ComboBox",
                   "label": "My ComboBox",
                   "enabled": true,
@@ -111,7 +111,7 @@
                   ]
                 },
                 {
-                  "guid": "<GUID>",
+                  "guid": "{{GUID}}",
                   "label": "My DatePicker",
                   "ctrlType": "b1.sdk.DatePicker",
                   "editable": true,
@@ -121,7 +121,7 @@
                   "valueStateText": "For None"
                 },
                 {
-                  "guid": "<GUID>",
+                  "guid": "{{GUID}}",
                   "ctrlType": "b1.sdk.ObjectStatus",
                   "label": "My Document Status",
                   "text": "{@@data>/documentStatus}",
@@ -131,7 +131,7 @@
                   "icon": "sap-icon://accept"
                 },
                 {
-                  "guid": "<GUID>",
+                  "guid": "{{GUID}}",
                   "label": "My TextArea",
                   "ctrlType": "b1.sdk.TextArea",
                   "mandatory": true,
@@ -144,73 +144,73 @@
       ]
     },
     {
-      "guid": "<GUID>",
+      "guid": "{{GUID}}",
       "ctrlType": "b1.sdk.Section",
       "text": "Grid Section",
       "subSections": [
         {
-          "guid": "<GUID>",
+          "guid": "{{GUID}}",
           "ctrlType": "b1.sdk.SubSection",
           "text": "Business Partners",
           "groups": [
             {
-              "guid": "<GUID>",
+              "guid": "{{GUID}}",
               "ctrlType": "b1.sdk.Group",
               "width": 12,
               "items": [
                 {
-                  "guid": "<GUID>",
+                  "guid": "{{GUID}}",
                   "ctrlType": "b1.sdk.Grid",
                   "title": "Top 10 Business Partners retrieved from Service Layer",
                   "rowsData": "{@@bpData>/value}",
                   "width": "100%",
                   "columns": [
                     {
-                      "guid": "<GUID>",
+                      "guid": "{{GUID}}",
                       "ctrlType": "b1.sdk.Column",
                       "text": "CardCode",
                       "template": {
-                        "guid": "<GUID>",
+                        "guid": "{{GUID}}",
                         "ctrlType": "b1.sdk.StaticText",
                         "text": "{@@bpData>CardCode}"
                       }
                     },
                     {
-                      "guid": "<GUID>",
+                      "guid": "{{GUID}}",
                       "ctrlType": "b1.sdk.Column",
                       "text": "CardName",
                       "template": {
-                        "guid": "<GUID>",
+                        "guid": "{{GUID}}",
                         "ctrlType": "b1.sdk.StaticText",
                         "text": "{@@bpData>CardName}"
                       }
                     },
                     {
-                      "guid": "<GUID>",
+                      "guid": "{{GUID}}",
                       "ctrlType": "b1.sdk.Column",
                       "text": "CardType",
                       "template": {
-                        "guid": "<GUID>",
+                        "guid": "{{GUID}}",
                         "ctrlType": "b1.sdk.StaticText",
                         "text": "{@@bpData>CardType}"
                       }
                     },
                     {
-                      "guid": "<GUID>",
+                      "guid": "{{GUID}}",
                       "ctrlType": "b1.sdk.Column",
                       "text": "GroupCode",
                       "template": {
-                        "guid": "<GUID>",
+                        "guid": "{{GUID}}",
                         "ctrlType": "b1.sdk.StaticText",
                         "text": "{@@bpData>GroupCode}"
                       }
                     },
                     {
-                      "guid": "<GUID>",
+                      "guid": "{{GUID}}",
                       "ctrlType": "b1.sdk.Column",
                       "text": "Address",
                       "template": {
-                        "guid": "<GUID>",
+                        "guid": "{{GUID}}",
                         "ctrlType": "b1.sdk.StaticText",
                         "text": "{@@bpData>Address}"
                       }
@@ -226,7 +226,7 @@
   ],
   "footer": [
     {
-      "guid": "<GUID>",
+      "guid": "{{GUID}}",
       "ctrlType": "b1.sdk.Button",
       "press": {
         "procName": "onClose"

@@ -25,7 +25,10 @@
   - [Getting Started](#getting-started)
     - [Create Your First App](#create-your-first-app)
     - [Run Your App](#run-your-app)
+    - [Develop Your App with AI Assistance](#develop-your-app-with-ai-assistance)
     - [Package Your App](#package-your-app)
+  - [Configuration and Settings](#configuration-and-settings)
+  - [Logs For Troubleshooting](#logs-for-troubleshooting)
 
 ## Introduction
 
@@ -33,7 +36,7 @@ UI API development extension for SAP Business One Web client (also known as `Web
 
 ![arch-overview](images/arch-overview.svg)
 
-**Note**: This extension is designed for UI API **TypeScript** projects. It cannot work with the JavaScript projects.
+**Note**: This extension is designed for UI API **TypeScript** projects. It cannot work with JavaScript projects.
 
 ## Features
 
@@ -54,6 +57,8 @@ Invoke a skill by name or describe what you want — GitHub Copilot will route y
 ### Developer Commands
 
 Available from the `@uiapi` chat participant, these commands provide quick access to common development tasks, such as starting/stopping the local development server, previewing the app, packaging for deployment, and inspecting the Web Client UI Control.
+
+![preview](./images/preview.png)
 
 | Command | Description |
 |---|---|
@@ -113,8 +118,9 @@ In practice this means:
 ### Prerequisites
 
 - **Visual Studio Code** 1.119.0 or later
-- **Node.js** (LTS recommended) 22.22.3 or later
-- **GitHub Copilot** An active Github Copilot subscription
+- **Node.js** 22.x LTS (22.22.3 or later)
+- **GitHub Copilot** An active GitHub Copilot subscription
+- **SAP Business One Web Client FP 2608** or later. This is the minimum supported version — the extension cannot guarantee that generated code works correctly on earlier versions.
 
 ### Dependencies
 
@@ -191,7 +197,7 @@ Search for `ui-api-extension-for-sap-business-one-web-client` in the [Visual Stu
 
 1. Create a new empty folder for your app and open it in VS Code.
 2. Open GitHub Copilot Chat.
-3. Type a prompt like `Create a hello world UI API app based on business partner detail view from provider sap b1`, and the `webclient-uiapi-create-app` skill will be invoked automatically. (If not, you can manually invoke it by typing `/webclient-uiapi-create-app` in the chat, then followed by the prompt.)
+3. Type a prompt like `Create a hello world UI API app based on business partner detail view from provider sap b1`, and the `webclient-uiapi-create-app` skill will be invoked automatically. (If not, you can manually invoke it by typing `/webclient-uiapi-create-app` in the chat, followed by the prompt.)
 4. The skill interactively collects your app name, app provider, version, and other necessary app details, confirms app parameters with you, then generates the full scaffold.
 
 Once the scaffold is generated, you can explore the folder structure like below:
@@ -217,7 +223,7 @@ HelloWorld/                                    # Project root (named after your 
 │   │   │   └── BusinessPartnerDetail.layout.json  # Layout config for the detail view
 │   │   ├── manifest.json                      # A descriptor file to define the resource bundles for UI API app
 │   │   └── model/                             # Data model definitions
-│   │       └── models.ts                      # Utility file for customized data model.
+│   │       └── models.ts                      # Utility file for customized data model
 │   └── tsconfig.json
 ├── README.md                                  # Project-level documentation
 ├── References/                                # Symlinked references for AI inference (read-only)
@@ -239,8 +245,44 @@ HelloWorld/                                    # Project root (named after your 
 2. Use `/webclient-uiapi-preview` to preview your app in an external browser, or `/webclient-uiapi-preview-embedded` to preview it in VS Code's embedded browser.
 3. Use `/webclient-uiapi-stop` to stop the development server when done.
 
+### Develop Your App with AI Assistance
+
+Once your scaffold is ready, you can use GitHub Copilot Chat to implement features in natural language. The agent understands your app's structure, the SAP B1 Service Layer API, and the UI API SDK.
+
+**Example:** Ask the agent:
+> "Add a button to get the number of sales orders from Service Layer for the current business partner."
+
+The agent will update the relevant files for you. For this example, you will see changes in:
+- `BusinessPartnerDetail.ts` — new button handler that calls the Service Layer to count sales orders for the current business partner
+- `i18n.properties` / `i18n_en.properties` — new translation key for the button label
+- `BusinessPartnerDetail.layout.json` — new button element added to the detail view layout
+
+After the agent finishes, switch to the preview to test: in the detail view, a new button will appear. Click it to retrieve and display the sales order count for the current business partner.
+
+> **Important:** Always review AI-generated code before accepting it. The agent may make mistakes — inspect each changed file, verify the Service Layer query and the layout definition, then accept or adjust as needed.
 
 ### Package Your App
 
 1. Use `/webclient-uiapi-package` to package your app for deployment. On completion, you will find the deployable MTAR archive in the `mta_archives` folder.
 
+## Configuration and Settings
+
+All settings can be configured at the user, workspace, or folder level via **File > Preferences > Settings** (search for `WebClientUIAPI`), or directly in your `settings.json`.
+
+| Setting | Type | Default | Description |
+|---|---|---|---|
+| `WebClientUIAPI.webClient.url` | `string` | `""` | The SAP Business One Web Client URL used when previewing your UI API application. Set this to your tenant URL (e.g. `https://<host>:<port>/webx/index.html`). Required for the `/webclient-uiapi-preview` and `/webclient-uiapi-preview-embedded` commands. |
+| `WebClientUIAPI.devServer.port` | `number` | `8082` | The port the local development server listens on. Change this if the default port is already in use. |
+| `WebClientUIAPI.loggingLevel` | `string` | `"info"` | Controls the verbosity of extension output. Levels in descending verbosity: `trace` > `debug` > `info` > `warn` > `error` > `fatal` > `off`. Set to `"off"` to suppress all output, or `"debug"` / `"trace"` for troubleshooting. |
+| `WebClientUIAPI.browserStartupFlags` | `string` | `""` | Space-separated Chrome startup flags passed when launching the preview browser. Useful for working around browser security restrictions during local development — for example, browser updates can introduce PNA (Private Network Access) or CORS-related issues that block the dev server. Recommended flags for such cases: `--disable-web-security --disable-features=PrivateNetworkAccessForPrivateWebsiteRequests --user-data-dir=${workspaceFolder}/.vscode/chrome-dev-profile`. |
+| `WebClientUIAPI.sourceLocationTracking` | `boolean` | `false` | When enabled, the source file and line number are appended to each log entry. Useful for debugging, but may slow down the extension — enable only when needed. |
+
+## Logs For Troubleshooting
+
+To collect extension logs for troubleshooting:
+
+1. Open the **Output** panel via **View > Output** (or press `Ctrl+Shift+U` / `Cmd+Shift+U` on macOS).
+2. In the dropdown on the right side of the Output panel, select **SAP Business One Web Client UI API development extension**.
+3. The log entries are printed in JSON format, one entry per line.
+
+Log verbosity is controlled by the `WebClientUIAPI.loggingLevel` setting (see [Configuration and Settings](#configuration-and-settings)). For troubleshooting, set the level to `"debug"` or `"trace"` to capture more detail, then reproduce the issue. You can copy the log output directly from the Output panel and share it when reporting a problem.

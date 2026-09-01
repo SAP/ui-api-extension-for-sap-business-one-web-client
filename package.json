@@ -1,9 +1,10 @@
 {
 	"name": "ui-api-extension-for-sap-business-one-web-client",
-	"publisher": "SAPSE",
+	"publisher": "saposs",
 	"displayName": "UI API development extension for SAP Business One, Web client",
-	"description": "A VS Code extension on Github Copilot for SAP Business One Web client UI API development.",
+	"description": "A VS Code extension on Github Copilot for SAP Business One Web Client UI API development.",
 	"icon": "resource/icons/extension-icon.png",
+	"license": "Apache-2.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client"
@@ -57,11 +58,11 @@
 				],
 				"url": "./schema/dialog.schema.json"
 			}
-    	],
+		],
 		"chatParticipants": [
 			{
 				"id": "webclient-uiapi-copilot",
-				"fullName": "WebClient UI API Copilot",
+				"fullName": "Web Client UI API Copilot",
 				"name": "uiapi",
 				"description": "Ask Web Client UI API Questions...",
 				"disambiguation": [
@@ -108,9 +109,8 @@
 			{
 				"name": "WebClientUIAPI_getEntitySetList",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"ServiceLayer",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -123,9 +123,8 @@
 			{
 				"name": "WebClientUIAPI_getEntitySetDetail",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"ServiceLayer",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -150,9 +149,8 @@
 			{
 				"name": "WebClientUIAPI_getTypeDetail",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"ServiceLayer",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -177,9 +175,8 @@
 			{
 				"name": "WebClientUIAPI_validateEntityProperties",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"ServiceLayer",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -209,9 +206,8 @@
 			{
 				"name": "WebClientUIAPI_validateComplexTypeProperties",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"ServiceLayer",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -241,9 +237,8 @@
 			{
 				"name": "WebClientUIAPI_getUnbindFunctions",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"ServiceLayer",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -256,9 +251,8 @@
 			{
 				"name": "WebClientUIAPI_getFunctionDetail",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"ServiceLayer",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -283,9 +277,7 @@
 			{
 				"name": "WebClientUIAPI_getExposedUIAPIControls",
 				"tags": [
-					"WebClient",
-					"UIAPIDocument",
-					"UIAPICopilot",
+					"WebClientUIAPI",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -298,9 +290,8 @@
 			{
 				"name": "WebClientUIAPI_getCurrentAppInformation",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"appInformation",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -313,9 +304,7 @@
 			{
 				"name": "WebClientUIAPI_getViewList",
 				"tags": [
-					"WebClient",
-					"UIAPIDocument",
-					"UIAPICopilot",
+					"WebClientUIAPI",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -328,9 +317,7 @@
 			{
 				"name": "WebClientUIAPI_getViewDetail",
 				"tags": [
-					"WebClient",
-					"UIAPIDocument",
-					"UIAPICopilot",
+					"WebClientUIAPI",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -355,9 +342,8 @@
 			{
 				"name": "WebClientUIAPI_getSchemaFilePath",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"schema",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -389,9 +375,8 @@
 			{
 				"name": "WebClientUIAPI_generateUUID",
 				"tags": [
-					"WebClient",
+					"WebClientUIAPI",
 					"uuid",
-					"UIAPICopilot",
 					"language-model-tools"
 				],
 				"icon": "$(files)",
@@ -414,9 +399,8 @@
 			{
 				"name": "WebClientUIAPI_createApp",
 				"tags": [
-					"WebClient",
-					"create",
-					"UIAPICopilot"
+					"WebClientUIAPI",
+					"create"
 				],
 				"icon": "$(files)",
 				"canBeReferencedInPrompt": true,
@@ -493,9 +477,8 @@
 			{
 				"name": "WebClientUIAPI_addModule",
 				"tags": [
-					"WebClient",
-					"create",
-					"UIAPICopilot"
+					"WebClientUIAPI",
+					"create"
 				],
 				"icon": "$(files)",
 				"canBeReferencedInPrompt": true,
@@ -545,9 +528,8 @@
 			{
 				"name": "WebClientUIAPI_addView",
 				"tags": [
-					"WebClient",
-					"create",
-					"UIAPICopilot"
+					"WebClientUIAPI",
+					"create"
 				],
 				"icon": "$(files)",
 				"canBeReferencedInPrompt": true,
@@ -608,9 +590,9 @@
 		],
 		"configuration": {
 			"type": "object",
-			"title": "SAP BusinessOne WebClient UI API Copilot",
+			"title": "UI API development extension for SAP Business One, Web client",
 			"properties": {
-				"WebClientUIAPICopilot.loggingLevel": {
+				"WebClientUIAPI.loggingLevel": {
 					"type": "string",
 					"enum": [
 						"off",
@@ -621,29 +603,29 @@
 						"debug",
 						"trace"
 					],
-					"default": "error",
+					"default": "info",
 					"description": "The verbosity of logging according to the following order: trace > debug > info > warn > error > fatal > off.",
 					"scope": "resource"
 				},
-				"WebClientUIAPICopilot.devServer.port": {
+				"WebClientUIAPI.devServer.port": {
 					"type": "number",
 					"default": 8082,
 					"description": "Set custom port number for development server.",
 					"scope": "resource"
 				},
-				"WebClientUIAPICopilot.webClient.url": {
+				"WebClientUIAPI.webClient.url": {
 					"type": "string",
 					"default": "",
 					"description": "Set the web client URL for previewing the UI API application.",
 					"scope": "resource"
 				},
-				"WebClientUIAPICopilot.sourceLocationTracking": {
+				"WebClientUIAPI.sourceLocationTracking": {
 					"type": "boolean",
 					"default": false,
 					"description": "If chosen, the location of the source code is added to log entries. Warning – this action may slow your extension. We recommend you use it only for debugging.",
 					"scope": "resource"
 				},
-				"WebClientUIAPICopilot.browserStartupFlags": {
+				"WebClientUIAPI.browserStartupFlags": {
 					"type": "string",
 					"default": "",
 					"description": "Custom Chrome startup flags for Web Client preview (separated by space).",
@@ -692,6 +674,7 @@
 	},
 	"dependencies": {
 		"@vscode/prompt-tsx": "^0.4.0-alpha.9",
+		"jsonc-parser": "^3.3.1",
 		"short-uuid": "^6.0.3",
 		"uuid": "^11.0.5",
 		"xml2js": "^0.6.2"

@@ -32,7 +32,7 @@ export function reportLoggerConfig(
 ): void {
   getLogger().info(`Start Logging in Log Level: <${configLogLevel}>`);
   getLogger().info(
-    `Full Logs can be found in the <${context.logUri.fsPath}> folder.`
+    `Full Logs can be found in the "${context.logUri.fsPath}" folder.`
   );
 }
 

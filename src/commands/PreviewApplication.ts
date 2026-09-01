@@ -85,7 +85,6 @@ export async function previewApplication(
 				? "The active editor is not a *.layout.json file. Use the first matching preview configuration from launch.json. "
 				: "No *.layout.json file is open for preview. Use the first matching preview configuration from launch.json. ";
 			stream.markdown(warningMessage);
-			void vscode.window.showWarningMessage(warningMessage);
 			matchedConfiguration = launchJsonContentJson.configurations.find((configuration: { name?: string; url?: string }) => configuration.name?.startsWith(configNamePrefix))
 				?? launchJsonContentJson.configurations[0];
 		}

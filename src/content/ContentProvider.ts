@@ -59,13 +59,13 @@ export class ContentProvider {
         const runtimeArgs = browserFlags ? tokenizeBrowserStartupFlags(browserFlags) : [];
         for (const module of this.getAppModules(appMeta)) {
             for (const view of module.views) {
-                const objectType = view.table && view.table !== '<<TODO>>' ? view.table : 'REPLACE_OBJECT_TYPE';
+                const objectType = view.table ? view.table.replace(/^@/, '') : '';
                 const isListView = /list$/i.test(view.baseViewName);
                 const routeType = isListView ? 'List' : 'Detail';
+                const doubleEncodedTable = encodeURIComponent(encodeURIComponent(view.table));
                 const routeSuffix = isListView
-                    ? `/Objects/${objectType}/${routeType}`
-                    : `/Objects/${objectType}/${routeType}?view=${objectType}.detailView`;
-
+                    ? `/Objects/${view.table}/${routeType}`
+                    : `/Objects/${view.table}/${routeType}?view=${doubleEncodedTable}.detailView`;
 
                 const configuration: vscode.DebugConfiguration = {
                     name: `WebClient Preview - ${module.moduleName} | ${view.viewName}`,
@@ -383,17 +383,29 @@ export class ContentProvider {
         const referencesFolderUri = vscode.Uri.joinPath(appFolderUri, "References");
         await vscode.workspace.fs.createDirectory(referencesFolderUri);
 
-        const targetDocumentFolderUri = vscode.Uri.joinPath(extension.extensionUri, "references", "document");
-        const documentLinkUri = vscode.Uri.joinPath(referencesFolderUri, "document");
-        await linkFolder(targetDocumentFolderUri.fsPath, documentLinkUri.fsPath);
+        const links: { target: vscode.Uri; link: vscode.Uri }[] = [
+            {
+                target: vscode.Uri.joinPath(extension.extensionUri, "references", "document"),
+                link: vscode.Uri.joinPath(referencesFolderUri, "document")
+            },
+            {
+                target: vscode.Uri.joinPath(extension.extensionUri, "references", "sbo-webclient-uiapi-sdk"),
+                link: vscode.Uri.joinPath(referencesFolderUri, "sbo-webclient-uiapi-sdk")
+            },
+            {
+                target: vscode.Uri.joinPath(extension.extensionUri, "schema"),
+                link: vscode.Uri.joinPath(referencesFolderUri, "schema")
+            }
+        ];
 
-        const targetSDKFolderUri = vscode.Uri.joinPath(extension.extensionUri, "references", "sbo-webclient-uiapi-sdk");
-        const sdkLinkUri = vscode.Uri.joinPath(referencesFolderUri, "sbo-webclient-uiapi-sdk");
-        await linkFolder(targetSDKFolderUri.fsPath, sdkLinkUri.fsPath);
-
-        const targetSchemaFolderUri = vscode.Uri.joinPath(extension.extensionUri, "schema");
-        const schemaLinkUri = vscode.Uri.joinPath(referencesFolderUri, "schema");
-        await linkFolder(targetSchemaFolderUri.fsPath, schemaLinkUri.fsPath);
+        for (const { target, link } of links) {
+            try {
+                this.logger.debug(`Linking '${target.fsPath}' -> '${link.fsPath}'.`);
+                await linkFolder(target.fsPath, link.fsPath);
+            } catch (error) {
+                this.logger.error(`Failed to link '${target.fsPath}' -> '${link.fsPath}': ${error}`);
+            }
+        }
     }
 
     private async generateModules(

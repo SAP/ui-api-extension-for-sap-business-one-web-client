@@ -1,13 +1,13 @@
 import * as vscode from "vscode";
-import { AppMeta, AppModuleMeta, AppViewMeta, ContentProvider } from "../../content/ContentProvider";
+import { AppMeta, ContentProvider } from "../../content/ContentProvider";
 import { ensureCurrentWorkspaceFolder, sanitizeIdentifier } from "../../utils/Utils";
 import {
-  getViewsMeta,
   IResolvedAppContext,
   isNonEmptyString,
   MAX_CATEGORY_LENGTH,
   MAX_NAME_LENGTH,
   resolveAppContextFromAppJson,
+  resolveViews,
 } from "./ToolShared";
 
 interface IAddUIAPIModuleParameter {
@@ -57,44 +57,6 @@ function validateAddModuleInput(input: IAddUIAPIModuleParameter): string | undef
   return undefined;
 }
 
-async function resolveModuleViews(
-  moduleName: string,
-  views: IAddUIAPIModuleParameter["views"]
-): Promise<{ module?: AppModuleMeta; invalidBaseViews: string[] }> {
-  const viewList = await getViewsMeta();
-  const invalidBaseViews: string[] = [];
-  const resolvedViews: AppViewMeta[] = [];
-
-  for (const view of views) {
-    const matchedView = viewList.find((item) => item.name === view.baseViewName);
-    if (!matchedView) {
-      invalidBaseViews.push(view.baseViewName);
-      continue;
-    }
-
-    resolvedViews.push({
-      viewName: sanitizeIdentifier(view.viewName),
-      baseViewCategory: view.baseViewCategory ?? "System",
-      baseViewName: view.baseViewName,
-      baseViewUUID: matchedView.viewId,
-      table: matchedView.table,
-      sampleControlUuid: matchedView.sampleControlUuid,
-    });
-  }
-
-  if (invalidBaseViews.length) {
-    return { invalidBaseViews };
-  }
-
-  return {
-    module: {
-      moduleName: sanitizeIdentifier(moduleName),
-      views: resolvedViews,
-    },
-    invalidBaseViews,
-  };
-}
-
 export class AddUIAPIModule
   implements vscode.LanguageModelTool<IAddUIAPIModuleParameter> {
   async invoke(
@@ -137,11 +99,11 @@ export class AddUIAPIModule
       ]);
     }
 
-    const resolved = await resolveModuleViews(params.moduleName, params.views);
-    if (resolved.invalidBaseViews.length) {
+    const { resolvedViews, invalidBaseViews } = await resolveViews(params.views);
+    if (invalidBaseViews.length) {
       return new vscode.LanguageModelToolResult([
         new vscode.LanguageModelTextPart(
-          `Invalid base view names: ${resolved.invalidBaseViews.map((viewName) => `'${viewName}'`).join(", ")}. Please retrieve the relevant UI API base views by tools and select the most relevant.`
+          `Invalid base view names: ${invalidBaseViews.map((v) => `'${v}'`).join(", ")}. Please retrieve the relevant UI API base views by tools and select the most relevant.`
         ),
       ]);
     }
@@ -150,7 +112,7 @@ export class AddUIAPIModule
       appName: appContext.appName,
       appVersion: appContext.appVersion,
       appProvider: appContext.appProvider,
-      modules: resolved.module ? [resolved.module] : [],
+      modules: [{ moduleName, views: resolvedViews }],
     };
 
     const contentProvider = new ContentProvider();

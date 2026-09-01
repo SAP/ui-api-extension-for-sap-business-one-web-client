@@ -1,13 +1,13 @@
 import * as vscode from "vscode";
-import { AppMeta, AppViewMeta, ContentProvider } from "../../content/ContentProvider";
+import { AppMeta, ContentProvider } from "../../content/ContentProvider";
 import { ensureCurrentWorkspaceFolder, sanitizeIdentifier } from "../../utils/Utils";
 import {
-  getViewsMeta,
   IResolvedAppContext,
   isNonEmptyString,
   MAX_CATEGORY_LENGTH,
   MAX_NAME_LENGTH,
   resolveAppContextFromAppJson,
+  resolveViews,
 } from "./ToolShared";
 
 interface IAddUIAPIViewParameter {
@@ -90,24 +90,19 @@ export class AddUIAPIView
       ]);
     }
 
-    const viewList = await getViewsMeta();
-    const matchedView = viewList.find((item) => item.name === params.baseViewName);
-    if (!matchedView) {
+    const { resolvedViews, invalidBaseViews } = await resolveViews([{
+      viewName: params.viewName,
+      baseViewCategory: params.baseViewCategory,
+      baseViewName: params.baseViewName,
+    }]);
+    if (invalidBaseViews.length) {
       return new vscode.LanguageModelToolResult([
         new vscode.LanguageModelTextPart(
-          `Invalid base view name '${params.baseViewName}'. Please retrieve the relevant UI API base views by tools and select the most relevant.`
+          `Invalid base view name '${invalidBaseViews[0]}'. Please retrieve the relevant UI API base views by tools and select the most relevant.`
         ),
       ]);
     }
-
-    const resolvedView: AppViewMeta = {
-      viewName: sanitizeIdentifier(params.viewName),
-      baseViewCategory: params.baseViewCategory ?? "System",
-      baseViewName: params.baseViewName,
-      baseViewUUID: matchedView.viewId,
-      table: matchedView.table,
-      sampleControlUuid: matchedView.sampleControlUuid,
-    };
+    const resolvedView = resolvedViews[0];
 
     const appMeta: AppMeta = {
       appName: appContext.appName,

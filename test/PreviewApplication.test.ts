@@ -23,7 +23,7 @@ let errorMessages: string[] = [];
 let debugCalls: Array<{ folderFsPath: string; name: string }> = [];
 let launchJsonObject: unknown = { configurations: [] };
 
-const workspaceUri = { fsPath: path.join(path.sep, 'workspace-root'), path: '/workspace-root' };
+const workspaceUri = { fsPath: '/workspace-root', path: '/workspace-root' };
 
 let webClientUrl: string | undefined = 'https://server:50000/webx/index.html';
 
@@ -56,8 +56,8 @@ const mockVscode = {
   },
   Uri: {
     joinPath: (base: { fsPath: string; path?: string }, ...parts: string[]) => {
-      const fsPath = path.join(base.fsPath, ...parts);
-      return { fsPath, path: fsPath.replace(/\\/g, '/') };
+      const fsPath = path.posix.join(base.fsPath, ...parts);
+      return { fsPath, path: fsPath };
     }
   }
 };

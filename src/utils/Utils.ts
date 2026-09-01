@@ -155,17 +155,16 @@ export function getCurrentExtension() {
     if (!cachedExtension) {
         throw new Error('Extension metadata has not been initialized');
     }
-
     if (!vscode.extensions.getExtension(cachedExtension.id)) {
-        vscode.window.showErrorMessage("UIAPI Copilot Extension not found");
-        throw new Error("UIAPI Copilot Extension not found");
+        const errorMessage = `Extension ${cachedExtension.id} is not installed or activated.`;
+        vscode.window.showErrorMessage(errorMessage, { modal: true });
+        throw new Error(errorMessage);
     }
-
     return cachedExtension;
 }
 
 export function getDevServerURL(): string {
-    const config = vscode.workspace.getConfiguration('WebClientUIAPICopilot');
+    const config = vscode.workspace.getConfiguration('WebClientUIAPI');
     const debugServerPort = config.get('devServer.port', 8082);
     return `http://localhost:${debugServerPort}`;
 }
@@ -406,9 +405,5 @@ export function getDevServerPort(): number {
 export async function linkFolder(actual: string, symlink: string): Promise<void> {
     const actualPath = path.resolve(actual);
     const symlinkPath = path.resolve(symlink);
-    try {
-        await fs.promises.symlink(actualPath, symlinkPath, 'dir');
-    } catch (error) {
-        console.error(`Error linking folder: ${error}`);
-    }
+    await fs.promises.symlink(actualPath, symlinkPath, 'dir');
 };

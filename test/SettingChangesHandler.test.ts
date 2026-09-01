@@ -41,8 +41,8 @@ const mockLoggerWrapper = {
 };
 
 const mockSettingItems = {
-  LOGGING_LEVEL_PROP: 'WebClientUIAPICopilot.loggingLevel',
-  SOURCE_TRACKING_PROP: 'WebClientUIAPICopilot.sourceLocationTracking',
+  LOGGING_LEVEL_PROP: 'WebClientUIAPI.loggingLevel',
+  SOURCE_TRACKING_PROP: 'WebClientUIAPI.sourceLocationTracking',
   getLoggingLevelSetting: () => currentLogLevel,
   getSourceLocationTrackingSetting: () => currentSourceTracking
 };

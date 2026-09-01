@@ -4,7 +4,7 @@ import { LogLevel } from "@vscode-logging/logger";
 /**
  * Note that the values of these configuration properties must match those defined in the package.json
  */
-export const APP_ROOT_SETTING_PROP = "WebClientUIAPICopilot";
+export const APP_ROOT_SETTING_PROP = "WebClientUIAPI";
 
 export const LOGGING_LEVEL_PROP = `${APP_ROOT_SETTING_PROP}.loggingLevel`;
 export const SOURCE_TRACKING_PROP = `${APP_ROOT_SETTING_PROP}.sourceLocationTracking`;
