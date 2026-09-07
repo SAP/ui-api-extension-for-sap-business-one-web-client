@@ -7,7 +7,6 @@
 const gulp = require('gulp');
 const uglify = require('gulp-uglify');
 const logger = require('gulplog');
-const watch = require('gulp-watch');
 const clean = require('gulp-rimraf');
 const sourcemaps = require('gulp-sourcemaps');
 const fs = require('fs')
@@ -130,15 +129,6 @@ gulp.task('bundle', function (cb) {
     logger.error(err);
     cb();
   });
-});
-
-gulp.task('tsc-watch', function () {
-  logger.info("Compile typescript to javascript");
-  return tsResult = watch('src/**/*.ts', { ignoreInitial: false })
-    .pipe(sourcemaps.init())
-    .pipe(tsProject())
-    .pipe(sourcemaps.write('.', { includeContent: false, sourceRoot: './' }))
-    .pipe(gulp.dest('webapp'));
 });
 
 gulp.task('default', gulp.series('clean', 'createWebApp', 'tsc', 'copyToDist', 'bundle', 'minify', 'manifest'));

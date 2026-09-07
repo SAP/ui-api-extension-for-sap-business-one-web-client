@@ -12,8 +12,7 @@ This skill parses the user's request (free-form or structured), extracts and inf
 
 - Before collecting any app metadata, check the current VS Code workspace: if no workspace is open, execute `uiapi.createWorkspaceIfNotExist`; otherwise use the existing workspace as-is
 - Parse the user's initial message for pre-fillable fields before asking anything
-- Present a pre-fill summary of extracted and inferred values; ask the user to confirm or correct it
-- Ask only for fields that could not be extracted or inferred
+- Present a pre-fill summary of extracted and inferred values, then proceed immediately to collecting only the missing fields
 - Collect app metadata first, then modules, then views
 - Use `vscode_askQuestions` for one field at a time when available; fall back to plain chat only when needed
 - Ask for the first module and first view directly; do not ask for counts up front
@@ -39,6 +38,9 @@ Scan the user's message for the following signals:
 | **Module name** | Explicitly stated module name (e.g., "in the Sales module", "under Purchasing") |
 | **App provider** | Company or organization name mentioned as owner/provider |
 | **App version** | A version string matching `MAJOR.MINOR.PATCH` |
+| **Extra intent** | Any request beyond scaffolding — e.g., adding UI elements, fetching data, calling Service Layer APIs (e.g., "and add a button to get the number of sales orders"). Store the verbatim phrasing for later. |
+
+If **App name** cannot be detected from the user's message, read the current VS Code workspace folder name and use it (PascalCased) as a candidate. Show it in the pre-fill summary with source `inferred from workspace`. Do not use this fallback if no workspace is open.
 
 ### 0.2 View Fuzzy Matching
 
@@ -50,7 +52,7 @@ First, determine the Base View Category from the user's message:
   - Construct `baseViewName` using the pattern:
     - UDO: `UDO_LISTVIEW_@<ObjectCode>` or `UDO_DETAILVIEW_@<ObjectCode>`
     - UDT: `UDT_LISTVIEW_@<TableName>` or `UDT_DETAILVIEW_@<TableName>`
-  - If the object/table code or view type cannot be inferred, ask for them (see Step 3). Do not ask the user to type the full pattern — construct it from their answers.
+  - If the object/table code or view type cannot be inferred, ask for them (see Step 4). Do not ask the user to type the full pattern — construct it from their answers.
 - Otherwise, assume `System` category and proceed with the fuzzy match below.
 
 **For System category only:**
@@ -89,7 +91,7 @@ If the view cannot be matched to a module via this table, leave the module blank
 
 ### 0.4 Pre-fill Summary
 
-After parsing, display a Markdown table summary of what was understood **before asking anything**. Use the `Source` column to show how each value was determined:
+After parsing, display a Markdown table, summarizing what was understood **before asking anything**. Use the `Source` column to show how each value was determined:
 
 | Field | Value | Source |
 |---|---|---|
@@ -101,21 +103,19 @@ After parsing, display a Markdown table summary of what was understood **before 
 | Base View | Sales Order Detail | matched in catalog |
 | Category | System | default for standard views |
 
-> Does this look right? If yes, I'll ask only for the missing fields. If anything is wrong, tell me what to change.
-
-- If the user confirms, skip directly to collecting only the **missing** fields.
-- If the user corrects a field, update it and display the revised summary before continuing.
-- If nothing was parseable from the user's message, skip the summary and begin the guided flow from Step 1.
+- After displaying the summary, proceed immediately to collecting only the **missing** fields.
+- If nothing was parseable from the user's message, skip the summary and begin the guided flow from Step 2.
+- **Extra intent**, if captured, is stored silently and not shown in the summary table — it will surface as a handoff offer after the app is ready.
 
 ---
 
-## Step 0: Ensure Workspace
+## Step 1: Ensure Workspace
 
 Check the current VS Code workspace:
 - If no workspace is open, run `uiapi.createWorkspaceIfNotExist` and wait until a workspace is available before continuing.
 - If a workspace is already open, use it as-is and continue.
 
-## Step 1: Explain the Inputs (skip if pre-fill summary was shown and confirmed)
+## Step 2: Explain the Inputs (skip if pre-fill summary was shown)
 
 Explain that the workflow will collect:
 
@@ -126,7 +126,7 @@ Explain that the workflow will collect:
 
 State that generation happens only after the user approves the final summary.
 
-## Step 2: Collect App Metadata
+## Step 3: Collect App Metadata
 
 Collect **only the fields not already confirmed in Phase 0**, one at a time:
 
@@ -137,12 +137,11 @@ Collect **only the fields not already confirmed in Phase 0**, one at a time:
 Validation:
 
 - App Name and App Provider are required and must not be empty
-- Silently convert App Name and App Provider to PascalCase before storing them
 - App Version defaults to `1.0.0`; if provided, it must match `MAJOR.MINOR.PATCH`
 - If the user supplies multiple values in one response, extract them and continue from the next missing field
 - Re-ask only the missing or invalid field
 
-## Step 3: Collect Modules and Views
+## Step 4: Collect Modules and Views
 
 At least one module is required. For each module:
 
@@ -160,7 +159,6 @@ Collect these fields for each view, one at a time (skip fields confirmed in Phas
 Validation:
 
 - Module Name and View Name are required
-- Silently convert Module Name and View Name to PascalCase before storing them
 - Base View Category must be `System`, `UDT`, or `UDO`; use fixed choices when possible
 - For **System** category: Base View Name must match a `name` entry in `skills/assets/viewsMeta.json`; use a searchable or fixed-choice UI when possible
 - For **UDT** or **UDO** category: do not ask for the full name — ask for two sub-fields instead:
@@ -169,7 +167,7 @@ Validation:
   Then construct `baseViewName` as: `<CATEGORY>_<LISTVIEW|DETAILVIEW>_@<Code>` (e.g., `UDO_LISTVIEW_@OOTM`)
 - If a field is invalid, explain the allowed values and re-ask only that field
 
-## Step 4: Present the Final Summary
+## Step 5: Present the Final Summary
 
 Present a readable summary using normalized values, preferably as Markdown tables.
 
@@ -187,17 +185,28 @@ Present a readable summary using normalized values, preferably as Markdown table
 |--------|------|--------------------|----------------|
 | Sales | SalesOrderDetail | System | Sales Order Detail |
 
-Then ask: "Does this look correct? (Yes/No)"
+Then use `vscode_askQuestions` to present a single confirmation question with compact choices:
 
-If the user says **No**, update only the affected field, module, or view, then present the full summary again.
+- Question: "Does this look correct?"
+- Choices: `Yes` / `No`
 
-If the user says **Yes**, call `WebClientUIAPI_createApp`. If the tool fails, report the error and stop.
+If the user selects **No**, update only the affected field, module, or view, then present the full summary again.
 
-## Step 5: Set Up and Launch
+If the user selects **Yes**, call `WebClientUIAPI_createApp`. If the tool fails, report the error and stop.
 
-After successful app creation, execute `uiapi.openWorkspace` with the full path of the new app.
+Once the app is created, inform the user with a friendly message before installing dependencies, for example:
 
-Then end the workflow.
+> "App created! Installing dependencies — this may take a moment..."
+
+Then run `npm install` in the app folder using `vscode.runInTerminal` (or equivalent). When it completes:
+- On success: tell the user the app is ready and show a follow-up tip — regardless of any deprecation warnings or vulnerabilities in the output, do not surface those warnings to the user (this is a development scaffold, not a production package). For example:
+  > "All set! Your app is ready to use. To preview it in the browser, press **F5** or trigger the preview command by typing `/webclient-uiapi-preview` in the Copilot chat box."
+
+  If **extra intent** was captured in Phase 0, append a short handoff offer immediately after, for example:
+  > "You also mentioned: *'add a button to get the number of sales orders'* — want me to help with that now?"
+
+  If the user says yes, continue in the same conversation to address the extra request by referencing the newly created `AGENTS.md` in the workspace for project context. If no, end the workflow.
+- On failure: show the error output and suggest the user run `npm install` manually in the app folder.
 
 ---
 
@@ -229,7 +238,6 @@ Use exactly this shape:
 
 ## Tool Invocation Rules
 
-- If no workspace is open, run `uiapi.createWorkspaceIfNotExist` before collecting app parameters
 - Pass the payload using the exact JSON schema above
 - If any required tool is unavailable, stop and tell the user what is missing
 
@@ -266,3 +274,6 @@ Before calling the generation tool, verify:
 **Guided (skill asks all questions):**
 - `Scaffold a SAP B1 UI API application by asking me the required questions.`
 - `Generate a UI API app, but confirm the modules and views with me before creating anything.`
+
+**Free-form with extra intent (skill scaffolds then offers to continue):**
+- `Create a UI API app for business partner detail view and add a button to get the number of sales orders.`

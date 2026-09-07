@@ -1,6 +1,6 @@
 {
 	"name": "ui-api-extension-for-sap-business-one-web-client",
-	"publisher": "saposs",
+	"publisher": "SAPOSS",
 	"displayName": "UI API development extension for SAP Business One, Web client",
 	"description": "A VS Code extension on Github Copilot for SAP Business One Web Client UI API development.",
 	"icon": "resource/icons/extension-icon.png",
@@ -99,6 +99,10 @@
 						"description": "Pack Web Client UI API Application."
 					},
 					{
+						"name": "webclient-uiapi-deploy",
+						"description": "Deploy Web Client UI API Application."
+					},
+					{
 						"name": "webclient-uiapi-inspect",
 						"description": "Inspect the Web Client UI Control."
 					}
@@ -118,7 +122,20 @@
 				"toolReferenceName": "uiapi-getEntityList",
 				"userDescription": "EntitySets or business objects retrieved from ServiceLayer metadata",
 				"displayName": "Get EntitySet List",
-				"modelDescription": "Get the list of EntitySets or business objects from SAP Business One ServiceLayer. If users' question is relevant to a specific EntitySet, you MUST drill down to entity details by using the tool 'WebClientUIAPI_getEntitySetDetail' to give an accurate answer; If you're not sure the EntitySet closely relevant to users' question, you can use the tool 'WebClientUIAPI_getUnbindFunctions' to check if there's any relevant function to retrieve the data."
+				"modelDescription": "Get a paged list of EntitySets or business objects from SAP Business One ServiceLayer. Returns page, pageSize, totalCount, totalPages, and entitySets array. If totalPages > 1, call again with the next page number to retrieve more. If users' question is relevant to a specific EntitySet, you MUST drill down to entity details by using the tool 'WebClientUIAPI_getEntitySetDetail' to give an accurate answer; If you're not sure the EntitySet closely relevant to users' question, you can use the tool 'WebClientUIAPI_getUnbindFunctions' to check if there's any relevant function to retrieve the data.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"page": {
+							"type": "number",
+							"description": "1-based page number (default: 1)"
+						},
+						"pageSize": {
+							"type": "number",
+							"description": "Number of EntitySets per page (default: 50)"
+						}
+					}
+				}
 			},
 			{
 				"name": "WebClientUIAPI_getEntitySetDetail",
@@ -400,6 +417,7 @@
 				"name": "WebClientUIAPI_createApp",
 				"tags": [
 					"WebClientUIAPI",
+					"language-model-tools",
 					"create"
 				],
 				"icon": "$(files)",
@@ -478,6 +496,7 @@
 				"name": "WebClientUIAPI_addModule",
 				"tags": [
 					"WebClientUIAPI",
+					"language-model-tools",
 					"create"
 				],
 				"icon": "$(files)",
@@ -529,6 +548,7 @@
 				"name": "WebClientUIAPI_addView",
 				"tags": [
 					"WebClientUIAPI",
+					"language-model-tools",
 					"create"
 				],
 				"icon": "$(files)",

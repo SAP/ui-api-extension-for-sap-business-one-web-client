@@ -9,4 +9,5 @@ export class UiApiCommandLiterals {
 	public static readonly PREVIEW_EMBED_CHAT_COMMAND = 'webclient-uiapi-preview-embedded';
 	public static readonly PACKAGE_CHAT_COMMAND = 'webclient-uiapi-package';
 	public static readonly INSPECT_CHAT_COMMAND = 'webclient-uiapi-inspect';
+	public static readonly DEPLOY_CHAT_COMMAND = 'webclient-uiapi-deploy';
 }

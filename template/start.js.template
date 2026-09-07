@@ -44,7 +44,6 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const morgan = require("morgan");
-const chokidar = require("chokidar");
 const color = require("colors/safe");
 
 function toWorkspaceRelative(filePath) {
@@ -62,7 +61,7 @@ function getWorkspacePort() {
         }
         const settingsFileContent = fs.readFileSync(settingsFilePath, "utf-8");
         const settings = JSON.parse(settingsFileContent);
-        return settings["WebClientUIAPI.devServer.port"];
+        return settings["WebClientUIAPICopilot.devServer.port"];
     } catch (error) {
         return undefined;
     }
@@ -155,7 +154,7 @@ function runGulpDebug(moduleAbs) {
 
         const verboseGulp = process.env.UIAPI_DEV_GULP_VERBOSE === "1";
         const silentFlag = verboseGulp ? "" : "--silent ";
-        const cmd = `node ${gulpBin} ${silentFlag}--gulpfile ${gulpfile} --cwd ${moduleAbs} debug`;
+        const cmd = `node "${gulpBin}" ${silentFlag}--gulpfile "${gulpfile}" --cwd "${moduleAbs}" debug`;
         exec(cmd, { maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
             if (error) {
                 if (stdout) process.stdout.write(stdout);
@@ -222,7 +221,7 @@ function startDevServer(appsContent) {
                 console.error(
                     color.red(
                         `Port ${port} is already in use. ` +
-                        `Stop the other dev server or change WebClientUIAPI.devServer.port in .vscode/settings.json.`
+                        `Stop the other dev server or change WebClientUIAPICopilot.devServer.port in .vscode/settings.json.`
                     )
                 );
             }
@@ -231,7 +230,8 @@ function startDevServer(appsContent) {
     });
 }
 
-function startMirrorWatcher(modules) {
+async function startMirrorWatcher(modules) {
+    const { watch } = await import("chokidar");
     function mirrorFile(sourceFilePath) {
         const srcFolderRegExp = new RegExp(`\\${path.sep}src\\${path.sep}`, "g");
         const mirroredFilePath = sourceFilePath.replace(
@@ -270,7 +270,7 @@ function startMirrorWatcher(modules) {
     console.log(color.magenta(`Watching source asset: ${moduleNames.join(", ")}`));
 
     const watchRoots = modules.map((m) => m.moduleSrcAbs);
-    const watcher = chokidar.watch(watchRoots, {
+    const watcher = watch(watchRoots, {
         ignored: /(^|[\/\\])\..*|\.ts$/,
         ignoreInitial: true,
         persistent: true,
@@ -336,7 +336,7 @@ async function main() {
     await runGulpForAllModules(modules);
 
     const { server } = await startDevServer(appsContent);
-    const watcher = startMirrorWatcher(modules);
+    const watcher = await startMirrorWatcher(modules);
     const tscChildren = startTscWatchers(modules);
     const shutdown = async () => {
         try {

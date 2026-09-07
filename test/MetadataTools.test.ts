@@ -83,15 +83,21 @@ test('configureMetadataParserPath sets base path only once', async () => {
   assert.deepEqual(parserMock.setMetadataBasePathCalls, ['/extension-root']);
 });
 
-test('GetEntitySetListTool returns one text part per entity set', async () => {
+test('GetEntitySetListTool returns paginated entity set list as a single JSON text part', async () => {
   resetState();
   const moduleRef = await loadModule();
   const tool = new moduleRef.GetEntitySetListTool();
 
-  const result = await tool.invoke({ input: undefined } as never, {} as never);
-  const values = (result as unknown as { content: Array<{ value: string }> }).content.map((part) => part.value);
+  const result = await tool.invoke({ input: {} } as never, {} as never);
+  const parts = (result as unknown as { content: Array<{ value: string }> }).content;
 
-  assert.deepEqual(values, ['Orders', 'BusinessPartners']);
+  assert.equal(parts.length, 1);
+  const parsed = JSON.parse(parts[0].value);
+  assert.deepEqual(parsed.entitySets, ['Orders', 'BusinessPartners']);
+  assert.equal(parsed.page, 1);
+  assert.equal(parsed.pageSize, 50);
+  assert.equal(parsed.totalCount, 2);
+  assert.equal(parsed.totalPages, 1);
 });
 
 test('ValidatePropertyTool returns invalid property message when parser reports invalid entries', async () => {

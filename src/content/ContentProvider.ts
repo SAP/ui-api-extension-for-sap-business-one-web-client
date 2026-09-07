@@ -496,32 +496,29 @@ export class ContentProvider {
         }
 
         try {
-            const appFolderUri = vscode.Uri.joinPath(folderUri, appName);
-            await vscode.workspace.fs.createDirectory(appFolderUri);
-
-            const vscodeFolderUri = vscode.Uri.joinPath(appFolderUri, ".vscode");
+            const vscodeFolderUri = vscode.Uri.joinPath(folderUri, ".vscode");
             await vscode.workspace.fs.createDirectory(vscodeFolderUri);
 
             await this.generateLaunchJson(appMeta, vscodeFolderUri);
             await this.generateSettings(vscodeFolderUri);
             await this.generateTasksJson(vscodeFolderUri);
-            await this.generateAppJson(appMeta, appFolderUri);
+            await this.generateAppJson(appMeta, folderUri);
 
             const extension = getCurrentExtension();
-            await this.generateIndexHtml(extension, appFolderUri);
-            await this.generateGulpfileJs(extension, appFolderUri);
-            await this.generateStartJs(extension, appFolderUri);
-            await this.generateReadmeMd(extension, appFolderUri);
-            await this.generateGitignore(extension, appFolderUri);
-            await this.generatePackageJson(extension, appFolderUri, appName, appVersion, appProvider);
+            await this.generateIndexHtml(extension, folderUri);
+            await this.generateGulpfileJs(extension, folderUri);
+            await this.generateStartJs(extension, folderUri);
+            await this.generateReadmeMd(extension, folderUri);
+            await this.generateGitignore(extension, folderUri);
+            await this.generatePackageJson(extension, folderUri, appName, appVersion, appProvider);
 
-            await this.generateMtaYaml(appMeta, appFolderUri);
-            await this.generateModules(appMeta, extension, appFolderUri, appProvider, appName, modules);
-            await this.generateReferences(extension, appFolderUri);
-            await this.generateAgentsMd(extension, appFolderUri);
-            await this.generateCopilotInstructions(extension, appFolderUri);
+            await this.generateMtaYaml(appMeta, folderUri);
+            await this.generateModules(appMeta, extension, folderUri, appProvider, appName, modules);
+            await this.generateReferences(extension, folderUri);
+            await this.generateAgentsMd(extension, folderUri);
+            await this.generateCopilotInstructions(extension, folderUri);
 
-            this.logger.info(`App generation completed successfully at '${appFolderUri.fsPath}'.`);
+            this.logger.info(`App generation completed successfully at '${folderUri.fsPath}'.`);
         } catch (error) {
             this.logger.error(`Failed to create app '${appProvider}.${appName}': ${this.formatError(error)}`);
             vscode.window.showErrorMessage(`Error creating file or folder: ${error}`);

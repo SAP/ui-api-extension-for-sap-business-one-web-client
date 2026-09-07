@@ -405,5 +405,7 @@ export function getDevServerPort(): number {
 export async function linkFolder(actual: string, symlink: string): Promise<void> {
     const actualPath = path.resolve(actual);
     const symlinkPath = path.resolve(symlink);
-    await fs.promises.symlink(actualPath, symlinkPath, 'dir');
+    // Junctions don't require elevated privileges or Developer Mode on Windows
+    const type = process.platform === 'win32' ? 'junction' : 'dir';
+    await fs.promises.symlink(actualPath, symlinkPath, type);
 };

@@ -36,15 +36,6 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
             vscode.lm.tools :
             vscode.lm.tools.filter(tool => tool.tags.includes('WebClientUIAPI'));
 
-        const llm = chatRequest.model;
-        const isClaudeModel =
-            (llm.family?.toLowerCase().includes('claude') ?? false) ||
-            (llm.id?.toLowerCase().includes('claude') ?? false);
-        if (isClaudeModel) {
-            logger.warn(`Rejected unsupported model in ask mode: ${llm.id}`);
-            throw new Error('Claude models are not supported in chat ask mode.');
-        }
-
         if (chatRequest.command === UiApiCommandLiterals.START_CHAT_COMMAND) {
             const ret = await startDevServer(stream, UiApiCommandLiterals.START_CHAT_COMMAND);
             return ret;
@@ -66,13 +57,33 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
             return ret;
         }
 
+        const isDeployCommand = chatRequest.command == UiApiCommandLiterals.DEPLOY_CHAT_COMMAND;
+        if(!isDeployCommand){
+            const prompt = chatRequest.prompt ?? '';
+            if(!prompt || prompt.trim().length === 0) {
+                stream.markdown('Welcome to use UI API development extension for SAP Business One, Web client.');
+                return;
+            }
+        }
+
+        const llm = chatRequest.model;
+        const isClaudeModel =
+            (llm.family?.toLowerCase().includes('claude') ?? false) ||
+            (llm.id?.toLowerCase().includes('claude') ?? false);
+        if (isClaudeModel) {
+            logger.warn(`Rejected unsupported model in ask mode: ${llm.id}`);
+            throw new Error('Claude models are not supported in chat ask mode.');
+        }
+
         const chatRequestOptions: vscode.LanguageModelChatRequestOptions = {
             justification: 'WebClient UI API Copilot Tool User Request',
         };
 
-
         // The following code is mainly used in Ask mode.
-        const agentInstructions = await loadInstructions(context);
+        let agentInstructions = await loadInstructions(context);
+        if(chatRequest.command == UiApiCommandLiterals.DEPLOY_CHAT_COMMAND) {
+            agentInstructions = DeployPrompt;
+        }
 
         // Render the initial prompt for the chat participant, which includes the agent instructions and any tool call results from previous rounds.
         let renderedResult = await renderPrompt(
@@ -192,11 +203,11 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
     chatParticipant.followupProvider = {
         provideFollowups(result: ICommandChatResult, _context: vscode.ChatContext, _token: vscode.CancellationToken) {
             if (result.metadata.command === UiApiCommandLiterals.PACKAGE_CHAT_COMMAND) {
-                const prompt = `Show the instruction on how to deploy SAP Business One Web Client UI API extension. \nContext:\n` + DeployPrompt;
+                const prompt = `Deploy this Web Client UI API application.`;
                 return [{
                     prompt: prompt,
                     label: vscode.l10n.t('Deploy Web Client UI API Application'),
-                    command: 'deploy'
+                    command: UiApiCommandLiterals.DEPLOY_CHAT_COMMAND
                 } satisfies vscode.ChatFollowup];
             }
             if (result.metadata.command === UiApiCommandLiterals.PREVIEW_CHAT_COMMAND || result.metadata.command === UiApiCommandLiterals.PREVIEW_EMBED_CHAT_COMMAND) {

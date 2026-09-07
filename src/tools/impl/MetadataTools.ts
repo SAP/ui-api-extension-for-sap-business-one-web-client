@@ -14,18 +14,34 @@ export function configureMetadataParserPath(): void {
   isMetadataParserConfigured = true;
 }
 
+interface IGetEntitySetListParameter {
+  page?: number;
+  pageSize?: number;
+}
+
 export class GetEntitySetListTool
-  implements vscode.LanguageModelTool<void> {
+  implements vscode.LanguageModelTool<IGetEntitySetListParameter> {
   async invoke(
-    _options: vscode.LanguageModelToolInvocationOptions<void>,
+    options: vscode.LanguageModelToolInvocationOptions<IGetEntitySetListParameter>,
     _token: vscode.CancellationToken
   ) {
-    const entitySetList = await ServiceLayerMetadataParser.getInstance().getEntitySetList();
-    const parts = [];
-    for (const entitySet of entitySetList) {
-      parts.push(new vscode.LanguageModelTextPart(entitySet));
-    }
-    return new vscode.LanguageModelToolResult(parts);
+    const pageSize = options.input?.pageSize ?? 50;
+    const page = options.input?.page ?? 1;
+    const allEntitySets = await ServiceLayerMetadataParser.getInstance().getEntitySetList();
+    const totalCount = allEntitySets.length;
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const start = (page - 1) * pageSize;
+    const pageItems = allEntitySets.slice(start, start + pageSize);
+    const result = {
+      page,
+      pageSize,
+      totalCount,
+      totalPages,
+      entitySets: pageItems,
+    };
+    return new vscode.LanguageModelToolResult([
+      new vscode.LanguageModelTextPart(JSON.stringify(result)),
+    ]);
   }
 }
 

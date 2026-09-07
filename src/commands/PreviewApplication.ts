@@ -81,9 +81,7 @@ export async function previewApplication(
 				?? launchJsonContentJson.configurations.find((configuration: { name?: string; url?: string }) => configuration.name === `${configNamePrefix} - Homepage`)
 				?? launchJsonContentJson.configurations[0];
 		} else {
-			const warningMessage = editor
-				? "The active editor is not a *.layout.json file. Use the first matching preview configuration from launch.json. "
-				: "No *.layout.json file is open for preview. Use the first matching preview configuration from launch.json. ";
+			const warningMessage = "No active *.layout.json file is open for preview. Use the first matching configuration from `.vscode/launch.json`.";
 			stream.markdown(warningMessage);
 			matchedConfiguration = launchJsonContentJson.configurations.find((configuration: { name?: string; url?: string }) => configuration.name?.startsWith(configNamePrefix))
 				?? launchJsonContentJson.configurations[0];
@@ -91,7 +89,7 @@ export async function previewApplication(
 
 		if (!matchedConfiguration?.name || !matchedConfiguration.url) {
 			logger.error('Unable to resolve preview configuration or URL from launch.json.');
-			stream.markdown("The preview URL is not found in the launch.json file.");
+			stream.markdown("Preview URL not found in the `.vscode/launch.json`.");
 			return { metadata: { command: command, status: "failed" } };
 		}
 
