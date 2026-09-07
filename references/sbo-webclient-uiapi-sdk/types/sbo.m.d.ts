@@ -1,7 +1,7 @@
 declare module "sbo/m/library" {
     /**
      * @since 2405
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'ButtonType'.
      */
     export const enum ButtonType {
@@ -44,7 +44,7 @@ declare module "sbo/m/library" {
     }
     /**
      * @since 2405
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'InputType'.
      */
     export const enum InputType {
@@ -95,7 +95,7 @@ declare module "sbo/m/library" {
     }
     /**
      * @since 2405
-     * 
+     *
      * Available wrapping types for text controls that can be wrapped that enable you to display the text as hyphenated.
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'WrappingType'.
      */
@@ -111,9 +111,9 @@ declare module "sbo/m/library" {
     }
     /**
      * @since 2502
-     * 
+     *
      * Determines the behavior of items along the cross-axis.
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'FlexAlignItems'.
      */
     export const enum FlexAlignItems {
@@ -145,13 +145,13 @@ declare module "sbo/m/library" {
 
     /**
      * Determines the direction of child elements.
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'FlexDirection'.
      */
     export const enum FlexDirection {
         /**
          * @since 2502
-         * 
+         *
          * Flex items are laid out along the direction of the block axis (usually top to bottom)
          */
         Column = "Column",
@@ -175,9 +175,9 @@ declare module "sbo/m/library" {
 
     /**
      * @since 2502
-     * 
+     *
      * Determines the behavior along the main axis.
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'FlexJustifyContent'.
      */
     export const enum FlexJustifyContent {
@@ -209,9 +209,9 @@ declare module "sbo/m/library" {
 
     /**
      * @since 2502
-     * 
+     *
      * Modes in which a control will render empty indicator if its content is empty.
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'EmptyIndicatorMode'.
      */
     export const enum EmptyIndicatorMode {
@@ -231,9 +231,9 @@ declare module "sbo/m/library" {
 
     /**
      * @since 2502
-     * 
+     *
      * Different modes for a MenuButton.
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'MenuButtonMode'.
      */
     export const enum MenuButtonMode {
@@ -249,9 +249,9 @@ declare module "sbo/m/library" {
 
     /**
      * @since 2502
-     * 
+     *
      * Enumeration providing options for docking of some element to another.
-     * 
+     *
      * This enum is part of the 'sbo/ui/core/library' module export and must be accessed by the property 'PopupDock'.
      */
     export const enum PopupDock {
@@ -319,9 +319,9 @@ declare module "sbo/m/library" {
 
     /**
      * @since 2502
-     * 
+     *
      * Different page modes for current view.
-     * 
+     *
      * This enum is part of the 'sbo/m/library' module export and must be accessed by the property 'PageMode'.
      */
     export const enum PageMode {
@@ -342,7 +342,7 @@ declare module "sbo/m/library" {
 declare module "sbo/m/MessageBox" {
     /**
      * @since 2405
-     * 
+     *
      * Enumeration of the pre-defined icons that can be used in a MessageBox.
      *
      * This enum is part of the 'sbo/m/MessageBox' module export and must be accessed by the property 'Icon'.
@@ -375,7 +375,7 @@ declare module "sbo/m/MessageBox" {
     }
     /**
      * @since 2405
-     * 
+     *
      * Enumeration of supported actions in a MessageBox.
      *
      * Each action is represented as a button in the message box. The values of this enumeration are used for
@@ -429,7 +429,7 @@ declare module "sbo/m/Button" {
     import { ButtonType } from "sbo/m/library";
     /**
      * @since 2405
-     * 
+     *
      * Enables users to trigger actions.
      *
      * For the `Button` UI, you can define text, icon, or both. You can also specify whether the text or the
@@ -465,9 +465,9 @@ declare module "sbo/m/Button" {
         setEnabled(bEnabled?: boolean): Promise<void>;
         /**
          * Gets current value of property `text`.
-         * 
+         *
          * Determines the text of the `Button`.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -509,7 +509,7 @@ declare module "sbo/m/Button" {
         setButtonType(buttonType: ButtonType): Promise<void>;
         /**
          * Gets the tooltip of the Button.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The tooltip of the Button.
@@ -517,9 +517,9 @@ declare module "sbo/m/Button" {
         getTooltip(): Promise<string>;
         /**
          * Sets the tooltip for the Button.
-         * 
+         *
          * Default value is `empty string`.
-         * 
+         *
          * @returns Promise<void>
          */
         setTooltip(sTooltip: string): Promise<void>;
@@ -571,17 +571,17 @@ declare module "sbo/m/Button" {
         setVisible(bVisible: boolean): Promise<void>;
         /**
          * @since 2502
-         * 
+         *
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event press to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         firePress(): Promise<void>;
@@ -594,14 +594,14 @@ declare module "sbo/m/Input" {
     import { ValueState, TextDirection, TextAlign } from "sbo/ui/core/library";
     /**
      * @since 2405
-     * 
+     *
      * Allows the user to enter and edit text or numeric values in one line.
      */
     export default interface Input extends Control {
         /**
          * Gets current value of property `editable`.
          *
-         * Defines whether the control can be modified by the user or not. 
+         * Defines whether the control can be modified by the user or not.
          *
          * Default value is `true`.
          *
@@ -611,12 +611,12 @@ declare module "sbo/m/Input" {
         /**
          * Sets a new value for property `editable`.
          *
-         * Defines whether the control can be modified by the user or not. 
+         * Defines whether the control can be modified by the user or not.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
          *
          * Default value is `true`.
-         * 
+         *
          * @returns Promise<void>
          */
         setEditable(bEditable: boolean): Promise<void>;
@@ -644,7 +644,7 @@ declare module "sbo/m/Input" {
         setEnabled(bEnabled: boolean): Promise<void>;
         /**
          * Gets current value of property `mandatory`.
-         * 
+         *
          * Determines whether display a red asterisk before label text.
          *
          * Default value is `false`.
@@ -654,7 +654,7 @@ declare module "sbo/m/Input" {
         getMandatory(): Promise<boolean>;
         /**
          * Sets the value of property `mandatory`.
-         * 
+         *
          * Determines whether display a red asterisk before label text.
          *
          * Default value is `false`.
@@ -684,7 +684,7 @@ declare module "sbo/m/Input" {
         setInputType(sInputType: InputType): Promise<void>;
         /**
          * Gets the tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The tooltip of the control.
@@ -692,7 +692,7 @@ declare module "sbo/m/Input" {
         getTooltip(): Promise<string>;
         /**
          * Sets the tooltip for the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>.
@@ -724,7 +724,7 @@ declare module "sbo/m/Input" {
          * Gets current value of property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -734,7 +734,7 @@ declare module "sbo/m/Input" {
          * Sets a new value for property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -800,7 +800,7 @@ declare module "sbo/m/Input" {
          * Gets current value of property `maxLength`.
          *
          * Maximum number of characters.
-         * 
+         *
          * Default value is `0`.
          *
          * @returns Value of property `maxLength`
@@ -809,8 +809,8 @@ declare module "sbo/m/Input" {
         /**
          * Sets a new value for property `maxLength`.
          *
-         * Maximum number of characters. 
-         * 
+         * Maximum number of characters.
+         *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
          *
          * Default value is `0`.
@@ -822,7 +822,7 @@ declare module "sbo/m/Input" {
          * Gets current value of property `value`.
          *
          * Defines the value of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `value`
@@ -830,7 +830,7 @@ declare module "sbo/m/Input" {
         getValue(): Promise<string>;
         /**
          * Setter for property `value`.
-         * 
+         *
          * Defines the value of the control.
          *
          * Default value is empty string.
@@ -914,7 +914,7 @@ declare module "sbo/m/Input" {
          * Gets current value of property `showSuggestion`.
          *
          * If this is set to true, suggest event is fired when user types in the input. Changing the suggestItems
-         * aggregation in suggest event listener will show suggestions within a popup. 
+         * aggregation in suggest event listener will show suggestions within a popup.
          *
          * Default value is `false`.
          *
@@ -937,19 +937,19 @@ declare module "sbo/m/Input" {
         /**
          * Gets content of aggregation `suggestionItems`.
          *
-         * `SuggestionItems` are the items which will be shown in the suggestions list. 
-         * 
+         * `SuggestionItems` are the items which will be shown in the suggestions list.
+         *
          * Default value is `empty array`.
-         *          
+         *
          *  @returns Promise<Item[]>
          */
         getSuggestionItems(): Promise<Item[]>;
         /**
          * Gets current value of property `currency`.
-         * 
-         * The currency part ($, EUR…) of a Currency (Sum,Tax,Price…) Input. When input bind the currency property, the 
+         *
+         * The currency part ($, EUR…) of a Currency (Sum,Tax,Price…) Input. When input bind the currency property, the
          * currency value will be validated and can not be empty.
-         * 
+         *
          * Default value is `null`.
          *
          * @returns Value of property `currency`
@@ -957,10 +957,10 @@ declare module "sbo/m/Input" {
         getCurrency(): Promise<string>;
         /**
          * Sets a new value of property `currency`.
-         * 
-         * The currency part ($, EUR…) of a Currency (Sum,Tax,Price…) Input. When input bind the currency property, the 
+         *
+         * The currency part ($, EUR…) of a Currency (Sum,Tax,Price…) Input. When input bind the currency property, the
          * currency value will be validated and can not be empty.
-         * 
+         *
          * Default value is `null`.
          *
          * @returns Promise<void>
@@ -968,25 +968,25 @@ declare module "sbo/m/Input" {
         setCurrency(sCurrency: string): Promise<void>;
         /**
          * @since 2502
-         * 
+         *
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event change to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireChange(mParameters: { value?: string, oldValue?: string }): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event suggest to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireSuggest(mParameters: { suggestValue?: string }): Promise<void>
@@ -997,7 +997,7 @@ declare module "sbo/m/StaticText" {
     import { WrappingType } from "sbo/m/library";
     /**
      * @since 2405
-     * 
+     *
      * The StaticText control can be used for embedding longer text paragraphs, that need text wrapping, into your app. If the configured text value contains HTML code or script tags, those will be escaped.
      */
     export default interface StaticText extends Control {
@@ -1005,7 +1005,7 @@ declare module "sbo/m/StaticText" {
          * Gets current value of property label.
          *
          * Label of the control
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -1017,7 +1017,7 @@ declare module "sbo/m/StaticText" {
          * Label of the control
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1037,7 +1037,7 @@ declare module "sbo/m/StaticText" {
          * Gets current value of property `text`.
          *
          * Determines th text to be displayed.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -1049,7 +1049,7 @@ declare module "sbo/m/StaticText" {
          * Determines text to be displayed.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1059,7 +1059,7 @@ declare module "sbo/m/StaticText" {
          * Gets current value of property `maxLines`.
          *
          * Limits the number of lines for wrapping texts.
-         * 
+         *
          * No default value.
          *
          * @returns Value of property `maxLines`
@@ -1071,7 +1071,7 @@ declare module "sbo/m/StaticText" {
          * Limits the number of lines for wrapping texts.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-         * 
+         *
          * No default value.
          *
          * @returns Promise<void>
@@ -1167,7 +1167,7 @@ declare module "sbo/m/StaticText" {
         setVisible(bVisible: boolean): Promise<void>;
         /**
          * Gets the tooltip of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The tooltip of the control.
@@ -1175,7 +1175,7 @@ declare module "sbo/m/StaticText" {
         getTooltip(): Promise<string>;
         /**
          * Sets the tooltip for the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1183,9 +1183,9 @@ declare module "sbo/m/StaticText" {
         setTooltip(sTooltip: string): Promise<void>;
         /**
          * @since 2502
-         * 
+         *
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
@@ -1195,7 +1195,7 @@ declare module "sbo/m/CheckBox" {
     import Control from "sbo/ui/core/Control";
     /**
      * @since 2405
-     * 
+     *
      * Allows the user to set a binary value, such as true/false or yes/no for an item.
      */
     export default interface CheckBox extends Control {
@@ -1231,7 +1231,7 @@ declare module "sbo/m/CheckBox" {
          * Gets current value of property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -1241,7 +1241,7 @@ declare module "sbo/m/CheckBox" {
          * Sets a new value for property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -1261,7 +1261,7 @@ declare module "sbo/m/CheckBox" {
         getHideLabel(): Promise<boolean>;
         /**
          * Gets the tooltip of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The tooltip of the control.
@@ -1269,7 +1269,7 @@ declare module "sbo/m/CheckBox" {
         getTooltip(): Promise<string>;
         /**
          * Sets the tooltip for the BusyDialog.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1319,17 +1319,17 @@ declare module "sbo/m/CheckBox" {
         setVisible(bVisible: boolean): Promise<void>;
         /**
          * @since 2502
-         * 
+         *
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event select to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireSelect(mParameters: { selected?: boolean }): Promise<void>;
@@ -1341,15 +1341,15 @@ declare module "sbo/m/ComboBox" {
     import { ValueState } from "sbo/ui/core/library";
     /**
      * @since 2405
-     * 
-     * This control is a drop-down list for selecting and filtering values. 
+     *
+     * This control is a drop-down list for selecting and filtering values.
      * The control represents a drop-down menu with a list of the available options and a text input field to narrow down the options.
      */
     export default interface ComboBox extends Control {
         /**
          * Gets current value of property `editable`.
          *
-         * Defines whether the control can be modified by the user or not. 
+         * Defines whether the control can be modified by the user or not.
          *
          * Default value is `true`.
          *
@@ -1370,7 +1370,7 @@ declare module "sbo/m/ComboBox" {
         setEditable(editable: boolean): Promise<void>;
         /**
          * Reflector for the internal header's selectedKey property.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The current property value.
@@ -1378,7 +1378,7 @@ declare module "sbo/m/ComboBox" {
         getSelectedKey(): Promise<string>;
         /**
          * Reflector for the internal header's selectedKey property.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns this Pointer for chaining.
@@ -1386,7 +1386,7 @@ declare module "sbo/m/ComboBox" {
         setSelectedKey(selectedKey: string): Promise<void>;
         /**
          * Gets the tooltip of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The tooltip of the control.
@@ -1394,7 +1394,7 @@ declare module "sbo/m/ComboBox" {
         getTooltip(): Promise<string>;
         /**
          * Sets the tooltip for the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1424,7 +1424,7 @@ declare module "sbo/m/ComboBox" {
          * Gets current value of property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -1436,7 +1436,7 @@ declare module "sbo/m/ComboBox" {
          * Defines the label of the control.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1454,7 +1454,7 @@ declare module "sbo/m/ComboBox" {
         getHideLabel(): Promise<boolean>;
         /**
          * Gets current value of property `mandatory`.
-         * 
+         *
          * Determines whether display a red asterisk before label text.
          *
          * Default value is `false`.
@@ -1464,7 +1464,7 @@ declare module "sbo/m/ComboBox" {
         getMandatory(): Promise<boolean>;
         /**
          * Sets the value of property `mandatory`.
-         * 
+         *
          * Determines whether display a red asterisk before label text.
          *
          * Default value is `false`.
@@ -1488,7 +1488,7 @@ declare module "sbo/m/ComboBox" {
          * Indicates whether filter apply to additionalText.
          *
          * Default value is `false`.
-         * 
+         *
          * @returns Promise<void>
          */
         setFilterSecondaryValues(filterSecondaryValues: boolean): Promise<void>;
@@ -1514,7 +1514,7 @@ declare module "sbo/m/ComboBox" {
         setShowSecondaryValues(showSecondaryValues: boolean): Promise<void>;
         /**
          * Gets content of aggregation `items`.
-         * 
+         *
          * Default value is `empty array`.
          *
          * Flex items within the control.
@@ -1568,25 +1568,25 @@ declare module "sbo/m/ComboBox" {
         setValueStateText(valueStateText: string): Promise<void>;
         /**
          * @since 2502
-         * 
+         *
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event change to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireChange(mParameters: { value?: string, oldValue?: string }): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event loadItems to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireLoadItems(): Promise<void>;
@@ -1597,8 +1597,8 @@ declare module "sbo/m/Section" {
     import Control from "sbo/ui/core/Control";
     /**
      * @since 2405
-     * 
-     * Section is a top-level information container, which is generally used in an object page layout and is for the purpose of aggregating subsections containing second-level information. 
+     *
+     * Section is a top-level information container, which is generally used in an object page layout and is for the purpose of aggregating subsections containing second-level information.
      */
     export default interface Section extends Control {
         /**
@@ -1631,7 +1631,7 @@ declare module "sbo/m/Section" {
         getText(): Promise<string>;
         /**
          * Sets the text for the control.
-         * 
+         *
          * Default value is `Start`.
          *
          * @returns Promise<void>
@@ -1639,7 +1639,7 @@ declare module "sbo/m/Section" {
         setText(sText: string): Promise<void>;
         /**
          * Gets current value of property `subSections`.
-         * 
+         *
          * Default value is `empty array`.
          *
          * @returns Promise<SubSection[]>
@@ -1675,7 +1675,7 @@ declare module "sbo/m/Grid" {
     import Row from "sbo/ui/core/Row";
     /**
      * @since 2405
-     * 
+     *
      * This control provides a comprehensive set of features for displaying and dealing with vast amounts of data.
      */
     export default interface Grid extends Control {
@@ -1683,7 +1683,7 @@ declare module "sbo/m/Grid" {
          * Gets current value of property `title`.
          *
          * Title text appears in the grid.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `title`
@@ -1695,7 +1695,7 @@ declare module "sbo/m/Grid" {
          * Title text appears in the grid.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1705,29 +1705,29 @@ declare module "sbo/m/Grid" {
          * Gets current value of property `rowsData`.
          *
          * The property for binding data.
-         * 
+         *
          * Default value is `empty array`.
-         * 
+         *
          * @returns Value of property `rowsData`
          */
         getRowsData(): Promise<any[]>;
         /**
          * Gets the value of property `visibleRowCount`.
-         * 
+         *
          * The number of visible rows of the grid.
-         * 
+         *
          * Default value is `20`.
-         * 
+         *
         * @returns Promise<void>
         */
         getVisibleRowCount(): Promise<number>;
         /**
          * Sets a new value of property `visibleRowCount`.
-         * 
+         *
          * The number of visible rows of the grid.
-         * 
+         *
          * Default value is `20`.
-         * 
+         *
         * @returns Promise<void>
         */
         setVisibleRowCount(visibleRowCount: number): Promise<void>;
@@ -1777,7 +1777,7 @@ declare module "sbo/m/Grid" {
          * Gets current value of property `columnHeaderHeight`.
          *
          * Defines header row height in pixel.
-         * 
+         *
          * Default value is `0`.
          *
          * @returns Value of property `columnHeaderHeight`
@@ -1787,7 +1787,7 @@ declare module "sbo/m/Grid" {
          * Sets a new value of property `columnHeaderHeight`.
          *
          * Defines header row height in pixel.
-         * 
+         *
          * Default value is `0`.
          *
          * @returns Promise<void>
@@ -1857,7 +1857,7 @@ declare module "sbo/m/Grid" {
          * Gets current value of property `rowHight`.
          *
          * Defines row height in pixel.
-         * 
+         *
          * Default value is `0`.
          *
          * @returns Value of property `rowHight`
@@ -1867,7 +1867,7 @@ declare module "sbo/m/Grid" {
          * Sets a new value of property `rowHight`.
          *
          * Defines row height in pixel.
-         * 
+         *
          * Default value is `0`.
          *
          * @returns Promise<void>
@@ -1919,7 +1919,7 @@ declare module "sbo/m/Grid" {
          * Gets current value of property `width`.
          *
          * Defines the width of the table.
-         * 
+         *
          * Default value is `100%`.
          *
          * @returns Value of property `width`
@@ -1929,7 +1929,7 @@ declare module "sbo/m/Grid" {
          * Sets a new value for property `width`.
          *
          * Defines the width of the table.
-         * 
+         *
          * Default value is `100%`.
          *
          * @returns Promise<void>
@@ -1938,8 +1938,8 @@ declare module "sbo/m/Grid" {
         /**
          * Gets content of aggregation `noData`.
          *
-         * Defines the custom visualization if there is no data available. 
-         * 
+         * Defines the custom visualization if there is no data available.
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `noData`
@@ -1947,7 +1947,7 @@ declare module "sbo/m/Grid" {
         getNoData(): Promise<string>;
         /**
          * Sets the aggregated `noData`.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -1957,7 +1957,7 @@ declare module "sbo/m/Grid" {
          * Gets current busy state.
          *
          * Default value is `false`.
-         * 
+         *
          * @returns value of current busy state.
          */
         getBusy(): Promise<boolean>;
@@ -1965,7 +1965,7 @@ declare module "sbo/m/Grid" {
          * Enables/Disables busy state.
          *
          * Default value is `false`.
-         * 
+         *
          * @returns Promise<void>
          */
         setBusy(busy: boolean): Promise<void>;
@@ -1977,10 +1977,6 @@ declare module "sbo/m/Grid" {
          * Get the editable status.
          */
         getEditable(): Promise<boolean>;
-        /**
-         * Get selection mode of the grid.
-         */
-        getSelectionMode(): Promise<SelectionMode>;
         /**
          * Removes complete selection.
          */
@@ -1995,12 +1991,12 @@ declare module "sbo/m/Grid" {
         getAllSelectedIndices(): Promise<int[]>;
         /**
          * Sets a new value for property selectedIndex.
-         * 
+         *
          * Zero-based index of selected item. Index value for no selection is -1. When multi-selection is enabled and multiple items are selected, the method returns the lead selected item. Sets the zero-based index of the currently selected item. This method removes any previous selections. When the given index is invalid, the call is ignored.
          * When called with a value of null or undefined, the default value of the property will be restored.
-         * 
+         *
          * Default value is -1.
-         * 
+         *
          * @param iSelectedIndex - New value for property selectedIndex
          */
         setSelectedIndex(iSelectedIndex?: int): Promise<void>;
@@ -2031,7 +2027,7 @@ declare module "sbo/m/Grid" {
         ready(): Promise<void>;
         /**
          * Set filter.
-         * @param options - The parameter `options` should have the following members: 
+         * @param options - The parameter `options` should have the following members:
          * - {object[]} filters - Additional filters to be set with the grid.
          * - {boolean} and - Determine if need create logical AND combinations of filter.
          */
@@ -2047,7 +2043,7 @@ declare module "sbo/m/Grid" {
         removeRows(indices?: int[]): Promise<void>;
         /**
          * @since 2608
-         * 
+         *
          * Scroll to a specified row index in the Grid.
          *
          * @param rowIndex - The index of row
@@ -2059,7 +2055,7 @@ declare module "sbo/m/Grid" {
          */
         Column(sCtrlGuid?: string): Promise<Column>;
         /**
-         * Get all the columns. 
+         * Get all the columns.
          */
         getColumns(): Promise<Column[]>;
         /**
@@ -2069,49 +2065,49 @@ declare module "sbo/m/Grid" {
         Row(iIndex?: int): Promise<Row>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event ItemPressed to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireItemPressed(mParameters: { value?: object }): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event rowSelectionChange to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireRowSelectionChange(mParameters: { rowIndex?: int, rowIndices?: int[], selectAll?: boolean, userInteraction?: boolean }): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event firstVisibleRowChanged to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireFirstVisibleRowChanged(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event sort to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireSort(mParameters: { column?: object, sortOrder?: string, columnAdded?: boolean }): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event filter to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireFilter(mParameters: { column?: object, value?: string }): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event paste to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         firePaste(mParameters: { data?: string[][] }): Promise<void>;
@@ -2124,15 +2120,15 @@ declare module "sbo/m/MessageStrip" {
     import { URI } from "sbo/ui/core/SDKEnv";
     /**
      * @since 2502
-     * 
+     *
      * MessageStrip control enables the embedding of application-related messages in the application.
      */
     export default interface MessageStrip extends Control {
         /**
          * Gets current value of property `customIcon`.
-         * 
+         *
          * Represents an RFC3986 conformant URI starting with 'sap-icon://'.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `customIcon`
@@ -2141,9 +2137,9 @@ declare module "sbo/m/MessageStrip" {
 
         /**
          * Sets a new value for property `customIcon`.
-         * 
+         *
          * Represents an RFC3986 conformant URI starting with 'sap-icon://'.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2198,7 +2194,7 @@ declare module "sbo/m/MessageStrip" {
          * Gets current value of property `text`.
          *
          * Determines the text of the message.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -2209,7 +2205,7 @@ declare module "sbo/m/MessageStrip" {
          * Sets a new value for property `text`.
          *
          * Determines the text of the message.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2261,21 +2257,21 @@ declare module "sbo/m/MessageStrip" {
         setVisible(bVisible: boolean): Promise<void>;
         /**
          * Closes the MessageStrip.
-         * 
+         *
          * @returns Promise<void>
          */
         close(): Promise<void>;
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event close to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireClose(): Promise<void>;
@@ -2289,7 +2285,7 @@ declare module "sbo/m/HBox" {
 
     /**
      * @since 2502
-     * 
+     *
      * The HBox control builds the container for a horizontal flexible box layout.
      */
     export default interface HBox extends Control {
@@ -2297,7 +2293,7 @@ declare module "sbo/m/HBox" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -2308,7 +2304,7 @@ declare module "sbo/m/HBox" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2462,7 +2458,7 @@ declare module "sbo/m/HBox" {
          * Gets content of aggregation `items`.
          *
          * Flex items within the flexible box layout.
-         * 
+         *
          * Default value is `empty array`.
          *
          * @returns Promise<any[]>
@@ -2477,7 +2473,7 @@ declare module "sbo/m/DatePicker" {
 
     /**
      * @since 2502
-     * 
+     *
      * DatePicker control lets users select a localized date using touch, mouse, or keyboard input.
      */
     export default interface DatePicker extends Control {
@@ -2485,7 +2481,7 @@ declare module "sbo/m/DatePicker" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -2496,7 +2492,7 @@ declare module "sbo/m/DatePicker" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2518,7 +2514,7 @@ declare module "sbo/m/DatePicker" {
          * Gets current value of property `value`.
          *
          * The value of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `value`
@@ -2529,7 +2525,7 @@ declare module "sbo/m/DatePicker" {
          * Sets a new value for property `value`.
          *
          * The value of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2598,7 +2594,7 @@ declare module "sbo/m/DatePicker" {
          * Gets current value of property `valueFormat`.
          *
          * Determines the format of the value property.
-         * 
+         *
          * Default value is `yyyyMMdd`.
          *
          * @returns Value of property `valueFormat`
@@ -2693,7 +2689,7 @@ declare module "sbo/m/DatePicker" {
          * Gets current value of property `valueStateText`.
          *
          * Defines the text that appears in the value state message pop-up.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `valueStateText`
@@ -2704,7 +2700,7 @@ declare module "sbo/m/DatePicker" {
          * Sets a new value for property `valueStateText`.
          *
          * Defines the text that appears in the value state message pop-up.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2737,7 +2733,7 @@ declare module "sbo/m/DatePicker" {
          * Gets current value of property `maxDate`.
          *
          * Maximum date that can be shown and selected in the DatePicker. This must be a JavaScript date object.
-         * 
+         *
          * @returns Value of property `maxDate`
          */
         getMaxDate(): Promise<any>;
@@ -2814,15 +2810,15 @@ declare module "sbo/m/DatePicker" {
         setShowFooter(bShowFooter: boolean): Promise<void>;
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event change to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireChange(mParameters: { value?: string, oldValue?: string }): Promise<void>;
@@ -2835,7 +2831,7 @@ declare module "sbo/m/TimePicker" {
 
     /**
      * @since 2502
-     * 
+     *
      * TimePicker control enables users to fill time related input fields using touch, mouse, or keyboard input.
      */
     export default interface TimePicker extends Control {
@@ -2843,7 +2839,7 @@ declare module "sbo/m/TimePicker" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -2854,7 +2850,7 @@ declare module "sbo/m/TimePicker" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2876,7 +2872,7 @@ declare module "sbo/m/TimePicker" {
          * Gets current value of property `value`.
          *
          * The value of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `value`
@@ -2887,7 +2883,7 @@ declare module "sbo/m/TimePicker" {
          * Sets a new value for property `value`.
          *
          * The value of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -2953,7 +2949,7 @@ declare module "sbo/m/TimePicker" {
          * Gets current value of property `placeholder`.
          *
          * Defines a short hint intended to aid the user with data entry when the control has no value.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `placeholder`
@@ -2964,7 +2960,7 @@ declare module "sbo/m/TimePicker" {
          * Sets a new value for property `placeholder`.
          *
          * Defines a short hint intended to aid the user with data entry when the control has no value.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3041,7 +3037,7 @@ declare module "sbo/m/TimePicker" {
          * Gets current value of property `valueStateText`.
          *
          * Defines the text that appears in the value state message pop-up.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `valueStateText`
@@ -3052,7 +3048,7 @@ declare module "sbo/m/TimePicker" {
          * Sets a new value for property `valueStateText`.
          *
          * Defines the text that appears in the value state message pop-up.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3104,15 +3100,15 @@ declare module "sbo/m/TimePicker" {
         setShowCurrentTimeButton(bShowCurrentTimeButton: boolean): Promise<void>;
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event change to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireChange(mParameters: { value?: string, oldValue?: string }): Promise<void>;
@@ -3127,7 +3123,7 @@ declare module "sbo/m/ObjectStatus" {
 
     /**
      * @since 2502
-     * 
+     *
      * ObjectStatus control displays status information that can be either text with a value state, or an icon.
      */
     export default interface ObjectStatus extends Control {
@@ -3135,7 +3131,7 @@ declare module "sbo/m/ObjectStatus" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -3146,7 +3142,7 @@ declare module "sbo/m/ObjectStatus" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3157,7 +3153,7 @@ declare module "sbo/m/ObjectStatus" {
          * Gets current value of property `text`.
          *
          * Defines the ObjectStatus text.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -3168,7 +3164,7 @@ declare module "sbo/m/ObjectStatus" {
          * Sets a new value for property `text`.
          *
          * Defines the ObjectStatus text.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3234,7 +3230,7 @@ declare module "sbo/m/ObjectStatus" {
          * Gets current value of property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `tooltip`
@@ -3245,7 +3241,7 @@ declare module "sbo/m/ObjectStatus" {
          * Sets a new value for property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3278,7 +3274,7 @@ declare module "sbo/m/ObjectStatus" {
          * Gets current value of property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `icon`
@@ -3289,7 +3285,7 @@ declare module "sbo/m/ObjectStatus" {
          * Sets a new value for property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3363,15 +3359,15 @@ declare module "sbo/m/ObjectStatus" {
         setTextDirection(sTextDirection: TextDirection): Promise<void>;
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event press to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         firePress(): Promise<void>;
@@ -3385,7 +3381,7 @@ declare module "sbo/m/MenuItem" {
 
     /**
      * @since 2502
-     * 
+     *
      * A MenuItem is a control to create items for the MenuButton.
      */
     export default interface MenuItem extends Control {
@@ -3393,7 +3389,7 @@ declare module "sbo/m/MenuItem" {
          * Gets current value of property `key`.
          *
          * Can be used as input for subsequent actions.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `key`
@@ -3404,7 +3400,7 @@ declare module "sbo/m/MenuItem" {
          * Sets a new value for property `key`.
          *
          * Can be used as input for subsequent actions.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3415,7 +3411,7 @@ declare module "sbo/m/MenuItem" {
          * Gets current value of property `text`.
          *
          * The text to be displayed for the item.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -3426,7 +3422,7 @@ declare module "sbo/m/MenuItem" {
          * Sets a new value for property `text`.
          *
          * The text to be displayed for the item.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3437,7 +3433,7 @@ declare module "sbo/m/MenuItem" {
          * Gets current value of property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `icon`
@@ -3448,7 +3444,7 @@ declare module "sbo/m/MenuItem" {
          * Sets a new value for property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3544,15 +3540,15 @@ declare module "sbo/m/MenuItem" {
         setTextDirection(sTextDirection: TextDirection): Promise<void>;
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event press to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         firePress(): Promise<void>;
@@ -3568,7 +3564,7 @@ declare module "sbo/m/MenuButton" {
 
     /**
      * @since 2502
-     * 
+     *
      * MenuButton control enables the user to show a hierarchical menu.
      */
     export default interface MenuButton extends Control {
@@ -3576,7 +3572,7 @@ declare module "sbo/m/MenuButton" {
          * Gets current value of property `text`.
          *
          * Defines the text of the MenuButton.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -3587,7 +3583,7 @@ declare module "sbo/m/MenuButton" {
          * Sets a new value for property `text`.
          *
          * Defines the text of the MenuButton.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3598,7 +3594,7 @@ declare module "sbo/m/MenuButton" {
          * Gets current value of property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `icon`
@@ -3609,7 +3605,7 @@ declare module "sbo/m/MenuButton" {
          * Sets a new value for property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3686,7 +3682,7 @@ declare module "sbo/m/MenuButton" {
          * Gets current value of property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `tooltip`
@@ -3697,7 +3693,7 @@ declare module "sbo/m/MenuButton" {
          * Sets a new value for property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3798,7 +3794,7 @@ declare module "sbo/m/MenuButton" {
          * Gets current value of property `width`.
          *
          * Width of the MenuButton in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `width`
@@ -3809,7 +3805,7 @@ declare module "sbo/m/MenuButton" {
          * Sets a new value for property `width`.
          *
          * Width of the MenuButton in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3820,7 +3816,7 @@ declare module "sbo/m/MenuButton" {
          * Gets content of aggregation `items`.
          *
          * Defines the menu that opens for this button.
-         * 
+         *
          * Default value is `empty array`.
          *
          * @returns Promise<MenuItem[]>
@@ -3829,34 +3825,34 @@ declare module "sbo/m/MenuButton" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event itemSelected to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireItemSelected(mParameters: { item?: object }): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event loadItems to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireLoadItems(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event defaultAction to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireDefaultAction(): Promise<void>;
@@ -3870,7 +3866,7 @@ declare module "sbo/m/Image" {
 
     /**
      * @since 2502
-     * 
+     *
      * Image control displays image loaded from a remote or local server.
      */
     export default interface Image extends Control {
@@ -3878,7 +3874,7 @@ declare module "sbo/m/Image" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -3889,7 +3885,7 @@ declare module "sbo/m/Image" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3911,7 +3907,7 @@ declare module "sbo/m/Image" {
          * Gets current value of property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `tooltip`
@@ -3922,7 +3918,7 @@ declare module "sbo/m/Image" {
          * Sets a new value for property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3933,7 +3929,7 @@ declare module "sbo/m/Image" {
          * Gets current value of property `src`.
          *
          * Relative or absolute path to URL where the image file is stored.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `src`
@@ -3944,7 +3940,7 @@ declare module "sbo/m/Image" {
          * Sets a new value for property `src`.
          *
          * Relative or absolute path to URL where the image file is stored.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3955,7 +3951,7 @@ declare module "sbo/m/Image" {
          * Gets current value of property `width`.
          *
          * Width in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `width`
@@ -3966,7 +3962,7 @@ declare module "sbo/m/Image" {
          * Sets a new value for property `width`.
          *
          * Width in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3977,7 +3973,7 @@ declare module "sbo/m/Image" {
          * Gets current value of property `height`.
          *
          * Height in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `height`
@@ -3988,7 +3984,7 @@ declare module "sbo/m/Image" {
          * Sets a new value for property `height`.
          *
          * Height in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -3999,7 +3995,7 @@ declare module "sbo/m/Image" {
          * Gets current value of property `alt`.
          *
          * The alternative text that is displayed in case the image is not available, or cannot be displayed.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `alt`
@@ -4010,7 +4006,7 @@ declare module "sbo/m/Image" {
          * Sets a new value for property `alt`.
          *
          * The alternative text that is displayed in case the image is not available, or cannot be displayed.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4065,7 +4061,7 @@ declare module "sbo/m/Image" {
          * Gets content of aggregation `imageContent`.
          *
          * Items displayed in the popup.
-         * 
+         *
          * Default value is `empty array`.
          *
          * @returns Promise<LightBoxItem[]>
@@ -4074,25 +4070,25 @@ declare module "sbo/m/Image" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event load to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireLoad(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event press to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         firePress(): Promise<void>;
@@ -4106,7 +4102,7 @@ declare module "sbo/m/TextArea" {
 
     /**
      * @since 2502
-     * 
+     *
      * TextArea control is used to enter multiple lines of text.
      */
     export default interface TextArea extends Control {
@@ -4539,16 +4535,16 @@ declare module "sbo/m/TextArea" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event change to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireChange(mParameters: { value?: string, oldValue?: string }): Promise<void>;
@@ -4561,7 +4557,7 @@ declare module "sbo/m/LightBoxItem" {
 
     /**
      * @since 2502
-     * 
+     *
      * LightBoxItem control represents an item which is displayed within a LightBox.
      */
     export default interface LightBoxItem extends Control {
@@ -4569,7 +4565,7 @@ declare module "sbo/m/LightBoxItem" {
          * Gets current value of property `imageSrc`.
          *
          * Source for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `imageSrc`
@@ -4580,7 +4576,7 @@ declare module "sbo/m/LightBoxItem" {
          * Sets a new value for property `imageSrc`.
          *
          * Source for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4591,7 +4587,7 @@ declare module "sbo/m/LightBoxItem" {
          * Gets current value of property `alt`.
          *
          * Alt value for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `alt`
@@ -4602,7 +4598,7 @@ declare module "sbo/m/LightBoxItem" {
          * Sets a new value for property `alt`.
          *
          * Alt value for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4613,7 +4609,7 @@ declare module "sbo/m/LightBoxItem" {
          * Gets current value of property `subtitle`.
          *
          * Subtitle text for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `subtitle`
@@ -4624,7 +4620,7 @@ declare module "sbo/m/LightBoxItem" {
          * Sets a new value for property `subtitle`.
          *
          * Subtitle text for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4635,7 +4631,7 @@ declare module "sbo/m/LightBoxItem" {
          * Gets current value of property `title`.
          *
          * Title text for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `title`
@@ -4646,7 +4642,7 @@ declare module "sbo/m/LightBoxItem" {
          * Sets a new value for property `title`.
          *
          * Title text for the image.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4655,7 +4651,7 @@ declare module "sbo/m/LightBoxItem" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
@@ -4669,7 +4665,7 @@ declare module "sbo/m/RadioButton" {
 
     /**
      * @since 2502
-     * 
+     *
      * RadioButton is a control similar to a checkbox, but it allows you to choose only one of the predefined set of options.
      * Multiple radio buttons have to belong to the same group (have the same value for groupName) in order to be mutually exclusive.
      */
@@ -4678,7 +4674,7 @@ declare module "sbo/m/RadioButton" {
          * Gets current value of property `text`.
          *
          * Specifies the text displayed next to the radio button.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -4689,7 +4685,7 @@ declare module "sbo/m/RadioButton" {
          * Sets a new value for property `text`.
          *
          * Specifies the text displayed next to the radio button.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4788,7 +4784,7 @@ declare module "sbo/m/RadioButton" {
          * Gets current value of property `key`.
          *
          * Indicates a unique key for radio button
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `key`
@@ -4799,7 +4795,7 @@ declare module "sbo/m/RadioButton" {
          * Sets a new value for property `key`.
          *
          * Indicates a unique key for the radio button
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4810,7 +4806,7 @@ declare module "sbo/m/RadioButton" {
          * Gets current value of property `groupName`.
          *
          * Name of the radio button group the current radio button belongs to.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `groupName`
@@ -4821,7 +4817,7 @@ declare module "sbo/m/RadioButton" {
          * Sets a new value for property `groupName`.
          *
          * Name of the radio button group the current radio button belongs to.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4887,7 +4883,7 @@ declare module "sbo/m/RadioButton" {
         /**
          * Sets a new value for property `useEntireWidth`.
          *
-         * Indicates if the given width will be applied for the whole RadioButton or only it's label. 
+         * Indicates if the given width will be applied for the whole RadioButton or only it's label.
          * By Default width is set only for the label.
          *
          * Default value is `false`.
@@ -4923,7 +4919,7 @@ declare module "sbo/m/RadioButton" {
          *
          * Width of the RadioButton or it's label depending on the useEntireWidth property.
          * By Default width is set only for the label.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `width`
@@ -4935,7 +4931,7 @@ declare module "sbo/m/RadioButton" {
          *
          * Width of the RadioButton or it's label depending on the useEntireWidth property.
          * By Default width is set only for the label.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -4966,16 +4962,16 @@ declare module "sbo/m/RadioButton" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event select to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireSelect(mParameters: { selected?: boolean }): Promise<void>;
@@ -4990,7 +4986,7 @@ declare module "sbo/m/RadioButtonGroup" {
 
     /**
      * @since 2502
-     * 
+     *
      * radio button group used as a wrapper for a group of b1.sdk.RadioButton controls, which can be used as a single UI element. You can select only one of the grouped radio buttons at a time.
      */
     export default interface RadioButtonGroup extends Control {
@@ -4998,7 +4994,7 @@ declare module "sbo/m/RadioButtonGroup" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -5009,7 +5005,7 @@ declare module "sbo/m/RadioButtonGroup" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5096,7 +5092,7 @@ declare module "sbo/m/RadioButtonGroup" {
         /**
          * Gets current value of property `selectedIndex`.
          *
-         * Determines the index of the selected/checked RadioButton. 
+         * Determines the index of the selected/checked RadioButton.
          * Default is 0. If no radio button is selected, the selectedIndex property will return -1.
          *
          * Default value is `0`.
@@ -5141,7 +5137,7 @@ declare module "sbo/m/RadioButtonGroup" {
         /**
          * Gets current value of property `valueState`.
          *
-         * Marker for the correctness of the current value e.g., Error, Success, etc. 
+         * Marker for the correctness of the current value e.g., Error, Success, etc.
          * Changing this property will also change the state of all radio buttons inside the group.
          *
          * Default value is `None`.
@@ -5153,7 +5149,7 @@ declare module "sbo/m/RadioButtonGroup" {
         /**
          * Sets a new value for property `valueState`.
          *
-         * Marker for the correctness of the current value e.g., Error, Success, etc. 
+         * Marker for the correctness of the current value e.g., Error, Success, etc.
          * Changing this property will also change the state of all radio buttons inside the group.
          *
          * Default value is `None`.
@@ -5166,7 +5162,7 @@ declare module "sbo/m/RadioButtonGroup" {
          * Gets current value of property `width`.
          *
          * Specifies the width of the RadioButtonGroup.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `width`
@@ -5177,7 +5173,7 @@ declare module "sbo/m/RadioButtonGroup" {
          * Sets a new value for property `width`.
          *
          * Specifies the width of the RadioButtonGroup.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5209,7 +5205,7 @@ declare module "sbo/m/RadioButtonGroup" {
         * Gets content of aggregation `items`.
         *
         * Aggregation of items to be displayed.
-        * 
+        *
         * Default value is `empty array`.
         *
         * @returns Promise<RadioButton[]>
@@ -5217,15 +5213,15 @@ declare module "sbo/m/RadioButtonGroup" {
         getItems(): Promise<RadioButton[]>;
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
         /**
          * @since 2508
-         * 
+         *
          * Fires event select to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireSelect(mParameters: { selectedIndex?: int }): Promise<void>;
@@ -5239,7 +5235,7 @@ declare module "sbo/m/ObjectNumber" {
 
     /**
      * @since 2502
-     * 
+     *
      * The ObjectNumber control displays number and number unit properties for an object. The number can be displayed using semantic colors to provide additional meaning about the object to the user.
      */
     export default interface ObjectNumber extends Control {
@@ -5247,7 +5243,7 @@ declare module "sbo/m/ObjectNumber" {
          * Gets current value of property `number`.
          *
          * Defines the number field.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `number`
@@ -5258,7 +5254,7 @@ declare module "sbo/m/ObjectNumber" {
          * Sets a new value for property `number`.
          *
          * Defines the number field.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5269,7 +5265,7 @@ declare module "sbo/m/ObjectNumber" {
          * Gets current value of property `unit`.
          *
          * Defines the number units qualifier.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `unit`
@@ -5280,7 +5276,7 @@ declare module "sbo/m/ObjectNumber" {
          * Sets a new value for property `unit`.
          *
          * Defines the number units qualifier.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5312,7 +5308,7 @@ declare module "sbo/m/ObjectNumber" {
         /**
          * Gets current value of property `state`.
          *
-         * Determines the object number's value state. 
+         * Determines the object number's value state.
          *
          * Default value is `None`.
          *
@@ -5323,7 +5319,7 @@ declare module "sbo/m/ObjectNumber" {
         /**
          * Sets a new value for property `state`.
          *
-         * Determines the object number's value state. 
+         * Determines the object number's value state.
          *
          * Default value is `None`.
          *
@@ -5465,7 +5461,7 @@ declare module "sbo/m/ObjectNumber" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
@@ -5479,7 +5475,7 @@ declare module "sbo/m/ProgressIndicator" {
 
     /**
      * @since 2502
-     * 
+     *
      * The ProgressIndicator control shows the progress of a process in a graphical way.
      */
     export default interface ProgressIndicator extends Control {
@@ -5487,7 +5483,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -5498,7 +5494,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5520,7 +5516,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Gets current value of property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `tooltip`
@@ -5531,7 +5527,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Sets a new value for property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5608,7 +5604,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Gets current value of property `displayValue`.
          *
          * Specifies the text value to be displayed in the bar.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `displayValue`
@@ -5619,7 +5615,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Sets a new value for property `displayValue`.
          *
          * Specifies the text value to be displayed in the bar.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5718,7 +5714,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Gets current value of property `height`.
          *
          * Specifies the height of the control in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `height`
@@ -5729,7 +5725,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Sets a new value for property `height`.
          *
          * Specifies the height of the control in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5762,7 +5758,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Gets current value of property `width`.
          *
          * Specifies the width of the control in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `width`
@@ -5773,7 +5769,7 @@ declare module "sbo/m/ProgressIndicator" {
          * Sets a new value for property `width`.
          *
          * Specifies the width of the control in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5782,7 +5778,7 @@ declare module "sbo/m/ProgressIndicator" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
@@ -5796,7 +5792,7 @@ declare module "sbo/m/SegmentedButton" {
 
     /**
      * @since 2502
-     * 
+     *
      * A horizontal control made of multiple buttons, which can display a title or an image.
      */
     export default interface SegmentedButton extends Control {
@@ -5804,7 +5800,7 @@ declare module "sbo/m/SegmentedButton" {
          * Gets current value of property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `label`
@@ -5815,7 +5811,7 @@ declare module "sbo/m/SegmentedButton" {
          * Sets a new value for property `label`.
          *
          * Control introduction/title.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5859,7 +5855,7 @@ declare module "sbo/m/SegmentedButton" {
          * Gets current value of property `selectedKey`.
          *
          * Key of the selected item.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `selectedKey`
@@ -5870,7 +5866,7 @@ declare module "sbo/m/SegmentedButton" {
          * Sets a new value for property `selectedKey`.
          *
          * Key of the selected item.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5925,7 +5921,7 @@ declare module "sbo/m/SegmentedButton" {
          * Gets current value of property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `tooltip`
@@ -5936,7 +5932,7 @@ declare module "sbo/m/SegmentedButton" {
          * Sets a new value for property `tooltip`.
          *
          * Tooltip text when user hover on this control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5947,7 +5943,7 @@ declare module "sbo/m/SegmentedButton" {
          * Gets current value of property `width`.
          *
          * Width in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `width`
@@ -5958,7 +5954,7 @@ declare module "sbo/m/SegmentedButton" {
          * Sets a new value for property `width`.
          *
          * Width in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -5969,7 +5965,7 @@ declare module "sbo/m/SegmentedButton" {
          * Gets content of aggregation `items`.
          *
          * Aggregation of items to be displayed.
-         * 
+         *
          * Default value is `empty array`.
          *
          * @returns Promise<SegmentedButtonItem[]>
@@ -5985,16 +5981,16 @@ declare module "sbo/m/SegmentedButton" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event selectionChange to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireSelectionChange(mParameters: { item?: object, selectionChange?: { oldValue?: string, value?: string } }): Promise<void>;
@@ -6009,7 +6005,7 @@ declare module "sbo/m/SegmentedButtonItem" {
 
     /**
      * @since 2502
-     * 
+     *
      * Used for creating buttons for the SegmentedButton.
      */
     export default interface SegmentedButtonItem extends Control {
@@ -6035,7 +6031,7 @@ declare module "sbo/m/SegmentedButtonItem" {
          * Gets current value of property `text`.
          *
          * Display text.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -6046,7 +6042,7 @@ declare module "sbo/m/SegmentedButtonItem" {
          * Sets a new value for property `text`.
          *
          * Display text.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -6057,7 +6053,7 @@ declare module "sbo/m/SegmentedButtonItem" {
          * Gets current value of property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `icon`
@@ -6068,7 +6064,7 @@ declare module "sbo/m/SegmentedButtonItem" {
          * Sets a new value for property `icon`.
          *
          * Represents an RFC3986 conformant URI.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -6123,7 +6119,7 @@ declare module "sbo/m/SegmentedButtonItem" {
          * Gets current value of property `width`.
          *
          * Width in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `width`
@@ -6134,7 +6130,7 @@ declare module "sbo/m/SegmentedButtonItem" {
          * Sets a new value for property `width`.
          *
          * Width in CSS units.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -6165,16 +6161,16 @@ declare module "sbo/m/SegmentedButtonItem" {
 
         /**
          * Sets the focus to the stored focus DOM reference.
-         * 
+         *
          * @returns Promise<void>
          */
         focus(): Promise<void>;
 
         /**
          * @since 2508
-         * 
+         *
          * Fires event press to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         firePress(): Promise<void>;
@@ -6187,14 +6183,14 @@ declare module "sbo/m/ChooseFromList" {
     import { ValueState } from "sbo/ui/core/library";
     /**
      * @since 2508
-     * 
-     * Allows users to select items from a table defined in B1. 
+     *
+     * Allows users to select items from a table defined in B1.
      */
     export default interface ChooseFromList extends Control {
         /**
          * Gets current value of property `editable`.
          *
-         * Defines whether the control can be modified by the user or not. 
+         * Defines whether the control can be modified by the user or not.
          *
          * Default value is `true`.
          *
@@ -6204,7 +6200,7 @@ declare module "sbo/m/ChooseFromList" {
         /**
          * Sets a new value for property `editable`.
          *
-         * Defines whether the control can be modified by the user or not. 
+         * Defines whether the control can be modified by the user or not.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
          *
@@ -6235,7 +6231,7 @@ declare module "sbo/m/ChooseFromList" {
          * Gets current value of property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * @returns Value of property `label`
          */
         getLabel(): Promise<string>;
@@ -6243,7 +6239,7 @@ declare module "sbo/m/ChooseFromList" {
          * Sets a new value for property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -6263,7 +6259,7 @@ declare module "sbo/m/ChooseFromList" {
          * Gets current value of property `value`.
          *
          * Defines the value of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `value`
@@ -6271,7 +6267,7 @@ declare module "sbo/m/ChooseFromList" {
         getValue(): Promise<string>;
         /**
          * Setter for property `value`.
-         * 
+         *
          * Defines the value of the control.
          *
          * @returns Promise<void>
@@ -6319,12 +6315,12 @@ declare module "sbo/m/ChooseFromList" {
          * @returns Promise<void>
          */
         setValueStateText(sValueStateText: string): Promise<void>;
-      
+
         /**
          * Gets the current value of the `showLinkButton` property.
          *
          * Determines whether the link button is displayed.
-         * 
+         *
          * Default value is `false`.
          *
          * @returns A promise that resolves to a boolean indicating the visibility of the link button.
@@ -6362,17 +6358,17 @@ declare module "sbo/m/ChooseFromList" {
 
         /**
          * Gets the current value of the `linkTo` property.
-         * 
+         *
          * Defines the B1 table name associated to the control.
-         * 
+         *
          * @returns A promise that resolves to a string representing the B1 table name.
          */
         getLinkTo(): Promise<string>;
         /**
          * Sets a new value for the `linkTo` property.
-         * 
+         *
          * Defines the B1 table name associated to the control.
-         * 
+         *
          * @param sLinkTo - A string value to set as the B1 table name.
          * @returns A promise that resolves when the B1 table name is set.
          */
@@ -6380,18 +6376,18 @@ declare module "sbo/m/ChooseFromList" {
 
         /**
          * Gets the current value of the `multiSelection` property.
-         * 
+         *
          * Defines whether the control allows multiple selections.
-         * 
+         *
          * @returns A promise that resolves to a boolean indicating if multiple selections are allowed.
          */
         getMultiSelection(): Promise<boolean>;
 
         /**
          * Sets a new value for the `multiSelection` property.
-         * 
+         *
          * Defines whether the control allows multiple selections.
-         * 
+         *
          * @param bMultiSelection - A boolean value to set the multi-selection mode.
          * @returns A promise that resolves when the multi-selection mode is set.
          */
@@ -6399,14 +6395,14 @@ declare module "sbo/m/ChooseFromList" {
 
         /**
          * Focuses the current control.
-         * 
+         *
          * @returns A promise that resolves when the focus is set.
          */
         focus(): Promise<void>;
 
         /**
          * Gets the selected item's description.
-         * 
+         *
          * @returns A promise that resolves to a string representing the selected item's description.
          */
         getSelectedText(): Promise<string>;
@@ -6415,10 +6411,10 @@ declare module "sbo/m/ChooseFromList" {
          * Fires the change event to attached listeners.
          *
          * @param mParameters - An object containing the parameters for the change event.
-         * 
+         *
          * @param mParameters.value - The new value of the control.
          * @param mParameters.oldValue - The old value of the control.
-         * 
+         *
          * @returns A promise that resolves when the change event is fired.
          */
         fireChange(mParameters: { value?: string, oldValue?: string }): Promise<void>;
@@ -6431,8 +6427,8 @@ declare module "sbo/m/MultiComboBox" {
     import { ValueState } from "sbo/ui/core/library";
     /**
      * @since 2602
-     * 
-     * MultiComboBox control provides a list box with items and a text field allowing the user to either type a value directly into the control or choose from the list of existing items. 
+     *
+     * MultiComboBox control provides a list box with items and a text field allowing the user to either type a value directly into the control or choose from the list of existing items.
      */
     export default interface MultiComboBox extends Control {
         /**
@@ -6461,7 +6457,7 @@ declare module "sbo/m/MultiComboBox" {
          * Gets current value of property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * @returns Value of property `label`
          */
         getLabel(): Promise<string>;
@@ -6470,7 +6466,7 @@ declare module "sbo/m/MultiComboBox" {
          * Sets a new value for property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -6490,7 +6486,7 @@ declare module "sbo/m/MultiComboBox" {
 
         /**
          * Gets the tooltip of the Button.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The tooltip of the Button.
@@ -6499,9 +6495,9 @@ declare module "sbo/m/MultiComboBox" {
 
         /**
          * Sets the tooltip for the Button.
-         * 
+         *
          * Default value is `empty string`.
-         * 
+         *
          * @returns Promise<void>
          */
         setTooltip(sTooltip: string): Promise<void>;
@@ -6534,7 +6530,7 @@ declare module "sbo/m/MultiComboBox" {
          * Gets current value of property `selectedKeys`.
          *
          * Defines the keys of the selected items.
-         * 
+         *
          * Default value is `empty string array`.
          *
          * @returns Value of property `selectedKeys`
@@ -6543,7 +6539,7 @@ declare module "sbo/m/MultiComboBox" {
 
         /**
          * Setter for property `selectedKeys`.
-         * 
+         *
          * Defines keys of the selected items.
          *
          * @returns Promise<void>
@@ -6600,7 +6596,7 @@ declare module "sbo/m/MultiComboBox" {
          * Gets the current value of the `showSecondaryValues` property.
          *
          * Indicates whether the text values of the additionalText property of an item are shown.
-         * 
+         *
          * Default value is `false`.
          *
          * @returns Value of property `showSecondaryValues`
@@ -6622,7 +6618,7 @@ declare module "sbo/m/MultiComboBox" {
          * Gets the current value of the `showSelectAll` property.
          *
          * Indicates if the select all checkbox is visible on top of suggestions.
-         * 
+         *
          * Default value is `false`.
          *
          * @returns Value of property `showSelectAll`
@@ -6642,7 +6638,7 @@ declare module "sbo/m/MultiComboBox" {
 
         /**
          * Gets content of aggregation `items`.
-         * 
+         *
          * Default value is `empty array`.
          *
          * Flex items within the control.
@@ -6651,14 +6647,14 @@ declare module "sbo/m/MultiComboBox" {
 
         /**
          * Focuses the current control.
-         * 
+         *
          * @returns A promise that resolves when the focus is set.
          */
         focus(): Promise<void>;
 
         /**
          * Fires event selectionChange to attached listeners.
-         * 
+         *
          * @param {object} mParameters - Parameters to pass along with the event.
          * @param {object} changedItem - Item which selection is changed.
          * @param {Array<object>} changedItems - Array of items whose selection has changed.
@@ -6674,14 +6670,14 @@ declare module "sbo/m/MultiComboBox" {
          *
          * @param {object} mParameters - Parameters to pass along with the event.
          * @param {Array<object>} selectedItems - The selected items which are selected after list box has been closed
-         * 
+         *
          * @returns Promise<void>
          */
         fireSelectionFinish(mParameters: { selectedItems?: object[] }): Promise<void>;
 
         /**
          * Fires event loadItems to attached listeners.
-         * 
+         *
          * @returns Promise<void>
          */
         fireLoadItems(): Promise<void>;
@@ -6695,7 +6691,7 @@ declare module "sbo/m/MultiInput" {
     import Token from "sbo/m/Token";
     /**
      * @since 2602
-     * 
+     *
      * The MultiInput field allows the user to enter multiple values, which are displayed as tokens.
      */
     export default interface MultiInput extends Control {
@@ -6725,7 +6721,7 @@ declare module "sbo/m/MultiInput" {
          * Gets current value of property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * @returns Value of property `label`
          */
         getLabel(): Promise<string>;
@@ -6734,7 +6730,7 @@ declare module "sbo/m/MultiInput" {
          * Sets a new value for property `label`.
          *
          * Defines the label of the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -6754,7 +6750,7 @@ declare module "sbo/m/MultiInput" {
 
         /**
          * Gets the tooltip of the Button.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns The tooltip of the Button.
@@ -6763,9 +6759,9 @@ declare module "sbo/m/MultiInput" {
 
         /**
          * Sets the tooltip for the Button.
-         * 
+         *
          * Default value is `empty string`.
-         * 
+         *
          * @returns Promise<void>
          */
         setTooltip(sTooltip: string): Promise<void>;
@@ -6797,30 +6793,30 @@ declare module "sbo/m/MultiInput" {
 		/**
          * Gets current value of property `editable`.
          *
-         * Defines whether the control can be modified by the user or not. 
+         * Defines whether the control can be modified by the user or not.
          *
          * Default value is `true`.
          *
          * @returns Value of property `editable`
          */
         getEditable(): Promise<boolean>;
-		
+
         /**
          * Sets a new value for property `editable`.
          *
-         * Defines whether the control can be modified by the user or not. 
+         * Defines whether the control can be modified by the user or not.
          *
          * When called with a value of `null` or `undefined`, the default value of the property will be restored.
          *
          * Default value is `true`.
-         * 
+         *
          * @returns Promise<void>
          */
         setEditable(bEditable: boolean): Promise<void>;
 
 		/**
          * Gets current value of property `mandatory`.
-         * 
+         *
          * Determines whether display a red asterisk before label text.
          *
          * Default value is `false`.
@@ -6828,10 +6824,10 @@ declare module "sbo/m/MultiInput" {
          * @returns Value of property `mandatory`
          */
         getMandatory(): Promise<boolean>;
-		
+
         /**
          * Sets the value of property `mandatory`.
-         * 
+         *
          * Determines whether display a red asterisk before label text.
          *
          * Default value is `false`.
@@ -6844,7 +6840,7 @@ declare module "sbo/m/MultiInput" {
          * Gets current value of property `maxTokens`.
          *
          * Defines the max number of tokens that is allowed in control.
-         * 
+         *
          * Default value is `10`.
          *
          * @returns Value of property `maxTokens`
@@ -6853,7 +6849,7 @@ declare module "sbo/m/MultiInput" {
 
         /**
          * Setter for property `maxTokens`.
-         * 
+         *
          * Defines the max number of tokens that is allowed in control.
          *
          * @returns Promise<void>
@@ -6884,7 +6880,7 @@ declare module "sbo/m/MultiInput" {
          * Gets the current value of the `showSuggestion` property.
          *
          * Indicates whether suggest event is fired when user types in the control.
-         * 
+         *
          * Default value is `true`.
          *
          * @returns Value of property `showSuggestion`
@@ -6901,12 +6897,12 @@ declare module "sbo/m/MultiInput" {
          * @returns Promise<void>
          */
         setShowSuggestion(bShowSuggestion: boolean): Promise<void>;
-        
+
         /**
          * Gets the current value of the `enableTextToken` property.
          *
          * Determine whether the text value is converted into a token.
-         * 
+         *
          * Default value is `false`.
          *
          * @returns Value of property `enableTextToken`
@@ -6927,17 +6923,17 @@ declare module "sbo/m/MultiInput" {
         /**
          * Gets content of aggregation `suggestionItems`.
          *
-         * `SuggestionItems` are the items which will be shown in the suggestions list. 
-         * 
+         * `SuggestionItems` are the items which will be shown in the suggestions list.
+         *
          * Default value is `empty array`.
-         *          
+         *
          *  @returns Promise<Item[]>
          */
         getSuggestionItems(): Promise<Item[]>;
 
         /**
          * Gets content of aggregation `tokens`.
-         * 
+         *
          * Default value is `empty array`.
          *
          * currently displayed tokens.
@@ -6946,14 +6942,14 @@ declare module "sbo/m/MultiInput" {
 
         /**
          * Focuses the current control.
-         * 
+         *
          * @returns A promise that resolves when the focus is set.
          */
         focus(): Promise<void>;
 
         /**
          * Fires event change to attached listeners.
-         * 
+         *
          * @param {object} mParameters - Parameters to pass along with the event.
          * @param {string} value - The value which will be changed.
          * @param {string} oldValue - The value before changed.
@@ -6967,7 +6963,7 @@ declare module "sbo/m/MultiInput" {
          *
          * @param {object} mParameters - Parameters to pass along with the event.
          * @param {string} suggestValue - The current value which has been typed in the input.
-         * 
+         *
          * @returns Promise<void>
          */
         fireSuggest(mParameters: { suggestValue?: string }): Promise<void>;
@@ -6977,7 +6973,7 @@ declare module "sbo/m/MultiInput" {
          *
          * @param {object} mParameters - Parameters to pass along with the event.
          * @param {boolean} fromSuggestions - The value set to true when the button at the end of the suggestion table is clicked.
-         * 
+         *
          * @returns Promise<void>
          */
         fireValueHelpRequest(mParameters: { fromSuggestions?: boolean }): Promise<void>;
@@ -6989,7 +6985,7 @@ declare module "sbo/m/MultiInput" {
          * @param {string} type - Type of tokenChange event.
          * @param {object[]} addedTokens - The array of tokens that are added.
          * @param {object[]} removedTokens - The array of tokens that are removed.
-         * 
+         *
          * @returns Promise<void>
          */
         fireTokenUpdate(mParameters: { type?: string, addedTokens?: object[], removedTokens?: object[] }): Promise<void>;
@@ -7000,7 +6996,7 @@ declare module "sbo/m/Token" {
     import Control from "sbo/ui/core/Control";
     /**
      * @since 2602
-     * 
+     *
      * Tokens are small items of information (similar to tags) that mainly serve to visualize previously selected items.
      */
     export default interface Token extends Control {
@@ -7008,7 +7004,7 @@ declare module "sbo/m/Token" {
          * Gets current value of property `key`.
          *
          * key of the token.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `key`
@@ -7028,7 +7024,7 @@ declare module "sbo/m/Token" {
          * Gets current value of property `text`.
          *
          * displayed text of the token.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `text`
@@ -7053,7 +7049,7 @@ declare module "sbo/m/TreeTable" {
     import { CSSSize, int } from "sbo/ui/core/SDKEnv";
     /**
      * @since 2702
-     * 
+     *
      * The TreeTable control provides a comprehensive set of features to display hierarchical data.
      */
     export default interface TreeTable extends Control {
@@ -7085,7 +7081,7 @@ declare module "sbo/m/TreeTable" {
          * Gets current value of property `title`.
          *
          * Title text for the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Value of property `title`
@@ -7096,7 +7092,7 @@ declare module "sbo/m/TreeTable" {
          * Sets a new value for property `title`.
          *
          * Title text for the control.
-         * 
+         *
          * Default value is `empty string`.
          *
          * @returns Promise<void>
@@ -7231,7 +7227,7 @@ declare module "sbo/m/TreeTable" {
 
         /**
          * Focuses the current control.
-         * 
+         *
          * @returns A promise that resolves when the focus is set.
          */
         focus(): Promise<void>;
@@ -7294,7 +7290,7 @@ declare module "sbo/m/TreeTable" {
         setRowData(oRow?: object, iIndex?: int): Promise<void>;
 
         /**
-         * Selects all available nodes/rows. All rows/tree nodes that are locally stored on the client and that are part of the currently visible tree are selected. 
+         * Selects all available nodes/rows. All rows/tree nodes that are locally stored on the client and that are part of the currently visible tree are selected.
          *
          * @returns Promise<void>
          */
