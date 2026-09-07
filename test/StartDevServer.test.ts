@@ -176,6 +176,31 @@ test('startDevServer returns failed status when terminal creation throws', async
   assert.ok(warningMessages.some((m) => m.includes('Failed to prepare development server terminal.')));
 });
 
+test('startDevServer returns no status when waitForShellIntegration throws', async () => {
+  resetState();
+  waitForShellError = new Error('shell integration timeout');
+  const moduleRef = await loadModule();
+  const stream = createStream();
+
+  const result = await moduleRef.startDevServer(stream as never);
+
+  assert.equal(result.metadata.status, undefined);
+  assert.ok(warningMessages.some((m) => m.includes('Failed to prepare development server terminal.')));
+});
+
+test('startDevServer fails when executeTerminalCommand throws during npm install', async () => {
+  resetState();
+  npmInstallNeeded = true;
+  executeCommandError = new Error('shell command failed');
+  const moduleRef = await loadModule();
+  const stream = createStream();
+
+  const result = await moduleRef.startDevServer(stream as never);
+
+  assert.equal(result.metadata.status, 'failed');
+  assert.ok(stream.markdownMessages.some((m) => m.includes('Dependency installation failed') && m.includes('shell command failed')));
+});
+
 test('startDevServer fails when npm install output contains npm ERR', async () => {
   resetState();
   npmInstallNeeded = true;

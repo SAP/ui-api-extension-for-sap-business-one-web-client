@@ -667,11 +667,8 @@ export class ServiceLayerMetadataParser {
                 members: properties
             };
         }
-        if (!complexType && !entityType && !enumType) {
-            this.logger.error(`Type not found while reading details: ${typeName}`);
-            throw new Error(`Type '${typeName}' not found`);
-        }
-        return null;
+        this.logger.error(`Type not found while reading details: ${typeName}`);
+        throw new Error(`Type '${typeName}' not found`);
     }
 
     async validateProperties(entityTypeName: string, propertyList: string[]): Promise<string[]> {

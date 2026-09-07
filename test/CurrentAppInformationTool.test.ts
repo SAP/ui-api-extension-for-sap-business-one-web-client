@@ -105,6 +105,19 @@ async function loadModule(): Promise<typeof import('../src/tools/impl/CurrentApp
   return requireForTest(moduleId) as typeof import('../src/tools/impl/CurrentAppInformationTool.js');
 }
 
+test('GetCurrentAppInformationTool.invoke reports readDirectory error', async () => {
+  resetState();
+  readDirectoryError = new Error('access denied');
+  const moduleRef = await loadModule();
+  const tool = new moduleRef.GetCurrentAppInformationTool();
+
+  const result = await tool.invoke({ input: undefined } as never, {} as never);
+  const payload = (result as unknown as { content: Array<{ value: string }> }).content[0].value;
+
+  assert.ok(payload.includes('Unable to access workspace folder'));
+  assert.ok(shownErrors.some((message) => message.includes('Unable to access workspace folder')));
+});
+
 test('GetCurrentAppInformationTool.invoke reports empty workspace folder', async () => {
   resetState();
   readDirectoryResult = [];
