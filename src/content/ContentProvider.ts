@@ -232,7 +232,7 @@ export class ContentProvider {
         const extension = getCurrentExtension();
         const mtaTemplateFileUri = vscode.Uri.joinPath(extension.extensionUri, "template", "mta.yaml.template");
         const mtaTemplateContent = await vscode.workspace.fs.readFile(mtaTemplateFileUri);
-        const mtaTemplateString = new TextDecoder().decode(mtaTemplateContent);
+        const mtaTemplateString = new TextDecoder().decode(mtaTemplateContent).replace(/\r\n/g, '\n');
 
         const modulesAnchor = 'modules:\n';
         const modulesAnchorIndex = mtaTemplateString.indexOf(modulesAnchor);
@@ -269,7 +269,7 @@ export class ContentProvider {
         const extension = getCurrentExtension();
         const mtaTemplateFileUri = vscode.Uri.joinPath(extension.extensionUri, "template", "mta.yaml.template");
         const mtaTemplateContent = await vscode.workspace.fs.readFile(mtaTemplateFileUri);
-        const mtaTemplateString = new TextDecoder().decode(mtaTemplateContent);
+        const mtaTemplateString = new TextDecoder().decode(mtaTemplateContent).replace(/\r\n/g, '\n');
 
         const modulesAnchor = 'modules:\n';
         const modulesAnchorIndex = mtaTemplateString.indexOf(modulesAnchor);
@@ -288,7 +288,7 @@ export class ContentProvider {
         let existingMtaYaml = '';
         try {
             const existingMtaYamlRaw = await vscode.workspace.fs.readFile(mtaYamlUri);
-            existingMtaYaml = new TextDecoder().decode(existingMtaYamlRaw);
+            existingMtaYaml = new TextDecoder().decode(existingMtaYamlRaw).replace(/\r\n/g, '\n');
         } catch {
             throw new Error('mta.yaml not found in current app workspace.');
         }

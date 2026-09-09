@@ -79,6 +79,7 @@ Available from the `@uiapi` chat participant, these commands provide quick acces
 | `@uiapi /webclient-uiapi-inspect` | Inspect a Web Client UI control and extract the stable control GUID |
 
 Below is a screenshot of the extension in action, showing the preview of a UI API app in VS Code's embedded browser.
+
 <img src="images/preview.svg" width="85%" />
 
 
@@ -151,6 +152,8 @@ In practice this means:
 
 ### Dependencies
 
+> **Note:** If you already installed the **SAP Business One WebClient Extension Tool** from the B1 SDK installation package, you can skip this section.
+
 - **Cloud MTA Build Tool** This is for building and deploying Web Client UI API applications. You can install it via npm:
   ```bash
   npm install -g mbt
@@ -159,7 +162,7 @@ In practice this means:
   ```
   mbt --version
   ```
-  On success, it will print the version of the installed mbt like below:
+  On success, it will print the version of the installed `mbt` like below:
   ```
   Cloud MTA Build Tool version 1.2.47
   ```
@@ -285,6 +288,7 @@ The most straightforward way to run your app is to use the developer commands in
    The preview browser will load your app from the local development server, and you can interact with it as if it were running in the actual SAP Business One Web Client. You can also set breakpoints in your TypeScript code and debug it directly in VS Code.
 
    Note that the preview requires the `WebClientUIAPI.webClient.url` setting to be configured with your SAP Business One Web Client URL (e.g. `https://<host>:<port>/webx/index.html`). If it is the first time you run the preview, the extension will prompt you to set this URL:
+
     <img src="images/web-client-url-setting.svg" width="60%" />
 
 
@@ -361,6 +365,7 @@ For full log files written to disk, find them in the following folder depending 
 
 ## Recommendations and Best Practices
 
+- Use recent versions of GPT models (e.g., GPT-5.4 or later). Older models or non-GPT models may not perform well with UI API tasks.
 - It is recommended to scaffold a simple app first, then incrementally add features. This allows you to verify each step and understand the generated code.
 - Never putting complicated requirements in a single prompt, because this may overwhelm the AI and result in a large amount of generated code that is difficult to review, verify and debug.
 - Do not use the extension to generate code for production without reviewing it first. AI-generated code may contain errors or security vulnerabilities.
