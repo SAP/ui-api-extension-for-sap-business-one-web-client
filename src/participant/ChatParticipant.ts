@@ -26,10 +26,6 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
     logger.info('Registering WebClient UIAPI copilot as chat participant.');
     const handler: vscode.ChatRequestHandler = async (chatRequest: vscode.ChatRequest, chatContext: vscode.ChatContext, stream: vscode.ChatResponseStream, cancellationToken: vscode.CancellationToken) => {
         logger.debug(`Handling chat request. command=${chatRequest.command ?? '<none>'}, model=${chatRequest.model.id}`);
-        if (chatRequest.command === 'list') {
-            stream.markdown(`Available tools: ${vscode.lm.tools.map(tool => tool.name).join(', ')}\n\n`);
-            return;
-        }
 
         // Use all tools, or tools with the tags that are relevant.
         const tools = chatRequest.command === 'all' ?
@@ -190,7 +186,6 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
     };
 
     const chatParticipant = vscode.chat.createChatParticipant('webclient-uiapi-copilot', handler);
-    // chatParticipant.iconPath = new vscode.ThemeIcon('tools');
     chatParticipant.iconPath = vscode.Uri.joinPath(context.extensionUri, 'resource/icons/chat-icon.png');
     context.subscriptions.push(chatParticipant);
     context.subscriptions.push(

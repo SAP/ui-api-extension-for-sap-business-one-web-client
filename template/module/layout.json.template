@@ -3,10 +3,10 @@
 	"overlay": {
 		"before": [
 			{
-				"guid": "<Add existing control's stable ID>",
+				"guid": "<%= Sample control's GUID %>",
 				"items": [
 					{
-						"guid": "mApT49EtHH3qtUFeH3GGS3",
+						"guid": "<%= New control's GUID %>",
 						"ctrlType": "b1.sdk.Button",
 						"text": "{@@i18n>buttonText}",
 						"icon": "sap-icon://customize",
@@ -19,7 +19,7 @@
 						}
 					}
 				]
-			}				
+			}
 		]
 	}
 }

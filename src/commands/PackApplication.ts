@@ -1,13 +1,13 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { executeTerminalCommand, waitForShellIntegration } from '../utils/Utils';
+import { executeTerminalCommand, isNpmInstallNeeded, waitForShellIntegration } from '../utils/Utils';
 import { getClassLogger } from '../logger/LoggerWrapper';
 import { UiApiCommandLiterals } from './UiApiCommandLiterals';
 
 export async function packApplication(
 	stream: vscode.ChatResponseStream,
 	packageCommand: string = UiApiCommandLiterals.PACKAGE_CHAT_COMMAND
-): Promise<{ metadata: { command: string; error?: string } }> {
+): Promise<{ metadata: { command: string; status?: 'success' | 'failed' } }> {
 	const logger = getClassLogger(packApplication.name);
 	const userTerminalWarningMessage = 'Failed to prepare packaging terminal.';
 	const userPackagingWarningMessage = 'Packaging failed.';
@@ -16,51 +16,66 @@ export async function packApplication(
 	};
 
 	logger.info('Packaging command received.');
-	stream.progress("Packaging...");
+	stream.progress("Starting extension package...");
 
-	const name = 'Web Client UIAPI Package';
-	let terminal = vscode.window.terminals.find(terminal => terminal.name === name);
-	if (!terminal) {
-		stream.progress("Creating terminal...");
+	const terminalName = 'Web Client UI API Package';
+	let terminal = vscode.window.terminals.find(terminal => terminal.name === terminalName);
+	if (terminal) {
+		terminal.dispose();
+	}
+
+	stream.progress("Creating terminal...");
+	try {
+		terminal = vscode.window.createTerminal(terminalName);
+	} catch (e) {
+		const errorMessage = e instanceof Error ? e.message : String(e);
+		logPackagingError('create terminal', errorMessage);
+		await vscode.window.showErrorMessage(userTerminalWarningMessage);
+		return { metadata: { command: packageCommand, status: 'failed' } };
+	}
+	terminal.show();
+	try {
+		await waitForShellIntegration(terminal);
+	} catch (e) {
+		const errorMessage = e instanceof Error ? e.message : String(e);
+		logPackagingError('terminal shell integration', errorMessage);
+		await vscode.window.showErrorMessage(userTerminalWarningMessage);
+		return { metadata: { command: packageCommand, status: 'failed' } };
+	}
+
+	if (await isNpmInstallNeeded()) {
+		stream.progress("Dependencies are missing or outdated. Running `npm install` before packaging...");
+		let installResult = '';
 		try {
-			terminal = vscode.window.createTerminal(name);
+			installResult = await executeTerminalCommand(terminal, "npm install");
 		} catch (e) {
-			const errorMessage = e instanceof Error ? e.message : String(e);
-			logPackagingError('create packaging terminal', errorMessage);
-			await vscode.window.showWarningMessage(userTerminalWarningMessage);
-			return { metadata: { command: packageCommand, error: errorMessage } };
+			installResult = `npm ERR! ${e instanceof Error ? e.message : String(e)}`;
 		}
-		terminal.show();
-		try {
-			await waitForShellIntegration(terminal);
-		} catch (e) {
-			const errorMessage = e instanceof Error ? e.message : String(e);
-			logPackagingError('wait for packaging terminal shell integration', errorMessage);
-			await vscode.window.showWarningMessage(userTerminalWarningMessage);
-			return { metadata: { command: packageCommand, error: (e as Error).message } };
+		if (installResult.includes('npm ERR!')) {
+			logPackagingError('npm install', installResult);
+			stream.markdown('Dependency installation failed. Please check the terminal output.');
+			await vscode.window.showErrorMessage(userPackagingWarningMessage);
+			return { metadata: { command: packageCommand, status: 'failed' } };
 		}
 	}
 
-	stream.progress("Invoking command `mbt build`...");
 	const command = "mbt build";
+	stream.progress(`Invoking command \`${command}\`...`);
 	let terminalResult = '';
 	try {
 		terminalResult = await executeTerminalCommand(terminal, command);
 	} catch (e) {
 		const errorMessage = e instanceof Error ? e.message : String(e);
-		logPackagingError('execute packaging command', errorMessage);
-		await vscode.window.showWarningMessage(userPackagingWarningMessage);
-		return { metadata: { command: packageCommand, error: errorMessage } };
+		logPackagingError(command, errorMessage);
+		await vscode.window.showErrorMessage(userPackagingWarningMessage);
+		return { metadata: { command: packageCommand, status: 'failed' } };
 	}
 
 	const MTAR_PREFIX = "MTA archive generated at:";
 	const start = terminalResult.lastIndexOf(MTAR_PREFIX);
 	if (start !== -1) {
-		let end = terminalResult.indexOf('\n', start + 1);
-		if (end === -1) {
-			end = terminalResult.length;
-		}
-		const output = terminalResult.substring(start, end).replace(/\r$/, '');
+		const end = terminalResult.indexOf('\n', start + 1);
+		const output = terminalResult.substring(start, end === -1 ? terminalResult.length : end).replace(/\r$/, '');
 		logger.info(`Packaging output: ${output}`);
 		const mtarFile = output.substring(MTAR_PREFIX.length).trim();
 		const mtarFileName = path.basename(mtarFile);
@@ -69,8 +84,9 @@ export async function packApplication(
 		logger.info(`Packaging completed. MTAR generated at ${mtarFile}.`);
 		stream.markdown(`Build Successfully. You can find the MTAR archive \`${mtarFileName}\` generated [here](${fileUri.toString()}) in the Explorer.`);
 	} else {
-		logger.info('Packaging completed. MTAR location marker not found in output; using default message.');
-		stream.markdown("Build Successfully. You can find the MTAR archive in the `mta_archives` folder.");
+		logger.error('Packaging failed. MTAR location marker not found in output.', terminalResult);
+		stream.markdown('Build failed. Please check the terminal output for `mbt build`.');
+		return { metadata: { command: packageCommand, status: 'failed' } };
 	}
-	return { metadata: { command: packageCommand } };
+	return { metadata: { command: packageCommand, status: 'success' } };
 }

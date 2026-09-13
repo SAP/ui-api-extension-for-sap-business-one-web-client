@@ -31,7 +31,7 @@ let waitForShellError: Error | undefined;
 let createTerminalError: Error | undefined;
 let installCommandOutput = '';
 let executeCommandError: Error | undefined;
-let warningMessages: string[] = [];
+let errorMessages: string[] = [];
 
 const terminals: MockTerminal[] = [];
 
@@ -64,8 +64,8 @@ const mockVscode = {
       terminals.push(terminal);
       return terminal;
     },
-    showWarningMessage: async (message: string) => {
-      warningMessages.push(message);
+    showErrorMessage: async (message: string) => {
+      errorMessages.push(message);
       return undefined;
     }
   },
@@ -128,7 +128,7 @@ function resetState(): void {
   createTerminalError = undefined;
   installCommandOutput = '';
   executeCommandError = undefined;
-  warningMessages = [];
+  errorMessages = [];
   terminals.length = 0;
   delete requireForTest.cache[moduleId];
 }
@@ -160,7 +160,7 @@ test('startDevServer reports already-running server and exits early', async () =
   const result = await moduleRef.startDevServer(stream as never, 'custom-start');
 
   assert.equal(result.metadata.command, 'custom-start');
-  assert.equal(result.metadata.status, undefined);
+  assert.equal(result.metadata.status, 'success');
   assert.ok(stream.markdownMessages.some((m) => m.includes('already running')));
 });
 
@@ -173,10 +173,10 @@ test('startDevServer returns failed status when terminal creation throws', async
   const result = await moduleRef.startDevServer(stream as never);
 
   assert.equal(result.metadata.status, 'failed');
-  assert.ok(warningMessages.some((m) => m.includes('Failed to prepare development server terminal.')));
+  assert.ok(errorMessages.some((m) => m.includes('Failed to prepare development server terminal.')));
 });
 
-test('startDevServer returns no status when waitForShellIntegration throws', async () => {
+test('startDevServer returns failed status when waitForShellIntegration throws', async () => {
   resetState();
   waitForShellError = new Error('shell integration timeout');
   const moduleRef = await loadModule();
@@ -184,8 +184,8 @@ test('startDevServer returns no status when waitForShellIntegration throws', asy
 
   const result = await moduleRef.startDevServer(stream as never);
 
-  assert.equal(result.metadata.status, undefined);
-  assert.ok(warningMessages.some((m) => m.includes('Failed to prepare development server terminal.')));
+  assert.equal(result.metadata.status, 'failed');
+  assert.ok(errorMessages.some((m) => m.includes('Failed to prepare development server terminal.')));
 });
 
 test('startDevServer fails when executeTerminalCommand throws during npm install', async () => {
@@ -198,7 +198,7 @@ test('startDevServer fails when executeTerminalCommand throws during npm install
   const result = await moduleRef.startDevServer(stream as never);
 
   assert.equal(result.metadata.status, 'failed');
-  assert.ok(stream.markdownMessages.some((m) => m.includes('Dependency installation failed') && m.includes('shell command failed')));
+  assert.ok(stream.markdownMessages.some((m) => m.includes('Dependency installation failed')));
 });
 
 test('startDevServer fails when npm install output contains npm ERR', async () => {

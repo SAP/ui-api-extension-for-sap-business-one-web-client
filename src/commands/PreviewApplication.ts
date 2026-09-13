@@ -10,7 +10,7 @@ export async function previewApplication(
 	stream: vscode.ChatResponseStream,
 	command: string,
 	startCommand: string = UiApiCommandLiterals.START_CHAT_COMMAND
-): Promise<{ metadata: { command: string; status?: 'failed' } }> {
+): Promise<{ metadata: { command: string; status?: 'success' | 'failed' } }> {
 	const logger = getClassLogger(previewApplication.name);
 	const userErrorMessage = 'Preview failed.';
 	const logPreviewError = (stage: string, details: string) => {
@@ -42,11 +42,11 @@ export async function previewApplication(
 			const errorMessage = `Development Server could not be started at ${getDevServerURL()}.`;
 			logger.error(errorMessage);
 			stream.markdown(errorMessage);
-			await vscode.window.showWarningMessage(errorMessage);
+			await vscode.window.showErrorMessage(errorMessage);
 			return { metadata: { command: command, status: "failed" } };
 		}
 	}
-	stream.progress("Development Server is responding. ");
+	stream.progress("Development Server is responding... ");
 
 	const launchJson = "launch.json";
 	try {
@@ -81,7 +81,7 @@ export async function previewApplication(
 				?? launchJsonContentJson.configurations.find((configuration: { name?: string; url?: string }) => configuration.name === `${configNamePrefix} - Homepage`)
 				?? launchJsonContentJson.configurations[0];
 		} else {
-			const warningMessage = "No active *.layout.json file is open for preview. Use the first matching configuration from `.vscode/launch.json`.";
+			const warningMessage = "No active *.layout.json file is open for preview. Use the first matching configuration from `.vscode/launch.json`. ";
 			stream.markdown(warningMessage);
 			matchedConfiguration = launchJsonContentJson.configurations.find((configuration: { name?: string; url?: string }) => configuration.name?.startsWith(configNamePrefix))
 				?? launchJsonContentJson.configurations[0];
@@ -94,13 +94,19 @@ export async function previewApplication(
 		}
 
 		logger.info(`Starting debug preview with configuration: ${matchedConfiguration.name}.`);
-		stream.markdown("Wait for a moment, a browser window is about to pop up to preview this layout.");
-		await debug.startDebugging(vscode.workspace.workspaceFolders![0], matchedConfiguration.name);
+		stream.markdown("Wait for a moment, a browser is about to pop up to preview this layout.");
+		const started = await debug.startDebugging(vscode.workspace.workspaceFolders![0], matchedConfiguration.name!);
+		if (!started) {
+			logPreviewError('start debugging', `Failed to start debug session with configuration: ${matchedConfiguration.name}.`);
+			stream.markdown("Failed to start the debug session. Please check the `.vscode/launch.json` configuration.");
+			return { metadata: { command: command, status: 'failed' } };
+		}
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		logPreviewError('preview flow', errorMessage);
 		stream.markdown("An error occurred.");
-		vscode.window.showErrorMessage(userErrorMessage);
+		await vscode.window.showErrorMessage(userErrorMessage);
+		return { metadata: { command: command, status: 'failed' } };
 	}
-	return { metadata: { command: command } };
+	return { metadata: { command: command, status: 'success' } };
 }

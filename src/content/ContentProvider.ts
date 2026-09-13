@@ -3,6 +3,8 @@ import { getCurrentExtension, linkFolder, tokenizeBrowserStartupFlags } from '..
 import { getClassLogger } from '../logger/LoggerWrapper';
 import { IChildLogger } from '@vscode-logging/logger';
 import { DEV_SERVER_PORT_PROP, WEB_CLIENT_URL_PROP, getBrowserStartupFlagsSetting } from '../settings/SettingItems';
+import { v4 as uuidv4 } from "uuid";
+import { createTranslator } from "short-uuid";
 
 export interface AppViewMeta {
     viewName: string;
@@ -470,11 +472,14 @@ export class ContentProvider {
 
             const layoutFolderUri = vscode.Uri.joinPath(srcFolderUri, "layout");
             await vscode.workspace.fs.createDirectory(layoutFolderUri);
+            const shortUuidTranslator = createTranslator();
             for (const view of module.views) {
                 const layoutJson = `${view.viewName}.layout.json`;
+                const newControlGuid = shortUuidTranslator.fromUUID(uuidv4());
                 const layoutJsonContent = layoutJsonTemplateContentString.replace(/<%= viewName %>/g, view.viewName)
                     .replace(/<%= namespace %>/g, namespace)
-                    .replace(/<Add existing control's stable ID>/g, view.sampleControlUuid);
+                    .replace(/<%= New control's GUID %>/g, newControlGuid)
+                    .replace(/<%= Sample control's GUID %>/g, view.sampleControlUuid);
                 const layoutJsonContentEncoded = new TextEncoder().encode(layoutJsonContent);
                 await vscode.workspace.fs.writeFile(vscode.Uri.joinPath(layoutFolderUri, layoutJson), layoutJsonContentEncoded);
             }
@@ -644,7 +649,7 @@ export class ContentProvider {
             const layoutContent = layoutTemplateString
                 .replace(/<%= viewName %>/g, view.viewName)
                 .replace(/<%= namespace %>/g, namespace)
-                .replace(/<Add existing control's stable ID>/g, view.sampleControlUuid);
+                .replace(/<%= Sample control's GUID %>/g, view.sampleControlUuid);
             await vscode.workspace.fs.writeFile(layoutUri, new TextEncoder().encode(layoutContent));
 
             const i18nKey = `${namespace}.i18n.i18n`;

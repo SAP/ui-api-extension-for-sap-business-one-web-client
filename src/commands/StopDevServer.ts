@@ -4,8 +4,6 @@ import { execCommand, findProcessesUsingPort, getDevServerPort, getDevServerURL,
 import { getClassLogger } from '../logger/LoggerWrapper';
 import { UiApiCommandLiterals } from './UiApiCommandLiterals';
 
-const dev_server_terminal_name = 'Web Client UI API Development Server';
-
 async function forceStopDevServer(): Promise<{ success: boolean; pids: number[]; }> {
 	const logger = getClassLogger(forceStopDevServer.name);
 	const pids = await findProcessesUsingPort(getDevServerPort());
@@ -41,16 +39,18 @@ async function forceStopDevServer(): Promise<{ success: boolean; pids: number[];
 export async function stopDevServer(
 	stream: vscode.ChatResponseStream,
 	stopCommand: string = UiApiCommandLiterals.STOP_CHAT_COMMAND
-): Promise<{ metadata: { command: string } }> {
+): Promise<{ metadata: { command: string; status?: 'success' | 'failed' } }> {
 	const logger = getClassLogger(stopDevServer.name);
 	logger.info('Stop development server command received.');
-	const terminal = vscode.window.terminals.find(terminal => terminal.name === dev_server_terminal_name);
+
+	const terminalName = 'Web Client UI API Development Server';
+	const terminal = vscode.window.terminals.find(terminal => terminal.name === terminalName);
 	const isRunning = await isDevServerRunning();
 
 	if (!terminal && !isRunning) {
 		logger.info('Stop requested while development server is not running.');
 		stream.markdown("Development Server is not running.");
-		return { metadata: { command: stopCommand } };
+		return { metadata: { command: stopCommand, status: "success"  } };
 	}
 
 	stream.progress("Stopping development server...");
@@ -65,9 +65,8 @@ export async function stopDevServer(
 		if (!await isDevServerRunning()) {
 			logger.info('Development server stopped gracefully.');
 			stream.markdown("Development Server is stopped.");
-			return { metadata: { command: stopCommand } };
+			return { metadata: { command: stopCommand, status: 'success' } };
 		}
-
 		await new Promise(resolve => setTimeout(resolve, interval));
 	}
 
@@ -76,10 +75,10 @@ export async function stopDevServer(
 	if (forceStopResult.success) {
 		logger.info(`Development server forcefully stopped. PID(s): ${forceStopResult.pids.join(', ')}.`);
 		stream.markdown(`Development Server is forcefully stopped. Killed process ID(s): ${forceStopResult.pids.join(', ')}.`);
-		return { metadata: { command: stopCommand } };
+		return { metadata: { command: stopCommand, status: "success"  } };
 	}
 
 	logger.error(`Development server stop failed; endpoint still reachable at ${getDevServerURL()}.`);
 	stream.markdown(`Development Server stop failed. The server is still responding at: ${getDevServerURL()}.`);
-	return { metadata: { command: stopCommand } };
+	return { metadata: { command: stopCommand, status: "failed" } };
 }

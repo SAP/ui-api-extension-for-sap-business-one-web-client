@@ -47,12 +47,12 @@ If **App name** cannot be detected from the user's message, read the current VS 
 First, determine the Base View Category from the user's message:
 
 - If the user mentions **UDT** or **UDO** (e.g., "based on a UDT", "UDO called MyObject"), set `baseViewCategory` to `UDT` or `UDO` accordingly and **skip the `skills/assets/viewsMeta.json` search entirely**.
-  - Try to extract the **object/table code** from the user's message (e.g., "UDO called OOTM" → `OOTM`, "UDT @NO_OBJECT" → `NO_OBJECT`). Strip any leading `@` for storage; it will be re-added when constructing the name.
+  - Try to extract the **table name** from the user's message (e.g., "UDO with table OOTM" → `OOTM`, "UDT @NO_OBJECT" → `NO_OBJECT`). Strip any leading `@` for storage; it will be re-added when constructing the name. If the table name cannot be inferred, ask the user to provide it.
   - Try to detect the **view type** from the user's message: keywords like "list", "list view" → `LISTVIEW`; "detail", "form" → `DETAILVIEW`.
-  - Construct `baseViewName` using the pattern:
-    - UDO: `UDO_LISTVIEW_@<ObjectCode>` or `UDO_DETAILVIEW_@<ObjectCode>`
-    - UDT: `UDT_LISTVIEW_@<TableName>` or `UDT_DETAILVIEW_@<TableName>`
-  - If the object/table code or view type cannot be inferred, ask for them (see Step 4). Do not ask the user to type the full pattern — construct it from their answers.
+  - Construct `baseViewName` using the pattern for both UDT and UDO:
+    - `UDO_LISTVIEW_@<TableName>` or `UDO_DETAILVIEW_@<TableName>`
+    - `UDT_LISTVIEW_@<TableName>` or `UDT_DETAILVIEW_@<TableName>`
+  - If the table name or view type cannot be inferred, ask for them (see Step 4). Do not ask the user to type the full pattern — construct it from their answers.
 - Otherwise, assume `System` category and proceed with the fuzzy match below.
 
 **For System category only:**
@@ -162,9 +162,9 @@ Validation:
 - Base View Category must be `System`, `UDT`, or `UDO`; use fixed choices when possible
 - For **System** category: Base View Name must match a `name` entry in `skills/assets/viewsMeta.json`; use a searchable or fixed-choice UI when possible
 - For **UDT** or **UDO** category: do not ask for the full name — ask for two sub-fields instead:
-  1. **Object/table code** — the code without the `@` prefix (e.g., `OOTM`, `NO_OBJECT`)
+  1. **Table name** — the table name without the `@` prefix (e.g., `OOTM`, `NO_OBJECT`)
   2. **View type** — offer `List View` / `Detail View` as fixed choices
-  Then construct `baseViewName` as: `<CATEGORY>_<LISTVIEW|DETAILVIEW>_@<Code>` (e.g., `UDO_LISTVIEW_@OOTM`)
+  Then construct `baseViewName` as: `<CATEGORY>_<LISTVIEW|DETAILVIEW>_@<TableName>` (e.g., `UDO_LISTVIEW_@OOTM`, `UDT_LISTVIEW_@NO_OBJECT`)
 - If a field is invalid, explain the allowed values and re-ask only that field
 
 ## Step 5: Present the Final Summary
@@ -200,7 +200,7 @@ Once the app is created, inform the user with a friendly message before installi
 
 Then run `npm install` in the app folder using `vscode.runInTerminal` (or equivalent). When it completes:
 - On success: tell the user the app is ready and show a follow-up tip — regardless of any deprecation warnings or vulnerabilities in the output, do not surface those warnings to the user (this is a development scaffold, not a production package). For example:
-  > "All set! Your app is ready to use. To preview it in the browser, press **F5** or trigger the preview command by typing `/webclient-uiapi-preview` in the Copilot chat box."
+  > "All set! Your app is ready to use. To preview it in the browser, press **F5** or trigger the preview command by typing `@uiapi /webclient-uiapi-preview` in the Copilot chat box."
 
   If **extra intent** was captured in Phase 0, append a short handoff offer immediately after, for example:
   > "You also mentioned: *'add a button to get the number of sales orders'* — want me to help with that now?"
@@ -253,7 +253,7 @@ Before calling the generation tool, verify:
 - At least one module exists, and every module has at least one view
 - Every view has a valid Base View Category (`System`, `UDT`, or `UDO`)
 - For **System** category views: Base View Name matches a `name` entry in `skills/assets/viewsMeta.json`
-- For **UDT** / **UDO** category views: Base View Name follows the pattern `(UDT|UDO)_(LISTVIEW|DETAILVIEW)_@<Code>`
+- For **UDT** / **UDO** category views: Base View Name follows the pattern `(UDT|UDO)_(LISTVIEW|DETAILVIEW)_@<TableName>`
 - The user explicitly confirmed the final summary
 
 ---

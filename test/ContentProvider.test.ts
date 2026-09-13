@@ -33,7 +33,6 @@ const moduleId = requireForTest.resolve('../src/content/ContentProvider.js');
 const writtenFiles = new Map<string, string>();
 const readFileMap = new Map<string, Uint8Array>();
 const createdDirectories: string[] = [];
-const copiedFiles: Array<{ from: string; to: string }> = [];
 const loggedErrors: string[] = [];
 
 let browserStartupFlags = '--flag-one --name="Dev Browser"';
@@ -61,9 +60,7 @@ const mockVscode = {
       createDirectory: async (uri: MockUri) => {
         createdDirectories.push(uri.fsPath);
       },
-      copy: async (from: MockUri, to: MockUri) => {
-        copiedFiles.push({ from: from.fsPath, to: to.fsPath });
-      }
+      copy: async (_from: MockUri, _to: MockUri) => { }
     }
   },
   window: {
@@ -122,7 +119,7 @@ function resetState(): void {
   writtenFiles.clear();
   readFileMap.clear();
   createdDirectories.length = 0;
-  copiedFiles.length = 0;
+
   loggedErrors.length = 0;
   browserStartupFlags = '--flag-one --name="Dev Browser"';
   debugServerPort = 8082;

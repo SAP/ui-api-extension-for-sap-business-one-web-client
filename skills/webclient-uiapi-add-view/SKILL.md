@@ -45,12 +45,12 @@ Scan the user's message for the following signals:
 First, determine the Base View Category from the user's message:
 
 - If the user mentions **UDT** or **UDO** (e.g., "based on a UDT", "UDO called MyObject"), set `baseViewCategory` to `UDT` or `UDO` accordingly and **skip the `skills/assets/viewsMeta.json` search entirely**.
-  - Try to extract the **object/table code** from the user's message (e.g., "UDO called OOTM" → `OOTM`, "UDT @NO_OBJECT" → `NO_OBJECT`). Strip any leading `@` for storage; it will be re-added when constructing the name.
+  - Try to extract the **table name** from the user's message (e.g., "UDO with table OOTM" → `OOTM`, "UDT @NO_OBJECT" → `NO_OBJECT`). Strip any leading `@` for storage; it will be re-added when constructing the name. If the table name cannot be inferred, ask the user to provide it.
   - Try to detect the **view type** from the user's message: keywords like "list", "list view" → `LISTVIEW`; "detail", "form" → `DETAILVIEW`.
-  - Construct `baseViewName` using the pattern:
-    - UDO: `UDO_LISTVIEW_@<ObjectCode>` or `UDO_DETAILVIEW_@<ObjectCode>`
-    - UDT: `UDT_LISTVIEW_@<TableName>` or `UDT_DETAILVIEW_@<TableName>`
-  - If the object/table code or view type cannot be inferred, ask for them (see Step 2). Do not ask the user to type the full pattern — construct it from their answers.
+  - Construct `baseViewName` using the pattern for both UDT and UDO:
+    - `UDO_LISTVIEW_@<TableName>` or `UDO_DETAILVIEW_@<TableName>`
+    - `UDT_LISTVIEW_@<TableName>` or `UDT_DETAILVIEW_@<TableName>`
+  - If the table name or view type cannot be inferred, ask for them (see Step 2). Do not ask the user to type the full pattern — construct it from their answers.
 - Otherwise, assume `System` category and proceed with the fuzzy match below.
 
 **For System category only:**
@@ -134,9 +134,9 @@ Collect only the fields not already confirmed in Phase 0, one at a time:
 4. `baseViewName`:
    - For **System**: must match a `name` entry in `skills/assets/viewsMeta.json`; prefer searchable or fixed choices
    - For **UDT** / **UDO**: do not ask for the full name — ask for two sub-fields instead:
-     1. **Object/table code** — the code without the `@` prefix (e.g., `OOTM`, `NO_OBJECT`)
+     1. **Table name** — the table name without the `@` prefix (e.g., `OOTM`, `NO_OBJECT`)
      2. **View type** — offer `List View` / `Detail View` as fixed choices
-     Then construct `baseViewName` as: `<CATEGORY>_<LISTVIEW|DETAILVIEW>_@<Code>` (e.g., `UDO_LISTVIEW_@OOTM`)
+     Then construct `baseViewName` as: `<CATEGORY>_<LISTVIEW|DETAILVIEW>_@<TableName>` (e.g., `UDO_LISTVIEW_@OOTM`, `UDT_LISTVIEW_@NO_OBJECT`)
 
 For invalid input, explain the issue and re-ask only that field.
 

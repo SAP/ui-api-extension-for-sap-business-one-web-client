@@ -315,6 +315,9 @@ The copilot will update the relevant files for you. For this example, you will s
 
 After the copilot finishes, switch to the preview to test: in the detail view, a new button will appear. Click it to retrieve and display the sales order count for the current business partner.
 
+<img src="images/bp-order-count.svg" width="90%" />
+
+
 > **Important:** Always review AI-generated code before accepting it. The copilot may make mistakes — inspect each changed file, verify the Service Layer query and the layout definition, then accept or adjust as needed.
 
 ### Package Your App

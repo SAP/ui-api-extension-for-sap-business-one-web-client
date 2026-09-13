@@ -18,7 +18,6 @@ const moduleId = requireForTest.resolve('../src/commands/PreviewApplication.js')
 
 let runningStates: boolean[] = [];
 let startDevServerCalls = 0;
-let warningMessages: string[] = [];
 let errorMessages: string[] = [];
 let debugCalls: Array<{ folderFsPath: string; name: string }> = [];
 let launchJsonObject: unknown = { configurations: [] };
@@ -39,10 +38,6 @@ const mockVscode = {
   },
   window: {
     activeTextEditor: undefined as unknown,
-    showWarningMessage: async (message: string) => {
-      warningMessages.push(message);
-      return undefined;
-    },
     showErrorMessage: (message: string) => {
       errorMessages.push(message);
       return undefined;
@@ -106,7 +101,6 @@ const originalLoad = (Module as unknown as { _load: Function })._load;
 function resetState(): void {
   runningStates = [];
   startDevServerCalls = 0;
-  warningMessages = [];
   errorMessages = [];
   debugCalls = [];
   launchJsonObject = { configurations: [] };
@@ -143,7 +137,7 @@ test('previewApplication fails when server cannot be started', async () => {
 
   assert.equal(startDevServerCalls, 1);
   assert.equal(result.metadata.status, 'failed');
-  assert.ok(warningMessages.some((m) => m.includes('could not be started')));
+  assert.ok(errorMessages.some((m) => m.includes('could not be started')));
 });
 
 test('previewApplication fails when launch.json has no configurations', async () => {
@@ -181,7 +175,7 @@ test('previewApplication selects layout-matched configuration and starts debuggi
   const stream = createStream();
   const result = await moduleRef.previewApplication(stream as never, 'webclient-uiapi-preview');
 
-  assert.equal(result.metadata.status, undefined);
+  assert.equal(result.metadata.status, 'success');
   assert.equal(debugCalls.length, 1);
   assert.equal(debugCalls[0].folderFsPath, '/workspace-root');
   assert.equal(debugCalls[0].name, 'WebClient Preview - SalesModule | OrderDetailView');

@@ -16,3 +16,4 @@ dist-test/**
 node_modules
 eslint.config.mjs
 docs/**
+.claude/**
