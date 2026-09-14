@@ -646,9 +646,12 @@ export class ContentProvider {
             const layoutTemplateFileUri = vscode.Uri.joinPath(extension.extensionUri, 'template', 'module', 'layout.json.template');
             const layoutTemplateContent = await vscode.workspace.fs.readFile(layoutTemplateFileUri);
             const layoutTemplateString = new TextDecoder().decode(layoutTemplateContent);
+            const shortUuidTranslator = createTranslator();
+            const newControlGuid = shortUuidTranslator.fromUUID(uuidv4());
             const layoutContent = layoutTemplateString
                 .replace(/<%= viewName %>/g, view.viewName)
                 .replace(/<%= namespace %>/g, namespace)
+                .replace(/<%= New control's GUID %>/g, newControlGuid)
                 .replace(/<%= Sample control's GUID %>/g, view.sampleControlUuid);
             await vscode.workspace.fs.writeFile(layoutUri, new TextEncoder().encode(layoutContent));
 
