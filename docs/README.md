@@ -279,11 +279,15 @@ HelloWorld/                                    # Project root (named after your 
 ### Run Your App
 
 The most straightforward way to run your app is to use the developer commands in the chat:
-1. Use `/webclient-uiapi-start` to start the development server for your app.
+1. Use `@uiapi /webclient-uiapi-start` to start the development server for your app.
+
+   > **Tip:** You don't need to type the full command — just type part of it (e.g. `/start`) and Copilot will auto-complete the matching full command.
 
    By default, the development server runs on `http://localhost:8082`. You can change the port in the extension settings if needed.
 
-2. Use `/webclient-uiapi-preview` to preview your app in an external browser, or `/webclient-uiapi-preview-embedded` to preview it in VS Code's embedded browser.
+2. Use `@uiapi /webclient-uiapi-preview` to preview your app in an external browser, or `@uiapi /webclient-uiapi-preview-embedded` to preview it in VS Code's embedded browser.
+
+   > **Tip:** You don't need to type the full command — just type part of it (e.g. `/preview`) and Copilot will auto-complete the matching full command.
 
    The preview browser will load your app from the local development server, and you can interact with it as if it were running in the actual SAP Business One Web Client. You can also set breakpoints in your TypeScript code and debug it directly in VS Code.
 
@@ -299,7 +303,7 @@ Another more interactive way is to use the **Run** and **Debug** panel on the le
 **Stop Preview and Development Server**
 
 1. To close the preview, you can either close the browser window or stop the debug session in VS Code by pressing `Shift+F5`.
-2. To stop the development server, use `/webclient-uiapi-stop` in the chat, or kill the terminal that runs the server.
+2. To stop the development server, use `@uiapi /webclient-uiapi-stop` in the chat, or kill the terminal that runs the server.
 
 ### Develop Your App with AI Assistance
 
@@ -322,7 +326,7 @@ After the copilot finishes, switch to the preview to test: in the detail view, a
 
 ### Package Your App
 
-1. Use `/webclient-uiapi-package` to package your app for deployment. On completion, you will find the deployable MTAR archive in the `mta_archives` folder.
+1. Use `@uiapi /webclient-uiapi-package` to package your app for deployment. On completion, you will find the deployable MTAR archive in the `mta_archives` folder.
 2. Follow the latest [SAP Business One Web Client documentation](https://help.sap.com/docs/SAP_BUSINESS_ONE_WEB_CLIENT/e6ac71d18c7543828bd4463f77d67ff7/b8828cc00de646089a10619407258c4c.html) to deploy the MTAR archive to your SAP Business One Web Client environment.
 
 ## Configuration and Settings
