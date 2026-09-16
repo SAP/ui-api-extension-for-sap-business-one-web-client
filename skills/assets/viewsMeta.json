@@ -217,6 +217,7 @@
   {
     "name": "Service Contract Detail",
     "viewId": "wrf2ZcpNhq8TMrC3vKgbsZ",
+    "sampleControlUUID": "280DD6D50648B94FBE250FE0DB9706F1",
     "table": "OCTR"
   },
   {
@@ -237,11 +238,12 @@
   {
     "name": "Production Order Detail",
     "viewId": "oUnCgTGTQTUp9iZohX4Msj",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OWOR"
   },
   {
     "name": "Issues for Production List",
-    "viewId": "a31xZbfitwvGwDQ8sJ2NU7",
+    "viewId": "a31xaZgyMwlGbTQ8Js2NU7",
     "table": "VOIGEP"
   },
   {
@@ -267,6 +269,7 @@
   {
     "name": "Bill of Materials Detail",
     "viewId": "vokuUPnVfswUqQkttWbCkn",
+    "sampleControlUUID": "e37TrKbgLfAEpzEpTr2JVj",
     "table": "OITT"
   },
   {
@@ -277,6 +280,7 @@
   {
     "name": "Journal Entry Detail",
     "viewId": "kovUqgE6ACk426R2ivwE6z",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OJDT"
   },
   {
@@ -298,6 +302,7 @@
   {
     "name": "Time Sheet Detail",
     "viewId": "iS7xxsW4mT3ZGTiNyUcMVK",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OTSH"
   },
   {
@@ -308,6 +313,7 @@
   {
     "name": "Activity Detail",
     "viewId": "bnRX1wwRcaXJa5KNoKi1eC",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OCLG"
   },
   {
@@ -318,6 +324,7 @@
   {
     "name": "Outgoing Payment Detail",
     "viewId": "ds1L3wF81UMBR6g9Diom97",
+    "sampleControlUUID": "s6k7d3uL1hrBRku1Mka9cc",
     "table": "OVPM"
   },
   {
@@ -327,12 +334,19 @@
   },
   {
     "name": "Opportunity Detail",
-    "viewId": "oBc2TrRM4gWH42UZY1MNsy",
+    "viewId": "kV54rZtScuhLrjeWnS1EEv",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OOPR"
   },
   {
     "name": "Service Calls List",
     "viewId": "viXSihAHrLp5RygkJX4gSo",
+    "table": "OSCL"
+  },
+  {
+    "name": "Service Call Detail",
+    "viewId": "s8kotQN98umVP4hr2t24Cn",
+    "sampleControlUUID": "kf3XH2MNVwk8Vu7hzvjhkX",
     "table": "OSCL"
   },
   {
@@ -343,6 +357,7 @@
   {
     "name": "Item Master Data Detail",
     "viewId": "w8xN9coCjonmoudGQ9d1zy",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OITM"
   },
   {
@@ -353,6 +368,7 @@
   {
     "name": "Equipment Card Detail",
     "viewId": "6oWqGASC2AyCvSnMgDnqob",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OINS"
   },
   {
@@ -363,6 +379,7 @@
   {
     "name": "Incoming Payment Detail",
     "viewId": "ds1L3wF81UMBR6g9Diom11",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "ORCT"
   },
   {
@@ -373,21 +390,24 @@
   {
     "name": "Solutions Knowledge Base Detail",
     "viewId": "e5EWefuDWrpkEcgjdfcgHa",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OSLT"
   },
   {
     "name": "Inventory Transfer Request List",
-    "viewId": "f84sYnb4WMCJVbfW6DDjH2",
+    "viewId": "gi8c1gDDTUC8A8JQsfAPc8",
+    "sampleControlUUID": "9yvJLJ8pq7qRL3eJpbdwWz",
     "table": "OWTQ"
   },
   {
     "name": "Inventory Transfer Request Detail",
-    "viewId": "x7BHWfzws623oDLywz8hJn",
+    "viewId": "ctiHnaNAkFXDLgg93oJaic",
     "table": "OWTQ"
   },
   {
     "name": "Inventory Transfers List",
-    "viewId": "h5bJFrq4wmJ2WSQgX7foVh",
+    "viewId": "7ZvfbYF2Pe1wjyxVSG5Wzk",
+    "sampleControlUUID": "9Gdy1RgBqCQAzL7dUtxYcf",
     "table": "OWTR"
   },
   {
@@ -418,6 +438,7 @@
   {
     "name": "Deposit Detail",
     "viewId": "dSFqSe8KzhyBmr5v6tsC9p",
+    "sampleControlUUID": "e37TrKbgLfAEpzEpTr2JVj",
     "table": "ODPS"
   },
   {
@@ -428,6 +449,7 @@
   {
     "name": "Landed Cost Detail",
     "viewId": "1phugsZoMqZsdjLTdipuuE",
+    "sampleControlUUID": "eYw7UEkk3Qynbr4DjuYMbz",
     "table": "OIPF"
   },
   {
@@ -438,6 +460,7 @@
   {
     "name": "Recurring Transaction Template Detail",
     "viewId": "ko2UqgE6ACk426R2ivwE6z",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "ORCP"
   },
   {
@@ -448,6 +471,7 @@
   {
     "name": "A/R Down Payment Invoices List",
     "viewId": "0Q2w3e4r5t6y7u8i9o0p1a",
+    "sampleControlUUID": "B7aadb0af5ee4b1d92U19",
     "table": "ODPI"
   },
   {
@@ -498,21 +522,25 @@
   {
     "name": "Inventory Postings List",
     "viewId": "YT3Lq7Y2KBRmHqDvLjsX86",
+    "sampleControlUUID": "yYw8UEkk3Qypbr4DjuHax",
     "table": "OIQR"
   },
   {
     "name": "Inventory Posting Detail",
     "viewId": "f925b9e619904360ac5007",
+    "sampleControlUUID": "eYw7UEkk3Qynbr4DjneNax",
     "table": "OIQR"
   },
   {
     "name": "Payment Runs List",
     "viewId": "qStR6sJZmmfA24MCnLY8Ce",
+    "sampleControlUUID": "eYw7UEkk3Qynbr4DjuHNaf",
     "table": "OPWZ"
   },
   {
     "name": "Payment Run Detail",
     "viewId": "pWkYU3OnVP7G5Oyf64YeoK",
+    "sampleControlUUID": "7Pj0H9SzTopn652hnD5575",
     "table": "OPWZ"
   },
   {
@@ -583,16 +611,19 @@
   {
     "name": "Checks for Payment Drafts List",
     "viewId": "agkbR5Fe5RPZhi4xNcUWsS",
+    "sampleControlUUID": "cmfkzav4m0001do92ff5tp",
     "table": "OCHD"
   },
   {
     "name": "Check for Payment Draft Detail",
     "viewId": "cmp0xm2w50000z0922h4z7",
+    "sampleControlUUID": "SyRBoRWZyEGsncaXnY246r",
     "table": "OCHD"
   },
   {
     "name": "Inventory Opening Balances List",
     "viewId": "uT3Ls6Y2KBgmHqDvLjs007",
+    "sampleControlUUID": "eYw7UEkk3Qypbr4DjuHNax",
     "table": "OIQI"
   },
   {
@@ -603,6 +634,7 @@
   {
     "name": "Inventory Opening Balance Drafts List",
     "viewId": "uT3Ls6Y2KvgMHqDzLjs007",
+    "sampleControlUUID": "eYw7UEkk3Qypbr4DjuHNax",
     "table": "OIOD"
   },
   {
@@ -623,6 +655,7 @@
   {
     "name": "Employee Detail",
     "viewId": "xoN2sfX2etmmhr7uGN13wQ",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OHEM"
   },
   {
@@ -633,11 +666,13 @@
   {
     "name": "Project Detail",
     "viewId": "fra2sfX2etmmhr7uGN13wQ",
+    "sampleControlUUID": "frRBoRWZyEGSecaXnY246g",
     "table": "OPMG"
   },
   {
     "name": "Inventory Revaluation List",
     "viewId": "zeh9gkBXjaLXKMDFt92wMF",
+    "sampleControlUUID": "wEY7UEkk3Qynbr4DjuHNax",
     "table": "OMRV"
   },
   {
@@ -653,6 +688,7 @@
   {
     "name": "External Reconciliation Detail",
     "viewId": "mT4kW9xR2vN7bJ5pL8cY3q",
+    "sampleControlUUID": "dR6wK3mN8tY1xJ4pB7hQ5v",
     "table": "VOCRD"
   },
   {
@@ -663,6 +699,7 @@
   {
     "name": "Campaign Detail",
     "viewId": "eH8Qoqw6trnPYwgv5DX5WP",
+    "sampleControlUUID": "SyRBoRWZyEGSecaXnY246g",
     "table": "OCPN"
   },
   {
@@ -673,6 +710,7 @@
   {
     "name": "Forecast Detail",
     "viewId": "pLG31vyYrkxDLb6DxrmMX2",
+    "sampleControlUUID": "eYw7UEkk3Qynbr4Dju1Nax",
     "table": "OFCT"
   },
   {
