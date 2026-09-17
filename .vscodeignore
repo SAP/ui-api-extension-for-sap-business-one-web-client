@@ -17,3 +17,4 @@ node_modules
 eslint.config.mjs
 docs/**
 .claude/**
+.github/**
