@@ -731,6 +731,7 @@
   {
     "name": "Resource Detail",
     "viewId": "fnhjbY7CWGKXdJ7usR2Ek5",
+    "sampleControlUUID": "i5RSYonvvFqv6PUZQLJrEh",
     "table": "ORSC"
   },
   {
@@ -741,6 +742,7 @@
   {
     "name": "Pick List Detail",
     "viewId": "x7BHWft4iDLywz8hJn",
+    "sampleControlUUID": "1p7t1fsd54LBaXYHnt5T",
     "table": "OPKL"
   },
   {
@@ -751,6 +753,7 @@
   {
     "name": "Previous External Reconciliation Detail",
     "viewId": "gaJnpG87nR7fe1nEeALHTu",
+    "sampleControlUUID": "xxJpjaN8G5rEjugowrQFLS",
     "table": "OMTH"
   }
 ]
