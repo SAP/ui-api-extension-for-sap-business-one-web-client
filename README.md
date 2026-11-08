@@ -10,7 +10,7 @@ This VS Code extension is built on GitHub Copilot and helps you build UI API ext
 
 For prerequisites, dependencies, installation instructions, and development setup, see the [Requirements and Setup](docs/README.md#requirements) section in the detailed documentation.
 
-## Support, Feedback, and Contributions
+## Support, Feedback, Contributing
 
 This project is open to feature requests, suggestions, and bug reports via [GitHub issues](https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client/issues). Contributions and feedback are encouraged and always welcome. For more information about how to contribute and the project structure, see our [Contribution Guidelines](CONTRIBUTING.md).
 
