@@ -4,18 +4,18 @@
 
 ## About this project
 
-A VS Code extension on top of GitHub Copilot for SAP Business One Web client UI API development, specializing in assisting partners in building UI API extensions. For a complete overview of the extension and its features, see the [detailed documentation](docs/README.md).
+This VS Code extension is built on GitHub Copilot and helps you build UI API extensions for SAP Business One, Web client. For a complete overview of the extension and its features, see the [detailed documentation](docs/README.md).
 
 ## Requirements and Setup
 
 For prerequisites, dependencies, installation instructions, and development setup, see the [Requirements and Setup](docs/README.md#requirements) section in the detailed documentation.
 
-## Support, Feedback, Contributing
+## Support, Feedback, and Contributions
 
-This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
+This project is open to feature requests, suggestions, and bug reports via [GitHub issues](https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client/issues). Contributions and feedback are encouraged and always welcome. For more information about how to contribute and the project structure, see our [Contribution Guidelines](CONTRIBUTING.md).
 
-## Security / Disclosure
-If you find any bug that may be a security problem, please follow our instructions at [in our security policy](https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
+## Security and Disclosure
+If you find any bug that may be a security problem, please follow the instructions at [in our security policy](https://github.com/SAP/ui-api-extension-for-sap-business-one-web-client/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or concerns.
 
 ## Code of Conduct
 
