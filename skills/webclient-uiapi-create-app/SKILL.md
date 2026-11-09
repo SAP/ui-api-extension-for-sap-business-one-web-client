@@ -200,7 +200,13 @@ Once the app is created, inform the user with a friendly message before installi
 
 Then run `npm install` in the app folder using `vscode.runInTerminal` (or equivalent). When it completes:
 - On success: tell the user the app is ready and show a follow-up tip — regardless of any deprecation warnings or vulnerabilities in the output, do not surface those warnings to the user (this is a development scaffold, not a production package). For example:
-  > "All set! Your app is ready to use. To preview it in the browser, press **F5** or trigger the preview command by typing `@uiapi /webclient-uiapi-preview` in the Copilot chat box."
+  > "All set! Your app is ready to use. You can preview it now. (To manually preview it in the browser, press **F5** or trigger the preview command by typing `@uiapi /webclient-uiapi-preview` in the Copilot chat box.)"
+
+  Then ask a compact Yes/No question (prefer `vscode_askQuestions`) for preview now:
+  - Question: "Do you want to preview it now?"
+  - Choices: `Yes` / `No`
+  - If the user selects `Yes`, call the VS Code command `workbench.action.debug.selectandstart` to start preview.
+  - If the user selects `No`, continue without launching preview.
 
   If **extra intent** was captured in Phase 0, append a short handoff offer immediately after, for example:
   > "You also mentioned: *'add a button to get the number of sales orders'* — want me to help with that now?"

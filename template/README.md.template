@@ -85,8 +85,7 @@ Required user settings for launch:
 - `WebClientUIAPI.webClient.url`: the SAP Business One Web Client URL used when opening the preview browser.
 - `WebClientUIAPI.devServer.port`: the port the local dev server listens on (default: 8082).
 
-Press `F5` to launch the preview in a browser. You can also select the configuration dropdown to choose between **WebClient Preview...** or **Embedded WebClient Preview...**.
-
+Press `F5` to launch the preview in a browser, or select the configuration dropdown to choose between **WebClient Preview...** or **Embedded WebClient Preview...**, or you can simply type the following command in the chat:
 
 ```
 @uiapi /webclient-uiapi-preview
